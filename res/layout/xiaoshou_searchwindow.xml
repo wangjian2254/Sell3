@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E0E0E0"
+    
+    android:scrollbars="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical" android:background="#E0E0E0">
+	<RelativeLayout  
+		android:gravity="center_horizontal"
+		android:layout_width="fill_parent" android:layout_height="50dip"
+		>
+		<TextView 
+		android:layout_alignParentTop="true"
+		android:layout_width="fill_parent" android:textColor="#565656"
+		android:layout_height="50dip" android:layout_gravity="center"
+		android:background="@drawable/umeng_analyse_feedback_bar_bg" 
+		android:layout_alignParentBottom="true"/>
+		<TextView android:layout_alignParentTop="true"
+		android:layout_width="fill_parent" android:textColor="#565656"
+		android:layout_marginLeft="50dip"
+		android:layout_marginRight="50dip"
+		android:layout_height="50dip" android:layout_gravity="center"
+		android:gravity="center|center" android:text="销售统计" android:textSize="18dip"
+		/>
+		
+		</RelativeLayout>
+	
+	<RelativeLayout  
+		android:gravity="center_horizontal"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	>
+	<Button 
+			android:layout_width="140dip" android:layout_height="40dip"
+			android:layout_marginLeft="6dip" android:layout_marginRight="6dip"
+			 android:layout_centerVertical="true"
+			android:background="@drawable/umeng_analyse_submit_selector"
+			android:onClick="queryXiaoShouToday" android:layout_gravity="left"
+			android:text="我今天的销售记录" android:textColor="#FFFFFF" />
+	<Button 
+			android:layout_width="70dip" android:layout_height="40dip"
+			android:layout_marginLeft="6dip" android:layout_marginRight="6dip"
+			 android:layout_centerVertical="true"
+			android:background="@drawable/umeng_analyse_submit_selector"
+			android:onClick="queryTongji" android:layout_alignParentRight="true"
+			android:text="统计" android:textColor="#FFFFFF" />
+		
+	</RelativeLayout>
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:focusable="true"  
+   android:focusableInTouchMode="true"
+	android:orientation="vertical">
+	<TextView android:layout_alignParentTop="true"
+		android:layout_width="wrap_content" android:textColor="#565656"
+		android:layout_marginTop="5dip"
+		android:layout_marginLeft="5dip"
+		android:layout_height="40dip" android:layout_gravity="left"
+		android:gravity="center" android:text="日期起始：" android:textSize="18dip"
+		android:id="@+id/search_type"/>
+	<EditText android:id="@+id/datepicker"
+		android:layout_width="fill_parent" android:textColor="#565656"
+		android:singleLine="true"
+		android:editable="false"
+		android:onClick="setDate1"
+		android:layout_marginTop="5dip"
+		android:layout_marginLeft="5dip"
+		android:layout_height="40dip" android:layout_gravity="left"
+		android:gravity="left" android:text="500" android:textSize="15dip"
+	>
+	</EditText>
+	<TextView android:layout_alignParentTop="true"
+		android:layout_width="wrap_content" android:textColor="#565656"
+		android:layout_marginTop="5dip"
+		android:layout_marginLeft="5dip"
+		android:layout_height="40dip" android:layout_gravity="left"
+		android:gravity="center" android:text="日期截止：" android:textSize="18dip"
+		android:id="@+id/search_type"/>
+	<EditText android:id="@+id/datepicker2"
+		android:layout_width="fill_parent" android:textColor="#565656"
+		android:singleLine="true"
+		android:editable="false"
+		android:onClick="setDate2"
+		android:layout_marginTop="5dip"
+		android:layout_marginLeft="5dip"
+		android:layout_height="40dip" android:layout_gravity="left"
+		android:gravity="left" android:text="500" android:textSize="15dip"
+	>
+	</EditText>
+	<TextView android:layout_alignParentTop="true"
+		android:layout_width="wrap_content" android:textColor="#565656"
+		android:layout_marginTop="5dip"
+		android:layout_marginLeft="5dip"
+		android:layout_height="40dip" android:layout_gravity="left"
+		android:gravity="center" android:text="厅台（不选则默认为全部查询）：" android:textSize="18dip"
+		android:id="@+id/search_type"/>
+	<LinearLayout android:id="@+id/office_list"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	>
+	
+	</LinearLayout>
+	<TextView android:layout_alignParentTop="true"
+		android:layout_width="wrap_content" android:textColor="#565656"
+		android:layout_marginTop="5dip"
+		android:layout_marginLeft="5dip"
+		android:layout_height="40dip" android:layout_gravity="left"
+		android:gravity="center" android:text="下属（不选则默认为全部查询）：" android:textSize="18dip"
+		android:id="@+id/search_type"/>
+	<LinearLayout android:id="@+id/user_list"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	>
+	</LinearLayout >
+	
+	
+	</LinearLayout>
+</LinearLayout>
+</ScrollView>

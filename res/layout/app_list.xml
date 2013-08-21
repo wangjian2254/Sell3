@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<LinearLayout 
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical"  android:background="#3a5362"
+	>
+    <com.wj.sell.controls.AppGridView android:id="@+id/gridAppView"
+	android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:dividerHeight="1px"
+    android:drawSelectorOnTop="false"
+    android:columnWidth="80dip" 
+    android:numColumns="3" 
+    android:verticalSpacing="5dip" 
+    android:horizontalSpacing="0px" 
+    android:stretchMode="columnWidth" 
+    android:gravity="center" 
+    />
+   
+
+	
+</LinearLayout>
+
+</RelativeLayout>
