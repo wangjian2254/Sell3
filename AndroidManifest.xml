@@ -14,7 +14,7 @@
         android:label="@string/app"
          >
         <activity
-            android:name="com.wj.sell3.MainActivity"
+            android:name="com.wj.sell3.Main"
             android:label="@string/app" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
