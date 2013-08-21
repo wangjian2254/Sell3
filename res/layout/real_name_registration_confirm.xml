@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.ailk.mobile.channel.widget.TitleBar android:id="@id/titlebar" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" />
+    <ScrollView android:background="@color/form_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/titlebar">
+        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="vertical" android:background="@drawable/form_back" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="20.0dip">
+                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="10.0dip">
+                    <com.ailk.mobile.eve.widget.ImageViewWithBorder android:id="@id/image" android:layout_width="fill_parent" android:layout_height="110.0dip" android:layout_weight="3.05" />
+                    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="2.0">
+                        <LinearLayout android:orientation="horizontal" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+                            <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/confirm_card_type" android:layout_weight="1.0" />
+                            <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/black" android:gravity="left" android:id="@id/card_type_value" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+                            <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/confirm_name" android:layout_weight="2.0" />
+                            <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/black" android:gravity="left" android:id="@id/name" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_weight="2.0" />
+                        </LinearLayout>
+                        <LinearLayout android:orientation="horizontal" android:id="@id/sex_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+                            <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/confirm_sex" android:layout_weight="2.0" />
+                            <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/black" android:gravity="left" android:id="@id/sex" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_weight="2.0" />
+                        </LinearLayout>
+                        <LinearLayout android:orientation="horizontal" android:id="@id/nation_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+                            <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/confirm_nation" android:layout_weight="2.0" />
+                            <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/black" android:gravity="left" android:id="@id/nation" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_weight="2.0" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginRight="10.0dip" android:layout_marginBottom="10.0dip">
+                    <LinearLayout android:orientation="horizontal" android:id="@id/birthday_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+                        <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/confirm_birth" android:layout_weight="2.5" />
+                        <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/black" android:gravity="left" android:id="@id/birthday" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_weight="1.0" />
+                    </LinearLayout>
+                    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+                        <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/confirm_address" android:layout_weight="2.5" />
+                        <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/black" android:gravity="left" android:id="@id/address" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_weight="1.0" />
+                    </LinearLayout>
+                    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+                        <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/confirm_card_no" android:layout_weight="2.5" />
+                        <TextView android:textSize="@dimen/confirm_text_size" android:textColor="@color/black" android:gravity="left" android:id="@id/card_no" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_weight="1.0" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="20.0dip">
+                <Button android:textColor="@color/dark_orange" android:id="@id/submit" android:background="@drawable/bg_orange_btn" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/confirm" android:layout_weight="1.0" />
+                <Button android:textColor="@color/black" android:id="@id/cancel" android:background="@drawable/bg_gray_btn" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/cancel" android:layout_weight="1.0" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

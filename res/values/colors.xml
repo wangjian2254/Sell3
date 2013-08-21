@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#ff000000</color>
+    <color name="top_btn_back">#ff0b8ad8</color>
+    <color name="top_btn_back_c">#ff0664c6</color>
+    <color name="form_bg">#ffebeef2</color>
+    <color name="form_text">#ff00114a</color>
+    <color name="edittext_login_bg">#ff00134f</color>
+    <color name="edittext_form_bg">#ffa9bad0</color>
+    <color name="edittext_form_bg_c">#ff90d1ff</color>
+    <color name="text_blue">#ff1b4f92</color>
+    <color name="white">#ffffffff</color>
+    <color name="blue">#ff1b4f92</color>
+    <color name="dark_orange">#ffa61717</color>
+</resources>

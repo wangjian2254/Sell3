@@ -1,5 +1,7 @@
 package com.wj.sell3;
 
+import com.wj.sell3.eve.util.UrlTask;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -18,14 +20,16 @@ public class Main extends Activity {
 	private Handler tmpMainHandler4;
 	private TextView notice;
 	
-	String[] appArr={"qiandao,签到","wendang,文档平台","kaoshi,考试","xiaoshou,销售产品","qiandaotongji,签到统计","kaoshitongji,考试统计","xiaoshoutongji,销售统计"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.main);
         con=this;
+        UrlTask ut=new UrlTask(con);
+        ut.start();
     
     }
+    
     
 }
