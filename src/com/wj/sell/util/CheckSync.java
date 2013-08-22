@@ -22,29 +22,17 @@ public class CheckSync extends UrlSync {
 			if(getHandler()!=null){
 				Message hmsg=getHandler().obtainMessage();
 				hmsg.obj=getJsonobj().getString("message");
-				hmsg.arg1=10;
+				hmsg.arg1=11;
 				getHandler().sendMessage(hmsg);
 				setHandler(null);
 				return;
 			}
 		}
 		
-		List<UserInfo> l=new ArrayList<UserInfo>();
-		UserInfo item=null;
-		if(getJsonobj().has("result")){
-			JSONArray ja=getJsonobj().getJSONArray("result");
-			JSONObject jo=null;
-			for(int i=0;i<ja.length();i++){
-				jo=ja.getJSONObject(i);
-				item=new UserInfo();
-				item.setId(jo.getInt("id"));
-				item.setUsername(jo.getString("allname"));
-				l.add(item);
-			}
-		}
+		
 		if(getHandler()!=null){
 			Message hmsg=getHandler().obtainMessage();
-			hmsg.obj=l;
+			hmsg.obj=getJsonobj().getString("message");
 			hmsg.arg1=11;
 			
 			getHandler().sendMessage(hmsg);

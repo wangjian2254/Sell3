@@ -20,6 +20,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -33,35 +34,34 @@ import com.wj.sell.util.OAUtil;
 import com.wj.sell.util.UrlSync;
 import com.wj.sell.util.UrlTask;
 
-public class XiaoShouAnalysis extends Activity {
+public class XiaoShouAnalysis2 extends Activity {
     /** Called when the activity is first created. */
 	Context con;
 	UserInfo user=null;
-	EditText tel;
-	EditText name;
-	EditText number;
-	EditText address;
-	
+	private WebView  webView;  
 	
 	private Handler tmpMainHandler4;
 	public ProgressDialog myDialog = null;
 	public static final int SEARCHPLUGIN = Menu.FIRST + 1;
-	public static final int APPLIST = Menu.FIRST + 2;
 	
+	String tel;
+	String name;
+	String number;
+	String address;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         con=this;
         Bundle bunde = this.getIntent().getExtras();
+        tel=bunde.getString("tel");
+        name=bunde.getString("name");
+        number=bunde.getString("number");
+        address=bunde.getString("address");
         user=UserInfoUtil.getCurrentUserInfo(this);
-        setContentView(R.layout.xiaoshou_searchwindow);
+        setContentView(R.layout.xiaoshou_web);
         
-
-        name = (EditText) findViewById(R.id.name);  
-        tel = (EditText) findViewById(R.id.tel);  
-        number = (EditText) findViewById(R.id.number);  
-        address = (EditText) findViewById(R.id.address);
-        
+        webView  = (WebView)  findViewById(R.id.webView);  
+        webView.loadUrl("http://www.baidu.com");
         
             tmpMainHandler4 = new Handler() {
     			
@@ -168,7 +168,7 @@ public class XiaoShouAnalysis extends Activity {
     	LinearLayout.LayoutParams eLayoutParam = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT
     			,LinearLayout.LayoutParams.WRAP_CONTENT);
     	eDeleteW.setPadding(10, 10, 10, 10);
-    	eDeleteW.setText("信息正确。是否提交？");
+    	eDeleteW.setText("手机号实名认证成功。是否继续？");
     	eDeleteW.setTextColor(Color.WHITE);
     	eDeleteW.setTextSize(14);
     	eDeleteW.setLayoutParams(eLayoutParam);
@@ -186,6 +186,10 @@ public class XiaoShouAnalysis extends Activity {
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
     			dialog.dismiss();
+    			Intent mainIntent = new Intent(XiaoShouAnalysis2.this,Main.class);
+    	    	Bundle extras=new Bundle();
+    	    	mainIntent.putExtras(extras);
+    	    	startActivity(mainIntent);
     			finish();
     		}
     	});
@@ -195,20 +199,16 @@ public class XiaoShouAnalysis extends Activity {
     		@Override
     		public void onClick(DialogInterface dialog, int which) {
     			dialog.dismiss();
-    			Intent mainIntent = new Intent(XiaoShouAnalysis.this,XiaoShouAnalysis2.class);
-    	    	Bundle extras=new Bundle();
-    	    	extras.putString("tel", tel.getText().toString().trim());
-    	    	extras.putString("name", name.getText().toString().trim());
-    	    	extras.putString("number", number.getText().toString().trim());
-    	    	extras.putString("address", address.getText().toString().trim());
-    	    	mainIntent.putExtras(extras);
-    	    	con.startActivity(mainIntent); 
+    			
+    			finish();
     		}
     	});
     	myDialog.show();
     }
     
-    
+    public void queryCancel(View view){
+    	finish();
+    }
     public void queryTongji(View view){
     	UrlSync urlSync=new CheckSync();
 		urlSync.setMainContext(con);
@@ -218,12 +218,12 @@ public class XiaoShouAnalysis extends Activity {
 			urlSync.setToastContentSu("验证信息成功。");
 			urlSync.setToastContentFa("验证信息失败。");
 		urlSync.setUser(user);
-		urlSync.setUri(Convert.hosturl+"/oa/androidCheck/");
+		urlSync.setUri(Convert.hosturl+"/oa/androidSave/");
 		List<NameValuePair> param=new ArrayList<NameValuePair>();
-    	param.add(new BasicNameValuePair("tel",tel.getText().toString().trim()));
-    	param.add(new BasicNameValuePair("name",name.getText().toString().trim()));
-    	param.add(new BasicNameValuePair("number",number.getText().toString().trim()));
-    	param.add(new BasicNameValuePair("address",address.getText().toString().trim()));
+    	param.add(new BasicNameValuePair("tel",tel));
+    	param.add(new BasicNameValuePair("name",name));
+    	param.add(new BasicNameValuePair("number",number));
+    	param.add(new BasicNameValuePair("address",address));
     	urlSync.setPrarm(param);
 		urlSync.setHandler(tmpMainHandler4);
 		UrlTask utk=new UrlTask(con);
@@ -258,8 +258,8 @@ public class XiaoShouAnalysis extends Activity {
 	}
 
 	public void populateMenu(Menu menu) {
-		menu.add(Menu.NONE, SEARCHPLUGIN, Menu.NONE, "返回主界面");
-		menu.add(Menu.NONE, APPLIST, Menu.NONE, "清空");
+//		menu.add(Menu.NONE, SEARCHPLUGIN, Menu.NONE, "查找插件");
+		menu.add(Menu.NONE, SEARCHPLUGIN, Menu.NONE, "刷新下属列表");
 //		menu.add(Menu.NONE, APPLIST, Menu.NONE, "应用列表");
 //		menu.add(Menu.NONE, SYSTEM, Menu.NONE, "系统消息");
 //		menu.add(Menu.NONE, REFASH, Menu.NONE, "刷新");
@@ -284,10 +284,7 @@ public class XiaoShouAnalysis extends Activity {
 		switch (item.getItemId()) {
 		
 		case SEARCHPLUGIN:
-			finish();
-			return true;
-		case APPLIST:
-			finish();
+			
 			return true;
 		}
 		return false;

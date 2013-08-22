@@ -41,7 +41,7 @@ public class Main extends Activity {
 	private Handler tmpMainHandler4;
 	private TextView notice;
 	
-	String[] appArr={"kaoshi,考试"};
+	String[] appArr={"kaoshi,实名认证"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

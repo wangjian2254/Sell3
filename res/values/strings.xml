@@ -41,6 +41,7 @@
     <string name="form_gender_male">男</string>
     <string name="form_gender_famale">女</string>
     <string name="form_submit">提交</string>
+    <string name="form_submit2">返回</string>
     <string name="form_reset">重置</string>
     <string name="confirm_title">实名信息确认</string>
     <string name="confirm_card_type">证件类型:</string>
