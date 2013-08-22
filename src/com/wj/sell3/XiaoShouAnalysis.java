@@ -33,17 +33,11 @@ public class XiaoShouAnalysis extends Activity {
     /** Called when the activity is first created. */
 	Context con;
 	UserInfo user=null;
-	EditText datepicker;
-	EditText datepicker2;
-	LinearLayout user_list;
-	LinearLayout office_list;
+	EditText tel;
+	EditText name;
+	EditText number;
+	EditText address;
 	
-	List<UserInfo> userlist=new ArrayList<UserInfo>();
-	String date1=null;
-	String date2=null;
-	DatePickerDialog.OnDateSetListener dateListener;
-	DatePickerDialog.OnDateSetListener dateListener2;
-	DatePickerDialog dialog;
 	
 	private Handler tmpMainHandler4;
 	public ProgressDialog myDialog = null;
@@ -58,57 +52,12 @@ public class XiaoShouAnalysis extends Activity {
         setContentView(R.layout.xiaoshou_searchwindow);
         
 
-        datepicker = (EditText) findViewById(R.id.datepicker);  
-        datepicker2 = (EditText) findViewById(R.id.datepicker2);
-        user_list=(LinearLayout)findViewById(R.id.user_list);
-        office_list=(LinearLayout)findViewById(R.id.office_list);
+        name = (EditText) findViewById(R.id.name);  
+        tel = (EditText) findViewById(R.id.tel);  
+        number = (EditText) findViewById(R.id.number);  
+        address = (EditText) findViewById(R.id.address);
         
-        datepicker.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {  
-            @Override  
-            public void onFocusChange(View v, boolean hasFocus) {  
-
-                if(hasFocus) {
-		        // 此处为得到焦点时的处理内容
-                	setDate1(null);
-		        } else {
-		
-		        // 此处为失去焦点时的处理内容
-		
-		        }
-            }
-        });
-        datepicker2.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {  
-        	@Override  
-        	public void onFocusChange(View v, boolean hasFocus) {  
-        		
-        		if(hasFocus) {
-        			// 此处为得到焦点时的处理内容
-        			setDate2(null);
-        		} else {
-        			
-        			// 此处为失去焦点时的处理内容
-        			
-        		}
-        	}
-        });
-        dateListener =  
-            new DatePickerDialog.OnDateSetListener() { 
-                @Override 
-                public void onDateSet(DatePicker datePicker,  
-                        int year, int month, int dayOfMonth) { 
-                	datepicker.setText(getDate(datePicker));
-                	date1=getDate(datePicker);
-                } 
-            }; 
-        dateListener2 =  
-            	new DatePickerDialog.OnDateSetListener() { 
-            	@Override 
-            	public void onDateSet(DatePicker datePicker,  
-            			int year, int month, int dayOfMonth) { 
-            		datepicker2.setText(getDate(datePicker));
-            		date2=getDate(datePicker);
-            	} 
-            }; 
+        
             tmpMainHandler4 = new Handler() {
     			
     			@Override
@@ -164,10 +113,6 @@ public class XiaoShouAnalysis extends Activity {
     						myDialog.dismiss();
     					}
     					myDialog=null;
-    					userlist.clear();
-    					List<UserInfo> l=(ArrayList<UserInfo>)msg.obj;
-    					userlist.addAll(l);
-    					showUserInfo();
     					return;
     					
     				}
@@ -182,9 +127,6 @@ public class XiaoShouAnalysis extends Activity {
     			}
     			
     		};
-        initDatepick();
-        showOffice();
-        initUserList(false);
         
     }
     
@@ -216,51 +158,7 @@ public class XiaoShouAnalysis extends Activity {
 		}
     }
     
-    public void showUserInfo(){
-    	user_list.removeAllViews();
-    	CheckBox cb=null;
-    	for(UserInfo o:userlist){
-    		cb=new CheckBox(con);
-    		cb.setChecked(false);
-    		cb.setText(o.getUsername());
-    		cb.setTextAppearance(con, R.style.xiaoshou2);
-    		user_list.addView(cb);
-    	}
-    }
     
-    
-    public void setDate1(View view){
-    	if(dialog!=null&&dialog.isShowing()){
-    		dialog.dismiss();
-    		dialog=null;
-    	}
-    	dialog = new DatePickerDialog(this, 
-                dateListener, 
-                Integer.parseInt(date1.split("-")[0]) , 
-                Integer.parseInt(date1.split("-")[1])-1, 
-                Integer.parseInt(date1.split("-")[2]));
-    	dialog.show();
-    }
-    public void setDate2(View view){
-    	if(dialog!=null&&dialog.isShowing()){
-    		dialog.dismiss();
-    		dialog=null;
-    	}
-    	dialog = new DatePickerDialog(this, 
-    			dateListener2, 
-    			Integer.parseInt(date2.split("-")[0]) , 
-                Integer.parseInt(date2.split("-")[1])-1, 
-                Integer.parseInt(date2.split("-")[2]));
-    	dialog.show();
-    }
-    
-    public void initDatepick(){
-    	datepicker.setText(Convert.format1.format(new Date()).substring(0, 10));
-		date1=Convert.format1.format(new Date()).substring(0, 10);
-		datepicker2.setText(Convert.format1.format(new Date()).substring(0, 10));
-		date2=Convert.format1.format(new Date()).substring(0, 10);
-    }
-   
     public void queryTongji(View view){
     }
     

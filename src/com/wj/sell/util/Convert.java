@@ -9,7 +9,7 @@ import android.os.Environment;
 
 public class Convert {
 
-	public static final String hosturl="http://xiaoshouoa.zxxsbook.com"; 
+	public static final String hosturl="http://sell3.zxxsbook.com"; 
 //	public static final String hosturl="http://192.168.101.18:8000"; 
 
 //	public static final String hosturl="http://192.168.1.110:8000"; 

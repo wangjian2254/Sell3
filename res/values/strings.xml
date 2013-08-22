@@ -24,6 +24,7 @@
     <string name="form_phoneno">手机号码:</string>
     <string name="form_phoneno_comments" />
     <string name="form_card_type">证件类型:</string>
+    <string name="form_card">身份证号:</string>
     <string name="form_card_type_comments">请选择证件类型</string>
     <string name="form_name">姓名:</string>
     <string name="form_name_comments" />

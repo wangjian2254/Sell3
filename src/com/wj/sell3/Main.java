@@ -41,7 +41,7 @@ public class Main extends Activity {
 	private Handler tmpMainHandler4;
 	private TextView notice;
 	
-	String[] appArr={"qiandao,签到","wendang,文档平台","kaoshi,考试","xiaoshou,销售产品","qiandaotongji,签到统计","kaoshitongji,考试统计","xiaoshoutongji,销售统计"};
+	String[] appArr={"kaoshi,考试"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +98,7 @@ public class Main extends Activity {
     	}
     }
     public void gotoPlugin(PluginMod p){
-    	if("xiaoshoutongji".equals(p.getAppcode())){
+    	if("kaoshi".equals(p.getAppcode())){
     		Intent mainIntent = new Intent(con,XiaoShouAnalysis.class);
     		startActivity(mainIntent); 
     	}
