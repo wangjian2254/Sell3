@@ -22,7 +22,7 @@ public class CheckSync extends UrlSync {
 			if(getHandler()!=null){
 				Message hmsg=getHandler().obtainMessage();
 				hmsg.obj=getJsonobj().getString("message");
-				hmsg.arg1=11;
+				hmsg.arg1=10;
 				getHandler().sendMessage(hmsg);
 				setHandler(null);
 				return;

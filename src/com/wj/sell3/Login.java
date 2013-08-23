@@ -22,6 +22,14 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import com.wj.sell3.R;
+import com.wj.sell3.ui.AlertDialogCustom;
+import com.wj.sell3.ui.AlertDialogCustom.AlertDialogOKListener;
+import com.wj.sell3.ui.AlertDialogCustom.AlertDialogCancelListener;
+import com.wj.sell3.ui.ChannelApplication;
+import com.wj.sell3.ui.EditTextCustom;
+import com.wj.sell3.ui.IMELayout;
+import com.wj.sell3.ui.NetWork;
+import com.wj.sell3.ui.TitleBar;
 import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.UserInfo;
 import com.wj.sell.util.Convert;
@@ -34,26 +42,30 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class Login extends Activity {
+public class Login extends Activity implements AlertDialogCancelListener,AlertDialogOKListener {
 
 	Button login;
 	Button reset;
-	EditText username;
-	EditText password;
-	LinearLayout reg;
-	LinearLayout loginform;
-	LinearLayout ckform;
-
-	
+	EditTextCustom username;
+	EditTextCustom password;
+	private ImageView bg;
+	  private ImageView loadImage;
+	  private TextView loadingTextView;
+	  private View loadingView;
+	  private View loginView;
+	  private IMELayout rLayout;
 	TextView msg;
-	
+	AlertDialogCustom localAlertDialogCustom;
 	Context context;
 	String uname;
 	String msgstr;
@@ -66,10 +78,16 @@ public class Login extends Activity {
 	
 	private Handler mMainHandler;
 	
+	private int checkNetWork()
+	  {
+	    return NetWork.getConnectionType(this);
+	  }
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ChannelApplication.mContext=this;
 		context=this;
 //		h=new Handler();
 		File dirFile = new File(Convert.infPath);   
@@ -84,20 +102,28 @@ public class Login extends Activity {
         } 
         
 		
-		setContentView(R.layout.login);
+		setContentView(R.layout.load);
 		client = new DefaultHttpClient();
-
-		login = (Button) findViewById(R.id.ok);
-		username = (EditText) findViewById(R.id.uname);
-		password = (EditText) findViewById(R.id.password);
+		this.loadImage = ((ImageView)findViewById(R.id.image_load));
+	    Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.load);
+	    this.loadImage.setAnimation(localAnimation);
+	    localAnimation.startNow();
+	    this.loadingView = findViewById(R.id.loading_layout_id);
+	    this.loginView = findViewById(R.id.login_with_name_pwd_layout_id);
+	    this.rLayout = ((IMELayout)findViewById(R.id.b_layout));
+	    this.bg = ((ImageView)findViewById(R.id.image_bg));
+		login = (Button) findViewById(R.id.login_btn_ok_id);
+		username = (EditTextCustom) findViewById(R.id.channal_num_edittext_id);
+		password = (EditTextCustom) findViewById(R.id.channal_pwd_edittext_id);
+		
+//		this.titleBar = ((TitleBar)findViewById(R.id.titlebar));
+//	    this.titleBar.setTitle(R.string.login_title);
+//	    this.titleBar.setUp();
 //		repassword = (EditText) findViewById(R.id.repassword);
 //		cpassword = (CheckBox) findViewById(R.id.writeme);
 //		repd = (LinearLayout) findViewById(R.id.repd);
 		
-		msg=(TextView)findViewById(R.id.msg);
 //		repd.setVisibility(View.GONE);
-		loginform = (LinearLayout) findViewById(R.id.login);
-		ckform = (LinearLayout) findViewById(R.id.ckform);
 		// 检测是否记录密码了
 		
 		
@@ -160,19 +186,27 @@ public class Login extends Activity {
 		
 	}
 
-	
+	 public void onOKClick()
+	  {
+		 localAlertDialogCustom.dismiss();
+		 if(android.os.Build.VERSION.SDK_INT > 10 ){
+		     //3.0以上打开设置界面，也可以直接用ACTION_WIRELESS_SETTINGS打开到wifi界面
+		    startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+		} else {
+		    startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+		}
+	  }
+	 public void onCancelClick()
+	 {
+		 localAlertDialogCustom.dismiss();
+		 finish();
+	 }
 	
 	public void setMsg(String m){
 		msg.setText(m);
 	}
 
-	public void back(View view) {
-		reg.setVisibility(View.GONE);
-		username.setEnabled(true);
-//		repd.setVisibility(View.GONE);
-		loginform.setVisibility(View.VISIBLE);
-		ckform.setVisibility(View.VISIBLE);
-	}
+	
 
 	
 
@@ -291,6 +325,18 @@ public void onLogin(View view){
 	
 	public void onResume() {
 	    super.onResume();
+	    if(localAlertDialogCustom==null||!localAlertDialogCustom.isShowing()){
+	    	if(checkNetWork()!=-1){
+	    		loginView.setVisibility(View.VISIBLE);
+	    	}else{
+	    		loginView.setVisibility(View.GONE);
+	    		localAlertDialogCustom= new AlertDialogCustom(this);
+	    		localAlertDialogCustom.show();
+	    		localAlertDialogCustom.setMessage("网络不通，请设置");
+	    		localAlertDialogCustom.setOnOKListener("设置",this);
+	    		localAlertDialogCustom.setOnCancelListener("退出",this);
+	    	}
+	    }
 	}
 	public void onPause() {
 	    super.onPause();

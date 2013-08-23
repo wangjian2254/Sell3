@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-<LinearLayout 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical"  android:background="#3a5362"
+	android:orientation="vertical"  
 	>
     <com.wj.sell.controls.AppGridView android:id="@+id/gridAppView"
 	android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:dividerHeight="1px"
+    android:dividerHeight="1dip"
     android:drawSelectorOnTop="false"
     android:columnWidth="80dip" 
     android:numColumns="3" 
@@ -18,10 +14,9 @@ android:layout_width="fill_parent"
     android:horizontalSpacing="0px" 
     android:stretchMode="columnWidth" 
     android:gravity="center" 
+    android:background="@drawable/main_bg"
     />
    
 
 	
 </LinearLayout>
-
-</RelativeLayout>

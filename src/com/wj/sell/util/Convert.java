@@ -34,7 +34,7 @@ public class Convert {
 
 	
 	public static boolean hasImage=true;
-	
+	public static boolean newtel=true;
 	public static String imgreg = "\\[\\*[A-Za-z]*/[-_0-9A-Za-z]*/[_A-Za-z0-9]*\\*\\]";
 	
 

@@ -20,6 +20,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -32,6 +33,10 @@ import com.wj.sell.util.Convert;
 import com.wj.sell.util.OAUtil;
 import com.wj.sell.util.UrlSync;
 import com.wj.sell.util.UrlTask;
+import com.wj.sell3.ui.AlertDialogCustom;
+import com.wj.sell3.ui.TitleBar;
+import com.wj.sell3.ui.AlertDialogCustom.AlertDialogOKListener;
+import com.wj.sell3.ui.AlertDialogCustom.AlertDialogCancelListener;
 
 public class XiaoShouAnalysis extends Activity {
     /** Called when the activity is first created. */
@@ -41,20 +46,20 @@ public class XiaoShouAnalysis extends Activity {
 	EditText name;
 	EditText number;
 	EditText address;
-	
+	AlertDialogCustom localAlertDialogCustom;
 	
 	private Handler tmpMainHandler4;
 	public ProgressDialog myDialog = null;
 	public static final int SEARCHPLUGIN = Menu.FIRST + 1;
 	public static final int APPLIST = Menu.FIRST + 2;
-	
+	TitleBar titleBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         con=this;
         Bundle bunde = this.getIntent().getExtras();
         user=UserInfoUtil.getCurrentUserInfo(this);
-        setContentView(R.layout.xiaoshou_searchwindow);
+        setContentView(R.layout.real_name_registration_form);
         
 
         name = (EditText) findViewById(R.id.name);  
@@ -119,7 +124,17 @@ public class XiaoShouAnalysis extends Activity {
     			}
     			
     		};
-        
+    		this.titleBar = ((TitleBar)findViewById(R.id.titlebar));
+    	    this.titleBar.setTitle(R.string.app_name);
+    	    this.titleBar.setBackListener(new OnClickListener() {
+    			
+    			@Override
+    			public void onClick(View v) {
+    				// TODO Auto-generated method stub
+    				finish();
+    			}
+    		});
+    	    this.titleBar.setUp();
     }
     
     public void showOffice(){
@@ -127,74 +142,41 @@ public class XiaoShouAnalysis extends Activity {
     }
     
     public void failResult(String msg){
-    	TextView eDeleteW = new TextView(con);
-    	LinearLayout.LayoutParams eLayoutParam = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT
-    			,LinearLayout.LayoutParams.WRAP_CONTENT);
-    	eDeleteW.setPadding(10, 10, 10, 10);
-    	eDeleteW.setText(msg);
-    	eDeleteW.setTextColor(Color.WHITE);
-    	eDeleteW.setTextSize(14);
-    	eDeleteW.setLayoutParams(eLayoutParam);
+    	localAlertDialogCustom= new AlertDialogCustom(this);
+		localAlertDialogCustom.show();
+		localAlertDialogCustom.setMessage(msg);
+		localAlertDialogCustom.setOnOKListener("返回主界面",new AlertDialogOKListener() {
+			
+			@Override
+			public void onOKClick() {
+				// TODO Auto-generated method stub
+				localAlertDialogCustom.dismiss();
+				finish();
+    			
+			}
+		});
+		localAlertDialogCustom.setOnCancelListener("修改信息",new AlertDialogCancelListener() {
+			
+			@Override
+			public void onCancelClick() {
+				// TODO Auto-generated method stub
+				localAlertDialogCustom.dismiss();
+			}
+		});
+		
     	
-    	
-    	AlertDialog.Builder builder;
-    	builder = new  AlertDialog.Builder(con);
-    	AlertDialog myDialog  = builder.create();  
-    	myDialog.setMessage(eDeleteW.getText());
-    	myDialog.setTitle("提示");
-    	myDialog.setCancelable(false);
-    	
-    	myDialog.setButton2("返回主界面", new DialogInterface.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.dismiss();
-    			finish();
-    		}
-    	});
-    	myDialog.setButton("修改信息",//继续签到
-    			new DialogInterface.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.dismiss();
-    		}
-    	});
-    	myDialog.show();
     }
     
     public void successResult(){
-    	TextView eDeleteW = new TextView(con);
-    	LinearLayout.LayoutParams eLayoutParam = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT
-    			,LinearLayout.LayoutParams.WRAP_CONTENT);
-    	eDeleteW.setPadding(10, 10, 10, 10);
-    	eDeleteW.setText("信息正确。是否提交？");
-    	eDeleteW.setTextColor(Color.WHITE);
-    	eDeleteW.setTextSize(14);
-    	eDeleteW.setLayoutParams(eLayoutParam);
-    	
-    	
-    	AlertDialog.Builder builder;
-    	builder = new  AlertDialog.Builder(con);
-    	AlertDialog myDialog  = builder.create();  
-    	myDialog.setMessage(eDeleteW.getText());
-    	myDialog.setTitle("提示");
-    	myDialog.setCancelable(false);
-    	
-    	myDialog.setButton2("返回主界面", new DialogInterface.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.dismiss();
-    			finish();
-    		}
-    	});
-    	myDialog.setButton("提交",//继续签到
-    			new DialogInterface.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.dismiss();
+    	localAlertDialogCustom= new AlertDialogCustom(this);
+		localAlertDialogCustom.show();
+		localAlertDialogCustom.setMessage("信息正确。是否通过？");
+		localAlertDialogCustom.setOnOKListener("通过",new AlertDialogOKListener() {
+			
+			@Override
+			public void onOKClick() {
+				// TODO Auto-generated method stub
+				localAlertDialogCustom.dismiss();
     			Intent mainIntent = new Intent(XiaoShouAnalysis.this,XiaoShouAnalysis2.class);
     	    	Bundle extras=new Bundle();
     	    	extras.putString("tel", tel.getText().toString().trim());
@@ -203,9 +185,17 @@ public class XiaoShouAnalysis extends Activity {
     	    	extras.putString("address", address.getText().toString().trim());
     	    	mainIntent.putExtras(extras);
     	    	con.startActivity(mainIntent); 
-    		}
-    	});
-    	myDialog.show();
+			}
+		});
+		localAlertDialogCustom.setOnCancelListener("不通过",new AlertDialogCancelListener() {
+			
+			@Override
+			public void onCancelClick() {
+				// TODO Auto-generated method stub
+				localAlertDialogCustom.dismiss();
+			}
+		});
+		
     }
     
     
@@ -296,6 +286,13 @@ public class XiaoShouAnalysis extends Activity {
     
     public void onResume(){
     	super.onResume();
+    	if(Convert.newtel){
+    		Convert.newtel=false;
+    		tel.setText("");
+    		name.setText("");
+    		number.setText("");
+    		address.setText("");
+    	}
     }
     public void onPause() {
         super.onPause();

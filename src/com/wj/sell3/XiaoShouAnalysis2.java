@@ -20,6 +20,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -33,17 +34,21 @@ import com.wj.sell.util.Convert;
 import com.wj.sell.util.OAUtil;
 import com.wj.sell.util.UrlSync;
 import com.wj.sell.util.UrlTask;
+import com.wj.sell3.ui.AlertDialogCustom;
+import com.wj.sell3.ui.TitleBar;
+import com.wj.sell3.ui.AlertDialogCustom.AlertDialogCancelListener;
+import com.wj.sell3.ui.AlertDialogCustom.AlertDialogOKListener;
 
 public class XiaoShouAnalysis2 extends Activity {
     /** Called when the activity is first created. */
 	Context con;
 	UserInfo user=null;
 	private WebView  webView;  
+	AlertDialogCustom localAlertDialogCustom;
 	
 	private Handler tmpMainHandler4;
 	public ProgressDialog myDialog = null;
-	public static final int SEARCHPLUGIN = Menu.FIRST + 1;
-	
+	TitleBar titleBar;
 	String tel;
 	String name;
 	String number;
@@ -61,7 +66,7 @@ public class XiaoShouAnalysis2 extends Activity {
         setContentView(R.layout.xiaoshou_web);
         
         webView  = (WebView)  findViewById(R.id.webView);  
-        webView.loadUrl("http://www.baidu.com");
+        webView.loadUrl("http://channel.bj.chinamobile.com/channelApp/static/protocol.html");
         
             tmpMainHandler4 = new Handler() {
     			
@@ -119,7 +124,17 @@ public class XiaoShouAnalysis2 extends Activity {
     			}
     			
     		};
-        
+    		 this.titleBar = ((TitleBar)findViewById(R.id.titlebar));
+    		    this.titleBar.setTitle(R.string.protocol_title);
+    		    this.titleBar.setBackListener(new OnClickListener() {
+    				
+    				@Override
+    				public void onClick(View v) {
+    					// TODO Auto-generated method stub
+    					finish();
+    				}
+    			});
+    		    this.titleBar.setUp();
     }
     
     public void showOffice(){
@@ -127,83 +142,71 @@ public class XiaoShouAnalysis2 extends Activity {
     }
     
     public void failResult(String msg){
-    	TextView eDeleteW = new TextView(con);
-    	LinearLayout.LayoutParams eLayoutParam = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT
-    			,LinearLayout.LayoutParams.WRAP_CONTENT);
-    	eDeleteW.setPadding(10, 10, 10, 10);
-    	eDeleteW.setText(msg);
-    	eDeleteW.setTextColor(Color.WHITE);
-    	eDeleteW.setTextSize(14);
-    	eDeleteW.setLayoutParams(eLayoutParam);
-    	
-    	
-    	AlertDialog.Builder builder;
-    	builder = new  AlertDialog.Builder(con);
-    	AlertDialog myDialog  = builder.create();  
-    	myDialog.setMessage(eDeleteW.getText());
-    	myDialog.setTitle("提示");
-    	myDialog.setCancelable(false);
-    	
-    	myDialog.setButton2("返回主界面", new DialogInterface.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.dismiss();
-    			finish();
-    		}
-    	});
-    	myDialog.setButton("修改信息",//继续签到
-    			new DialogInterface.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.dismiss();
-    		}
-    	});
-    	myDialog.show();
+    	localAlertDialogCustom= new AlertDialogCustom(this);
+		localAlertDialogCustom.show();
+		localAlertDialogCustom.setMessage(msg);
+		localAlertDialogCustom.setOnOKListener("返回主界面",new AlertDialogOKListener() {
+			
+			@Override
+			public void onOKClick() {
+				// TODO Auto-generated method stub
+				localAlertDialogCustom.dismiss();
+				Intent mainIntent = new Intent(con,Main.class);
+    	    	con.startActivity(mainIntent);
+				finish();
+    			
+			}
+		});
+		localAlertDialogCustom.setOnCancelListener("修改信息",new AlertDialogCancelListener() {
+			
+			@Override
+			public void onCancelClick() {
+				// TODO Auto-generated method stub
+				localAlertDialogCustom.dismiss();
+				finish();
+			}
+		});
+//    	TextView eDeleteW = new TextView(con);
+//    	LinearLayout.LayoutParams eLayoutParam = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT
+//    			,LinearLayout.LayoutParams.WRAP_CONTENT);
+//    	eDeleteW.setPadding(10, 10, 10, 10);
+//    	eDeleteW.setText(msg);
+//    	eDeleteW.setTextColor(Color.WHITE);
+//    	eDeleteW.setTextSize(14);
+//    	eDeleteW.setLayoutParams(eLayoutParam);
+//    	
+//    	
+//    	AlertDialog.Builder builder;
+//    	builder = new  AlertDialog.Builder(con);
+//    	AlertDialog myDialog  = builder.create();  
+//    	myDialog.setMessage(eDeleteW.getText());
+//    	myDialog.setTitle("提示");
+//    	myDialog.setCancelable(false);
+//    	
+//    	myDialog.setButton2("返回主界面", new DialogInterface.OnClickListener() {
+//    		
+//    		@Override
+//    		public void onClick(DialogInterface dialog, int which) {
+//    			dialog.dismiss();
+//    			
+//    		}
+//    	});
+//    	myDialog.setButton("修改信息",//继续签到
+//    			new DialogInterface.OnClickListener() {
+//    		
+//    		@Override
+//    		public void onClick(DialogInterface dialog, int which) {
+//    			dialog.dismiss();
+//    			finish();
+//    		}
+//    	});
+//    	myDialog.show();
     }
     
     public void successResult(){
-    	TextView eDeleteW = new TextView(con);
-    	LinearLayout.LayoutParams eLayoutParam = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT
-    			,LinearLayout.LayoutParams.WRAP_CONTENT);
-    	eDeleteW.setPadding(10, 10, 10, 10);
-    	eDeleteW.setText("手机号实名认证成功。是否继续？");
-    	eDeleteW.setTextColor(Color.WHITE);
-    	eDeleteW.setTextSize(14);
-    	eDeleteW.setLayoutParams(eLayoutParam);
-    	
-    	
-    	AlertDialog.Builder builder;
-    	builder = new  AlertDialog.Builder(con);
-    	AlertDialog myDialog  = builder.create();  
-    	myDialog.setMessage(eDeleteW.getText());
-    	myDialog.setTitle("提示");
-    	myDialog.setCancelable(false);
-    	
-    	myDialog.setButton2("返回主界面", new DialogInterface.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.dismiss();
-    			Intent mainIntent = new Intent(XiaoShouAnalysis2.this,Main.class);
-    	    	Bundle extras=new Bundle();
-    	    	mainIntent.putExtras(extras);
-    	    	startActivity(mainIntent);
-    			finish();
-    		}
-    	});
-    	myDialog.setButton("提交",//继续签到
-    			new DialogInterface.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(DialogInterface dialog, int which) {
-    			dialog.dismiss();
-    			
-    			finish();
-    		}
-    	});
-    	myDialog.show();
+    	Intent mainIntent = new Intent(this,XiaoShouAnalysis3.class);
+    	con.startActivity(mainIntent);
+    	finish();
     }
     
     public void queryCancel(View view){
@@ -215,8 +218,8 @@ public class XiaoShouAnalysis2 extends Activity {
 		urlSync.setModth(UrlSync.POST);
 		urlSync.setToast(true);
 			
-			urlSync.setToastContentSu("验证信息成功。");
-			urlSync.setToastContentFa("验证信息失败。");
+			urlSync.setToastContentSu("实名认证成功。");
+			urlSync.setToastContentFa("实名认证失败。");
 		urlSync.setUser(user);
 		urlSync.setUri(Convert.hosturl+"/oa/androidSave/");
 		List<NameValuePair> param=new ArrayList<NameValuePair>();
@@ -231,7 +234,7 @@ public class XiaoShouAnalysis2 extends Activity {
 		utk.start();
 			Message msg=tmpMainHandler4.obtainMessage();
 			msg.arg1=1;
-			msg.obj="正在验证信息……";
+			msg.obj="正在提交信息……";
 			tmpMainHandler4.sendMessage(msg);
     }
     
@@ -252,43 +255,7 @@ public class XiaoShouAnalysis2 extends Activity {
     }
     
 
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenu.ContextMenuInfo menuInfo) {
-		populateMenu(menu);
-	}
-
-	public void populateMenu(Menu menu) {
-//		menu.add(Menu.NONE, SEARCHPLUGIN, Menu.NONE, "查找插件");
-		menu.add(Menu.NONE, SEARCHPLUGIN, Menu.NONE, "刷新下属列表");
-//		menu.add(Menu.NONE, APPLIST, Menu.NONE, "应用列表");
-//		menu.add(Menu.NONE, SYSTEM, Menu.NONE, "系统消息");
-//		menu.add(Menu.NONE, REFASH, Menu.NONE, "刷新");
-//		menu.add(Menu.NONE, ALLREFASH, Menu.NONE, "反馈意见");
-	}
-
-	public boolean onCreateOptionsMenu(Menu menu) {
-		populateMenu(menu);
-		return (super.onCreateOptionsMenu(menu));
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return (applyMenuChoice(item) || super.onOptionsItemSelected(item));
-	}
-
-	public boolean onContextItemSelected(MenuItem item) {
-		return (applyMenuChoice(item) || super.onContextItemSelected(item));
-	}
-
-
-	public boolean applyMenuChoice(MenuItem item) {
-		switch (item.getItemId()) {
-		
-		case SEARCHPLUGIN:
-			
-			return true;
-		}
-		return false;
-	}
+	
     
     
     public void onResume(){

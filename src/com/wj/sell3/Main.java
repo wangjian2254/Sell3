@@ -10,10 +10,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -22,6 +24,8 @@ import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
 import com.wj.sell.adapter.AppItemAdapter;
 import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.PluginMod;
@@ -29,28 +33,47 @@ import com.wj.sell.db.models.UserInfo;
 import com.wj.sell.util.Convert;
 import com.wj.sell.util.UrlSync;
 import com.wj.sell.util.UrlTask;
+import com.wj.sell3.ui.ChannelApplication;
+import com.wj.sell3.ui.TitleBar;
+import com.wj.sell3.ui.TitleBar.BackListener;;
 
 public class Main extends Activity {
     /** Called when the activity is first created. */
 	Context con;
 	UserInfo user=null;
 	GridView gridApp;
+	TitleBar titleBar;
 	List<PluginMod> pluginList=new ArrayList<PluginMod>();
 //	public static final int SEARCHPLUGIN = Menu.FIRST + 1;
 	public static final int RELOGIN = Menu.FIRST + 1;
 	private Handler tmpMainHandler4;
 	private TextView notice;
 	
-	String[] appArr={"kaoshi,实名认证"};
+	String[] appArr={"function_1_icon,实名认证"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ChannelApplication.mContext=this;
         MobclickAgent.onError(this);
-        
-        setContentView(R.layout.app_list);
+        MobclickAgent.onError(this);
+        UmengUpdateAgent.update(this);
+        UmengUpdateAgent.setUpdateAutoPopup(true);
+        UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+                @Override
+                public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
+                    switch (updateStatus) {
+                    case 0: // has update
+                        UmengUpdateAgent.showUpdateDialog(con, updateInfo);
+                        break;
+                    case 2: // has update
+                    	Log.e("nowifi~~~~~~", "no wifi");
+                    	break;
+                    }
+                }
+        });
+        setContentView(R.layout.app_list2);
         con=this;
     
-        setContentView(R.layout.app_list);
         user=UserInfoUtil.getCurrentUserInfo(this);
         if(user==null){
         	Intent mainIntent = new Intent(con,Login.class);
@@ -67,7 +90,17 @@ public class Main extends Activity {
 //				Toast.makeText(con, "短按事件", 1000).show();
 			}
 		});
-        
+		this.titleBar = ((TitleBar)findViewById(R.id.titlebar));
+	    this.titleBar.setTitle(R.string.function_title);
+	    this.titleBar.setBackListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+	    this.titleBar.setUp();
         initAppList();
     }
     
@@ -98,7 +131,7 @@ public class Main extends Activity {
     	}
     }
     public void gotoPlugin(PluginMod p){
-    	if("kaoshi".equals(p.getAppcode())){
+    	if("function_1_icon".equals(p.getAppcode())){
     		Intent mainIntent = new Intent(con,XiaoShouAnalysis.class);
     		startActivity(mainIntent); 
     	}
