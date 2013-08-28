@@ -22,6 +22,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asiainfo.encrypt.Encrypt;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
@@ -102,6 +103,8 @@ public class Main extends Activity {
 		});
 	    this.titleBar.setUp();
         initAppList();
+        
+        Log.e("mimimiimii", Encrypt.classicVarLenEncrypt("time9818", 30));
     }
     
     public void initAppList(){
