@@ -114,7 +114,9 @@ public class Login extends Activity implements AlertDialogCancelListener,AlertDi
 	    this.bg = ((ImageView)findViewById(R.id.image_bg));
 		login = (Button) findViewById(R.id.login_btn_ok_id);
 		username = (EditTextCustom) findViewById(R.id.channal_num_edittext_id);
+		username.setText("bj040_01");
 		password = (EditTextCustom) findViewById(R.id.channal_pwd_edittext_id);
+		password.setText("111111");
 		
 //		this.titleBar = ((TitleBar)findViewById(R.id.titlebar));
 //	    this.titleBar.setTitle(R.string.login_title);
