@@ -2,14 +2,12 @@ package com.wj.sell3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -22,7 +20,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.asiainfo.encrypt.Encrypt;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
@@ -31,12 +28,8 @@ import com.wj.sell.adapter.AppItemAdapter;
 import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.PluginMod;
 import com.wj.sell.db.models.UserInfo;
-import com.wj.sell.util.Convert;
-import com.wj.sell.util.UrlSync;
-import com.wj.sell.util.UrlTask;
 import com.wj.sell3.ui.ChannelApplication;
 import com.wj.sell3.ui.TitleBar;
-import com.wj.sell3.ui.TitleBar.BackListener;;
 
 public class Main extends Activity {
     /** Called when the activity is first created. */
@@ -104,7 +97,9 @@ public class Main extends Activity {
 	    this.titleBar.setUp();
         initAppList();
         
-        Log.e("mimimiimii", Encrypt.classicVarLenEncrypt("time9818", 30));
+//        Log.e("mimimiimii", Encrypt.classicVarLenEncrypt("time9818", 30));
+        
+       
     }
     
     public void initAppList(){
