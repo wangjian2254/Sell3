@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.UserInfo;
 import com.wj.sell.util.CheckSync;
+import com.wj.sell.util.CheckSync2;
 import com.wj.sell.util.Convert;
 import com.wj.sell.util.OAUtil;
 import com.wj.sell.util.UrlSync;
@@ -109,7 +110,7 @@ public class XiaoShouAnalysis extends Activity {
     					if(myDialog!=null&&myDialog.isShowing()){
     						myDialog.dismiss();
     					}
-    					successResult();
+    					successResult(m);
     					return;
     					
     				}
@@ -167,40 +168,50 @@ public class XiaoShouAnalysis extends Activity {
     	
     }
     
-    public void successResult(){
-    	localAlertDialogCustom= new AlertDialogCustom(this);
-		localAlertDialogCustom.show();
-		localAlertDialogCustom.setMessage("信息正确。是否通过？");
-		localAlertDialogCustom.setOnOKListener("通过",new AlertDialogOKListener() {
-			
-			@Override
-			public void onOKClick() {
-				// TODO Auto-generated method stub
-				localAlertDialogCustom.dismiss();
-    			Intent mainIntent = new Intent(XiaoShouAnalysis.this,XiaoShouAnalysis2.class);
-    	    	Bundle extras=new Bundle();
-    	    	extras.putString("tel", tel.getText().toString().trim());
-    	    	extras.putString("name", name.getText().toString().trim());
-    	    	extras.putString("number", number.getText().toString().trim());
-    	    	extras.putString("address", address.getText().toString().trim());
-    	    	mainIntent.putExtras(extras);
-    	    	con.startActivity(mainIntent); 
-			}
-		});
-		localAlertDialogCustom.setOnCancelListener("不通过",new AlertDialogCancelListener() {
-			
-			@Override
-			public void onCancelClick() {
-				// TODO Auto-generated method stub
-				localAlertDialogCustom.dismiss();
-			}
-		});
+    public void successResult(String photo){
+    	Intent mainIntent = new Intent(XiaoShouAnalysis.this,XiaoShouAnalysisConfirm.class);
+    	Bundle extras=new Bundle();
+    	extras.putString("tel", tel.getText().toString().trim());
+    	extras.putString("name", name.getText().toString().trim());
+    	extras.putString("number", number.getText().toString().trim());
+    	extras.putString("address", address.getText().toString().trim());
+    	extras.putString("photo", photo);
+    	mainIntent.putExtras(extras);
+    	con.startActivity(mainIntent); 
+//    	
+//    	localAlertDialogCustom= new AlertDialogCustom(this);
+//		localAlertDialogCustom.show();
+//		localAlertDialogCustom.setMessage("信息正确。是否通过？");
+//		localAlertDialogCustom.setOnOKListener("通过",new AlertDialogOKListener() {
+//			
+//			@Override
+//			public void onOKClick() {
+//				// TODO Auto-generated method stub
+//				localAlertDialogCustom.dismiss();
+//    			Intent mainIntent = new Intent(XiaoShouAnalysis.this,XiaoShouAnalysis2.class);
+//    	    	Bundle extras=new Bundle();
+//    	    	extras.putString("tel", tel.getText().toString().trim());
+//    	    	extras.putString("name", name.getText().toString().trim());
+//    	    	extras.putString("number", number.getText().toString().trim());
+//    	    	extras.putString("address", address.getText().toString().trim());
+//    	    	mainIntent.putExtras(extras);
+//    	    	con.startActivity(mainIntent); 
+//			}
+//		});
+//		localAlertDialogCustom.setOnCancelListener("不通过",new AlertDialogCancelListener() {
+//			
+//			@Override
+//			public void onCancelClick() {
+//				// TODO Auto-generated method stub
+//				localAlertDialogCustom.dismiss();
+//			}
+//		});
 		
     }
     
     
     public void queryTongji(View view){
-    	UrlSync urlSync=new CheckSync();
+    	UrlSync urlSync=new CheckSync2();
 		urlSync.setMainContext(con);
 		urlSync.setModth(UrlSync.POST);
 		urlSync.setToast(true);
