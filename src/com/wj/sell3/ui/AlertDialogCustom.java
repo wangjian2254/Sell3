@@ -27,7 +27,7 @@ public class AlertDialogCustom extends Dialog
 
   public AlertDialogCustom(Context paramContext)
   {
-    super(paramContext, 2131230720);
+    super(paramContext, R.style.dialog);
   }
 
   public AlertDialogCustom(Context paramContext, int paramInt)
