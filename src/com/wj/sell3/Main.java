@@ -48,8 +48,7 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ChannelApplication.mContext=this;
-        MobclickAgent.onError(this);
-        MobclickAgent.onError(this);
+		UmengUpdateAgent.update(this);
         UmengUpdateAgent.update(this);
         UmengUpdateAgent.setUpdateAutoPopup(true);
         UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
@@ -183,8 +182,8 @@ public class Main extends Activity {
     
 	public void onResume(){
     	super.onResume();
-    	UmengUpdateAgent.update(this);
-    	MobclickAgent.onResume(this);
+
+		MobclickAgent.onResume(this);
     }
     public void onPause() {
         super.onPause();
