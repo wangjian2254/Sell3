@@ -231,7 +231,7 @@ public void onLogin(View view){
     	uname=username.getText().toString().trim();
     	String pwd=password.getText().toString().trim();
     	
-    	String url=Convert.hosturl+"/oa/clientLogin/";
+    	String url=Convert.hosturl+"/app/login";
     	HttpPost getMethod=new HttpPost(url);
     	List<NameValuePair> param=new ArrayList<NameValuePair>();
     	param.add(new BasicNameValuePair("username",uname));
