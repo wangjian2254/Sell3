@@ -36,7 +36,7 @@
 		android:layout_height="40dip" android:layout_gravity="left"
 		android:gravity="center" android:text="@string/form_phoneno" style="@style/recent_list_item_name"
 		/>
-	<EditText android:id="@+id/tel"
+	<EditText android:id="@+id/username"
 		android:layout_width="fill_parent" android:textColor="#565656"
 		android:singleLine="true"
 		android:inputType="number"

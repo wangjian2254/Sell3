@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="enc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/enc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

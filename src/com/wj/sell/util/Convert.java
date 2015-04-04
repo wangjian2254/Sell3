@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import android.os.Environment;
+import com.wj.sell.db.models.UserInfo;
 
 
 public class Convert {
@@ -36,6 +37,8 @@ public class Convert {
 	public static boolean hasImage=true;
 	public static boolean newtel=false;
 	public static String imgreg = "\\[\\*[A-Za-z]*/[-_0-9A-Za-z]*/[_A-Za-z0-9]*\\*\\]";
+
+	public static UserInfo currentUser;
 	
 
 }

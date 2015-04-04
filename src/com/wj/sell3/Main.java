@@ -25,7 +25,6 @@ import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.wj.sell.adapter.AppItemAdapter;
-import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.PluginMod;
 import com.wj.sell.db.models.UserInfo;
 import com.wj.sell3.ui.ChannelApplication;
@@ -67,7 +66,7 @@ public class Main extends Activity {
         setContentView(R.layout.app_list2);
         con=this;
     
-        user=UserInfoUtil.getCurrentUserInfo(this);
+        user=SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
         if(user==null){
         	Intent mainIntent = new Intent(con,Login.class);
         	startActivity(mainIntent); 
@@ -133,7 +132,7 @@ public class Main extends Activity {
     		startActivity(mainIntent); 
     	}
     	else{
-    		Toast.makeText(con, p.getName()+"尚未开发", 1000).show();
+    		Toast.makeText(con, p.getName()+"尚未开发", Toast.LENGTH_SHORT).show();
     	}
 		
     }
