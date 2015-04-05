@@ -20,7 +20,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app"
          >
-       <meta-data android:value="52154eb756240b4a0e00e2db"
+       <meta-data android:value="5520f207fd98c56f550008a8"
 			android:name="UMENG_APPKEY"></meta-data>
 		<activity android:name="Main" android:configChanges="orientation|keyboardHidden"  android:theme="@android:style/Theme.NoTitleBar"
 		android:screenOrientation="portrait" android:launchMode = "singleTask" 
