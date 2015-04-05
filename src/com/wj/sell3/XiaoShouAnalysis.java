@@ -10,8 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.Path;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.*;
 import com.lidroid.xutils.exception.DbException;
+import com.wj.sell3.ui.*;
 import com.lidroid.xutils.http.RequestParams;
 import com.wj.sell.db.models.Shiming;
 import com.wj.sell.util.*;
@@ -32,8 +34,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.wj.sell.db.models.UserInfo;
-import com.wj.sell3.ui.AlertDialogCustom;
-import com.wj.sell3.ui.TitleBar;
 import com.wj.sell3.ui.AlertDialogCustom.AlertDialogOKListener;
 import com.wj.sell3.ui.AlertDialogCustom.AlertDialogCancelListener;
 
@@ -41,7 +41,7 @@ public class XiaoShouAnalysis extends Activity {
     /**
      * Called when the activity is first created.
      */
-    Context con;
+    static Context con;
     UserInfo user = null;
     EditText tel;
     EditText name;
@@ -62,6 +62,55 @@ public class XiaoShouAnalysis extends Activity {
     public static final int SEARCHPLUGIN = Menu.FIRST + 1;
     public static final int APPLIST = Menu.FIRST + 2;
     TitleBar titleBar;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    Bundle b = msg.getData();
+                    String[] cardInfo = b.getStringArray("cardInfo");
+                    int i = 0;
+                    String name = cardInfo[i++].trim();
+                    String sex = cardInfo[i++].trim();
+                    String ethnic = cardInfo[i++].trim();
+                    String date = cardInfo[i++].trim();
+                    String address = cardInfo[i++].trim();
+                    String number = cardInfo[i++].trim();
+                    String danwei = cardInfo[i++].trim();
+                    String[] qixian = cardInfo[i++].trim().replace(" ", "").split("-");
+                    String qixian_start = qixian[0];
+                    String qixian_end = qixian[1];
+                    String qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "." + qixian_start.substring(6, 8)
+                            + "-" + qixian_end.substring(0, 4) + "." + qixian_end.substring(4, 6) + "." + qixian_end.substring(6, 8);
+
+                    XiaoShouAnalysis.this.name.setText(name);
+                    XiaoShouAnalysis.this.number.setText(number);
+
+                    if (sex.equals("男")) {
+                        gender_male.setChecked(true);
+                        gender_famale.setChecked(false);
+                    } else {
+                        gender_male.setChecked(false);
+                        gender_famale.setChecked(true);
+                    }
+                    XiaoShouAnalysis.this.ethnic.setText(ethnic);
+                    XiaoShouAnalysis.this.date.setText(date);
+                    XiaoShouAnalysis.this.qixian.setText(qixian_str);
+                    XiaoShouAnalysis.this.address.setText(address);
+                    XiaoShouAnalysis.this.danwei.setText(danwei);
+                    break;
+                case -1:
+                    ToastCustom.showMessage(con, "打开设备失败");
+                    break;
+                case -2:
+                    ToastCustom.showMessage(con, "初始化设备失败");
+                    break;
+                case -3:
+                    ToastCustom.showMessage(con, "读取信息失败");
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -252,7 +301,15 @@ public class XiaoShouAnalysis extends Activity {
         super.onActivityResult(paramInt1, paramInt2, paramIntent);
         if (paramInt1 == 0) {
             getInfo();
+        } else if (paramInt1 == 100) {
+            String str = paramIntent.getExtras().get("addr").toString();
+            System.out.println("btaddr = " + str);
+            doGetIDCardInfo(9, str);
         }
+    }
+
+    private void doGetIDCardInfo(int paramInt, String paramString) {
+        new Thread(new IDCardRunable(this.handler, this, paramInt, paramString)).start();
     }
 
     private void getInfo() {
@@ -294,9 +351,6 @@ public class XiaoShouAnalysis extends Activity {
         }
     }
 
-    private void savePhoto(Bitmap paramBitmap, Intent paramIntent) {
-
-    }
 
     /**
      * 蓝牙 硬件
@@ -304,7 +358,7 @@ public class XiaoShouAnalysis extends Activity {
      * @param view
      */
     public void blueTooth(View view) {
-
+        startActivityForResult(new Intent(this, BluetoothActivity.class), 100);
     }
 
     public void failResult(String msg) {
@@ -376,7 +430,7 @@ public class XiaoShouAnalysis extends Activity {
 
 
     public void queryTongji(View view) {
-        if("".equals(tel.getText().toString())){
+        if ("".equals(tel.getText().toString())) {
             Toast.makeText(con, "请填写手机号", Toast.LENGTH_LONG).show();
             return;
         }
@@ -427,6 +481,7 @@ public class XiaoShouAnalysis extends Activity {
 
         SellApplication.showDialog("正在加载","", con);
         HttpCallResultBackShiming httpCallResultBackShiming =new HttpCallResultBackShiming(new HttpCallResultBack() {
+        HttpCallResultBackShiming httpCallResultBackShiming = new HttpCallResultBackShiming(new HttpCallResultBack() {
             @Override
             public void doresult(HttpResult result) {
                 if(result.getResult()!=null){
