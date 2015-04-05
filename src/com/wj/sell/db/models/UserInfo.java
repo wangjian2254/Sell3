@@ -79,7 +79,7 @@ public class UserInfo implements Serializable{
 	 * @param json
 	 */
 	public UserInfo(JSONObject json){
-		this.s_id = json.optInt("uid");
+		this.s_id = json.optInt("id");
 		initUserInfo();
 		if (json.has("app_username")){
 			this.username = json.optString("app_username");
