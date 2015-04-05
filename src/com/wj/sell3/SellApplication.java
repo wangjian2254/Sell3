@@ -160,7 +160,7 @@ public class SellApplication extends Application {
                         switch (result.getStatus_code()){
                             case 0:             //正常
                                 break;
-                            case 1:             //未登录
+                            case 404:             //未登录
 
                                 Intent intent = new Intent(activityList.get(activityList.size()-1), Login.class);
                                 activityList.get(activityList.size()-1).startActivity(intent);
@@ -172,7 +172,7 @@ public class SellApplication extends Application {
                             case 3:             //需要username/password
                                 showMessage(result);
                                 break;
-                            case 4:             //error
+                            case 401:             //error
                                 showMessage(result);
                                 break;
                             case 5:             //用户被禁用

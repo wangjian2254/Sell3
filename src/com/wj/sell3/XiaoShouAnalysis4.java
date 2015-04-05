@@ -73,7 +73,7 @@ public class XiaoShouAnalysis4 extends Activity {
         con = this;
         Bundle bunde = this.getIntent().getExtras();
         user = SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
-        setContentView(R.layout.real_name_registration_form);
+        setContentView(R.layout.real_name_list);
 
         this.listView = (ListView)findViewById(R.id.real_name_list);
         shimingItemAdapter = new ShimingItemAdapter(this, shiminglist);

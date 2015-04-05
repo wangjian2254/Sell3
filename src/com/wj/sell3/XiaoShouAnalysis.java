@@ -431,29 +431,30 @@ public class XiaoShouAnalysis extends Activity {
 
     public void queryTongji(View view) {
         if ("".equals(tel.getText().toString())) {
-            Toast.makeText(con, "请填写手机号", Toast.LENGTH_LONG).show();
+//            Toast.makeText(con, "请填写手机号", Toast.LENGTH_LONG).show();
+            ToastCustom.showMessage(con, "请填写手机号");
             return;
         }
 
         if("".equals(number.getText().toString())){
-            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
 
         if("".equals(name.getText().toString())){
-            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
         if("".equals(address.getText().toString())){
-            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
         if("".equals(danwei.getText().toString())){
-            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
         if("".equals(qixian.getText().toString())){
-            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
         RequestParams params = new RequestParams();
@@ -488,6 +489,7 @@ public class XiaoShouAnalysis extends Activity {
                     if(result.isSuccess()){
 
                         shiming1.setSuccess(2);
+                        finish();
                     }
                     else{
                         shiming1.setSuccess(0);
@@ -498,6 +500,8 @@ public class XiaoShouAnalysis extends Activity {
                     } catch (DbException e) {
                         e.printStackTrace();
                     }
+
+
                 }
             }
 
