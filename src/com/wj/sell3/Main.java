@@ -20,6 +20,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lidroid.xutils.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
@@ -27,13 +28,15 @@ import com.umeng.update.UpdateResponse;
 import com.wj.sell.adapter.AppItemAdapter;
 import com.wj.sell.db.models.PluginMod;
 import com.wj.sell.db.models.UserInfo;
+import com.wj.sell.util.HttpCallResultBack;
+import com.wj.sell.util.HttpCallResultBackCurrentUser;
+import com.wj.sell.util.HttpResult;
 import com.wj.sell3.ui.ChannelApplication;
 import com.wj.sell3.ui.TitleBar;
 
 public class Main extends Activity {
     /** Called when the activity is first created. */
 	Context con;
-	UserInfo user=null;
 	GridView gridApp;
 	TitleBar titleBar;
 	List<PluginMod> pluginList=new ArrayList<PluginMod>();
@@ -66,13 +69,7 @@ public class Main extends Activity {
         setContentView(R.layout.app_list2);
         con=this;
     
-        user=SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
-        if(user==null){
-        	Intent mainIntent = new Intent(con,Login.class);
-        	startActivity(mainIntent); 
-        	finish(); 
-        	return ;
-        }
+
         gridApp=(GridView)findViewById(R.id.gridAppView);
         gridApp.setAdapter(new AppItemAdapter(this, pluginList));// 调用ImageAdapter.java
         gridApp.setOnItemClickListener(new OnItemClickListener() {// 监听事件
@@ -96,7 +93,26 @@ public class Main extends Activity {
         initAppList();
         
 //        Log.e("mimimiimii", Encrypt.classicVarLenEncrypt("time9818", 30));
-        
+		RequestParams params = new RequestParams();
+		HttpCallResultBackCurrentUser httpCallResultBackCurrentUser = new HttpCallResultBackCurrentUser(new HttpCallResultBack() {
+			@Override
+			public void doresult(HttpResult result) {
+				if(!result.isSuccess()){
+					Intent mainIntent = new Intent(Main.this,Login.class);
+					Bundle extras=new Bundle();
+					mainIntent.putExtras(extras);
+					startActivity(mainIntent);
+					finish();
+				}
+			}
+
+			@Override
+			public void dofailure() {
+
+			}
+		});
+		httpCallResultBackCurrentUser.setParams(params);
+		SellApplication.post(httpCallResultBackCurrentUser);
        
     }
     
@@ -170,7 +186,6 @@ public class Main extends Activity {
 		case RELOGIN:
 			Intent mainIntent = new Intent(Main.this,Login.class);
 	    	Bundle extras=new Bundle();
-	    	extras.putSerializable("user", user);
 	    	mainIntent.putExtras(extras);
 	    	startActivity(mainIntent); 
 	    	finish();

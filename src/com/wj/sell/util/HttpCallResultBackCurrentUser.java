@@ -8,9 +8,9 @@ import com.wj.sell3.SellApplication;
 /**
  * Created by huanghaijie on 15/3/8.
  */
-public class HttpCallResultBackLogin extends HttpCallResultBackBase {
+public class HttpCallResultBackCurrentUser extends HttpCallResultBackBase {
 
-    public HttpCallResultBackLogin(HttpCallResultBack callResultBack) {
+    public HttpCallResultBackCurrentUser(HttpCallResultBack callResultBack) {
         super(callResultBack);
 
     }
@@ -22,7 +22,7 @@ public class HttpCallResultBackLogin extends HttpCallResultBackBase {
      */
     @Override
     protected String http_api() {
-            return "app/login";
+            return "app/current_user";
     }
 
     /**
@@ -63,6 +63,7 @@ public class HttpCallResultBackLogin extends HttpCallResultBackBase {
                     }else{
                         Convert.currentUser.initUserInfo();
                     }
+
                 } catch (DbException e) {
                     e.printStackTrace();
                 }

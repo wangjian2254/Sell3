@@ -145,7 +145,7 @@ public class Login extends Activity implements AlertDialogCancelListener,AlertDi
         	user=SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
         	if(user!=null){
         		username.setText(user.getUsername());
-        		password.setText(user.getPassword());
+        		password.setText("");
         	}
        
         	if(this.getIntent().getExtras()!=null){
@@ -213,6 +213,8 @@ public void onLogin(View view){
 		public void doresult(HttpResult result) {
 			      if(result.isSuccess()){
 					  goWelcome();
+				  }else{
+					  SellApplication.failureResult(result);
 				  }
 
 		}
