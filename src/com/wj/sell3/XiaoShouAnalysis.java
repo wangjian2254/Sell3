@@ -480,7 +480,6 @@ public class XiaoShouAnalysis extends Activity {
         }
 
         SellApplication.showDialog("正在加载","", con);
-        HttpCallResultBackShiming httpCallResultBackShiming =new HttpCallResultBackShiming(new HttpCallResultBack() {
         HttpCallResultBackShiming httpCallResultBackShiming = new HttpCallResultBackShiming(new HttpCallResultBack() {
             @Override
             public void doresult(HttpResult result) {
