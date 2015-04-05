@@ -60,4 +60,8 @@
     <string name="redo">再次办理</string>
     <string name="toIndex">返回首页</string>
     <string name="login_title">登录</string>
+    <string name="form_photo">拍照</string>
+    <string name="form_bluetooth">蓝牙</string>
+    <string name="form_qixian">期限:</string>
+    <string name="form_qianfa">签发单位:</string>
 </resources>
