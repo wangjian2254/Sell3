@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">渠道系统</string>
+    <string name="shiming_luru">实名信息录入</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="repassword">确认密码：</string>

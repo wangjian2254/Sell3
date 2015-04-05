@@ -125,7 +125,7 @@ public class XiaoShouAnalysis extends Activity {
     			
     		};
     		this.titleBar = ((TitleBar)findViewById(R.id.titlebar));
-    	    this.titleBar.setTitle(R.string.app_name);
+    	    this.titleBar.setTitle(R.string.shiming_luru);
     	    this.titleBar.setBackListener(new OnClickListener() {
     			
     			@Override
@@ -140,6 +140,22 @@ public class XiaoShouAnalysis extends Activity {
     public void showOffice(){
     	
     }
+
+	/**
+	 * 拍照 识别函数
+	 * @param view
+	 */
+	public void paiZhao(View view){
+
+	}
+
+	/**
+	 * 蓝牙 硬件
+	 * @param view
+	 */
+	public void blueTooth(View view){
+
+	}
     
     public void failResult(String msg){
     	localAlertDialogCustom= new AlertDialogCustom(this);
