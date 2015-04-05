@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.net.Uri;
 import android.os.Environment;
 import android.widget.*;
+import com.wj.sell3.ui.BluetoothActivity;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -296,9 +297,6 @@ public class XiaoShouAnalysis extends Activity {
         }
     }
 
-    private void savePhoto(Bitmap paramBitmap, Intent paramIntent) {
-
-    }
 
     /**
      * 蓝牙 硬件
@@ -306,7 +304,7 @@ public class XiaoShouAnalysis extends Activity {
      * @param view
      */
     public void blueTooth(View view) {
-
+        startActivityForResult(new Intent(this, BluetoothActivity.class), 100);
     }
 
     public void failResult(String msg) {
