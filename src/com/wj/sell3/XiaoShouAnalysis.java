@@ -26,7 +26,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.UserInfo;
 import com.wj.sell.util.CheckSync;
 import com.wj.sell.util.CheckSync2;
@@ -59,7 +58,7 @@ public class XiaoShouAnalysis extends Activity {
         super.onCreate(savedInstanceState);
         con=this;
         Bundle bunde = this.getIntent().getExtras();
-        user=UserInfoUtil.getCurrentUserInfo(this);
+        user=SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
         setContentView(R.layout.real_name_registration_form);
         
 

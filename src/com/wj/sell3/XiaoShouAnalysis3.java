@@ -27,7 +27,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.UserInfo;
 import com.wj.sell.util.CheckSync;
 import com.wj.sell.util.Convert;

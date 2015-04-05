@@ -37,7 +37,7 @@ public class XiaShuSync extends UrlSync {
 			for(int i=0;i<ja.length();i++){
 				jo=ja.getJSONObject(i);
 				item=new UserInfo();
-				item.setId(jo.getInt("id"));
+				item.setS_id(jo.getInt("id"));
 				item.setUsername(jo.getString("allname"));
 				l.add(item);
 			}

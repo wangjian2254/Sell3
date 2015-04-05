@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.UserInfo;
 import com.wj.sell3.ui.AlertDialogCustom;
 import com.wj.sell3.ui.ImageViewWithBorder;
@@ -48,7 +47,7 @@ public class XiaoShouAnalysisConfirm extends Activity {
         number=bunde.getString("number");
         address=bunde.getString("address");
         photo=bunde.getString("photo");
-        user=UserInfoUtil.getCurrentUserInfo(this);
+        user=SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
         setContentView(R.layout.real_name_registration_confirm);
         
         

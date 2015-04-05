@@ -27,7 +27,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.UserInfo;
 import com.wj.sell.util.CheckSync;
 import com.wj.sell.util.Convert;
@@ -62,7 +61,7 @@ public class XiaoShouAnalysis2 extends Activity {
         name=bunde.getString("name");
         number=bunde.getString("number");
         address=bunde.getString("address");
-        user=UserInfoUtil.getCurrentUserInfo(this);
+        user=SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
         setContentView(R.layout.xiaoshou_web);
         
         webView  = (WebView)  findViewById(R.id.webView);  

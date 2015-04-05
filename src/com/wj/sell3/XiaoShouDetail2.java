@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
-import com.wj.sell.db.UserInfoUtil;
 import com.wj.sell.db.models.UserInfo;
 import com.wj.sell.util.Convert;
 import com.wj.sell.util.OAUtil;
@@ -71,7 +70,7 @@ public class XiaoShouDetail2 extends Activity  {
         setContentView(R.layout.xiaoshou_detail2);
 		Bundle bunde = this.getIntent().getExtras();
 //		officeid=bunde.getInt("officeid");
-		user=UserInfoUtil.getCurrentUserInfo(this);
+		user=SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
 		name = (TextView) findViewById(R.id.notice_title);
 		mStartBtn =(Button)findViewById(R.id.setoffice);
 		btnSubmit=(Button)findViewById(R.id.btnSubmit);
