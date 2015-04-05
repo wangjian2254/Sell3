@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.widget.*;
 import com.wj.sell3.ui.BluetoothActivity;
+import com.lidroid.xutils.http.RequestParams;
+import com.wj.sell.util.*;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -29,12 +31,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.wj.sell.db.models.UserInfo;
-import com.wj.sell.util.CheckSync;
-import com.wj.sell.util.CheckSync2;
-import com.wj.sell.util.Convert;
-import com.wj.sell.util.OAUtil;
-import com.wj.sell.util.UrlSync;
-import com.wj.sell.util.UrlTask;
 import com.wj.sell3.ui.AlertDialogCustom;
 import com.wj.sell3.ui.TitleBar;
 import com.wj.sell3.ui.AlertDialogCustom.AlertDialogOKListener;
@@ -87,62 +83,62 @@ public class XiaoShouAnalysis extends Activity {
         danwei = (EditText) findViewById(R.id.danwei);
 
 
-        tmpMainHandler4 = new Handler() {
-
-            @Override
-            public void handleMessage(Message msg) {
-
-                if (msg.arg1 == 1) {
-                    if (myDialog != null) {
-                        myDialog.dismiss();
-                    }
-                    String m = (String) msg.obj;
-                    myDialog = ProgressDialog.show
-                            (
-                                    con,
-                                    "提示",
-                                    m
-                            );
-                    return;
-                }
-                if (msg.arg1 < 10) {
-                    String m = (String) msg.obj;
-                    if (myDialog != null && myDialog.isShowing()) {
-                        myDialog.setMessage(m);
-                    }
-                    return;
-
-                }
-                if (msg.arg1 == 10) {
-                    String m = (String) msg.obj;
-                    if (myDialog != null && myDialog.isShowing()) {
-                        myDialog.dismiss();
-                    }
-                    failResult(m);
-                    return;
-
-                }
-
-                if (msg.arg1 == 11) {
-                    String m = (String) msg.obj;
-                    if (myDialog != null && myDialog.isShowing()) {
-                        myDialog.dismiss();
-                    }
-                    successResult(m);
-                    return;
-
-                }
-
-
-                if (msg.arg1 == 404) {
-                    String m = (String) msg.obj;
-                    OAUtil.gotoReLogin(con, m);
-                    return;
-                }
-
-            }
-
-        };
+//        tmpMainHandler4 = new Handler() {
+//
+//            @Override
+//            public void handleMessage(Message msg) {
+//
+//                if (msg.arg1 == 1) {
+//                    if (myDialog != null) {
+//                        myDialog.dismiss();
+//                    }
+//                    String m = (String) msg.obj;
+//                    myDialog = ProgressDialog.show
+//                            (
+//                                    con,
+//                                    "提示",
+//                                    m
+//                            );
+//                    return;
+//                }
+//                if (msg.arg1 < 10) {
+//                    String m = (String) msg.obj;
+//                    if (myDialog != null && myDialog.isShowing()) {
+//                        myDialog.setMessage(m);
+//                    }
+//                    return;
+//
+//                }
+//                if (msg.arg1 == 10) {
+//                    String m = (String) msg.obj;
+//                    if (myDialog != null && myDialog.isShowing()) {
+//                        myDialog.dismiss();
+//                    }
+//                    failResult(m);
+//                    return;
+//
+//                }
+//
+//                if (msg.arg1 == 11) {
+//                    String m = (String) msg.obj;
+//                    if (myDialog != null && myDialog.isShowing()) {
+//                        myDialog.dismiss();
+//                    }
+//                    successResult(m);
+//                    return;
+//
+//                }
+//
+//
+//                if (msg.arg1 == 404) {
+//                    String m = (String) msg.obj;
+//                    OAUtil.gotoReLogin(con, m);
+//                    return;
+//                }
+//
+//            }
+//
+//        };
         this.titleBar = ((TitleBar) findViewById(R.id.titlebar));
         this.titleBar.setTitle(R.string.shiming_luru);
         this.titleBar.setBackListener(new OnClickListener() {
@@ -376,29 +372,30 @@ public class XiaoShouAnalysis extends Activity {
 
 
     public void queryTongji(View view) {
-        UrlSync urlSync = new CheckSync2();
-        urlSync.setMainContext(con);
-        urlSync.setModth(UrlSync.POST);
-        urlSync.setToast(true);
+        if("".equals(tel.getText().toString())){
+            Toast.makeText(con, "请填写手机号", Toast.LENGTH_LONG).show();
+            return;
+        }
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("phone_number", tel.getText().toString());
+        params.addBodyParameter("cardno", tel.getText().toString());
+        params.addBodyParameter("name", tel.getText().toString());
+        params.addBodyParameter("address", tel.getText().toString());
+        params.addBodyParameter("qfjg", tel.getText().toString());
+        params.addBodyParameter("yxqx", tel.getText().toString());
 
-        urlSync.setToastContentSu("验证信息成功。");
-        urlSync.setToastContentFa("验证信息失败。");
-        urlSync.setUser(user);
-        urlSync.setUri(Convert.hosturl + "/oa/androidCheck/");
-        List<NameValuePair> param = new ArrayList<NameValuePair>();
-        param.add(new BasicNameValuePair("tel", tel.getText().toString().trim()));
-        param.add(new BasicNameValuePair("name", name.getText().toString().trim()));
-        param.add(new BasicNameValuePair("number", number.getText().toString().trim()));
-        param.add(new BasicNameValuePair("address", address.getText().toString().trim()));
-        urlSync.setPrarm(param);
-        urlSync.setHandler(tmpMainHandler4);
-        UrlTask utk = new UrlTask(con);
-        utk.setUrlSync(urlSync);
-        utk.start();
-        Message msg = tmpMainHandler4.obtainMessage();
-        msg.arg1 = 1;
-        msg.obj = "正在验证信息……";
-        tmpMainHandler4.sendMessage(msg);
+        HttpCallResultBackShiming httpCallResultBackShiming =new HttpCallResultBackShiming(new HttpCallResultBack() {
+            @Override
+            public void doresult(HttpResult result) {
+
+            }
+
+            @Override
+            public void dofailure() {
+
+            }
+        });
+
     }
 
     public String getDate(DatePicker dp) {
