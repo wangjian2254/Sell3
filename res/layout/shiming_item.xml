@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="85dip"
+	android:orientation="vertical"                   android:background="@drawable/list_gray_item1"
+	>
+	<!-- <Button android:id="@+id/app_item_img"  android:background="@drawable/icon"
+	android:gravity="center_horizontal"
+	android:layout_gravity="center_horizontal"
+	android:layout_width="50dip" android:layout_height="50dip"
+	>
+	</Button> -->
+
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="30dp" android:orientation="horizontal" android:padding="5dp">
+		<TextView android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="手机号码:" android:textSize="18dip"/>
+		<TextView android:id="@+id/phone_number"
+				  android:gravity="center_horizontal"
+				  android:layout_width="wrap_content" android:layout_height="22dip"
+				  android:textSize="18dip" android:textColor="#ffffff" android:text="2323234234234"
+				/>
+	</LinearLayout>
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="30dp" android:orientation="horizontal" android:padding="5dp">
+		<TextView android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="客户姓名:" android:textSize="18dip"/>
+		<TextView android:id="@+id/user_name"
+				  android:gravity="center_horizontal"
+				  android:layout_width="wrap_content"
+				  android:layout_weight="1.0"
+				  android:layout_height="22dip"
+				  android:textSize="18dip" android:textColor="#ffffff" android:text="sdf"
+				/>
+		<TextView android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="实名状态:" android:textSize="18dip"/>
+		<TextView android:id="@+id/real_status"
+				  android:gravity="center_horizontal"
+				  android:layout_width="wrap_content"
+				  android:layout_weight="1.0"
+				  android:layout_height="22dip"
+				  android:textSize="18dip" android:textColor="#ffffff" android:text="成功"
+				/>
+
+	</LinearLayout>
+
+</LinearLayout>

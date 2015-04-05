@@ -11,7 +11,9 @@ import android.graphics.Path;
 import android.net.Uri;
 import android.os.Environment;
 import android.widget.*;
+import com.lidroid.xutils.exception.DbException;
 import com.lidroid.xutils.http.RequestParams;
+import com.wj.sell.db.models.Shiming;
 import com.wj.sell.util.*;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -378,18 +380,71 @@ public class XiaoShouAnalysis extends Activity {
             Toast.makeText(con, "请填写手机号", Toast.LENGTH_LONG).show();
             return;
         }
+
+        if("".equals(number.getText().toString())){
+            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if("".equals(name.getText().toString())){
+            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if("".equals(address.getText().toString())){
+            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if("".equals(danwei.getText().toString())){
+            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if("".equals(qixian.getText().toString())){
+            Toast.makeText(con, "请扫描身份证", Toast.LENGTH_LONG).show();
+            return;
+        }
         RequestParams params = new RequestParams();
         params.addBodyParameter("phone_number", tel.getText().toString());
-        params.addBodyParameter("cardno", tel.getText().toString());
-        params.addBodyParameter("name", tel.getText().toString());
-        params.addBodyParameter("address", tel.getText().toString());
-        params.addBodyParameter("qfjg", tel.getText().toString());
-        params.addBodyParameter("yxqx", tel.getText().toString());
+        params.addBodyParameter("cardno", number.getText().toString());
+        params.addBodyParameter("name", name.getText().toString());
+        params.addBodyParameter("address", address.getText().toString());
+        params.addBodyParameter("qfjg", danwei.getText().toString());
+        params.addBodyParameter("yxqx", qixian.getText().toString());
+        Shiming shiming = new Shiming();
+        shiming.setAddress(address.getText().toString());
+        shiming.setCardno(number.getText().toString());
+        shiming.setName(name.getText().toString());
+        shiming.setPhone_number(tel.getText().toString());
+        shiming.setQfjg(danwei.getText().toString());
+        shiming.setYxqx(qixian.getText().toString());
+        Date date1 = new Date();
+        shiming.setCreate_time(""+(date1.getYear()+1900)+"."+date1.getMonth()+"."+date1.getDate()+" "+date1.getHours()+":"+date1.getMinutes()+":"+date1.getSeconds());
 
+        try {
+            SellApplication.db.saveOrUpdate(shiming);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+        SellApplication.showDialog("正在加载","", con);
         HttpCallResultBackShiming httpCallResultBackShiming =new HttpCallResultBackShiming(new HttpCallResultBack() {
             @Override
             public void doresult(HttpResult result) {
+                if(result.getResult()!=null){
+                    Shiming shiming1 = new Shiming(result.getResult());
+                    if(result.isSuccess()){
 
+                        shiming1.setSuccess(2);
+                    }
+                    else{
+                        shiming1.setSuccess(0);
+                        SellApplication.failureResult(result);
+                    }
+                    try {
+                        SellApplication.db.saveOrUpdate(shiming1);
+                    } catch (DbException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -397,6 +452,8 @@ public class XiaoShouAnalysis extends Activity {
 
             }
         });
+        httpCallResultBackShiming.setParams(params);
+        SellApplication.post(httpCallResultBackShiming);
 
     }
 

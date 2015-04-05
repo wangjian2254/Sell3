@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/form_bg" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.wj.sell3.ui.TitleBar android:id="@id/titlebar" android:layout_width="fill_parent" android:layout_height="45dip" android:layout_alignParentTop="true" />
+    <ListView android:id="@+id/real_name_list" android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+    </ListView>
+</LinearLayout>

@@ -45,7 +45,7 @@ public class Main extends Activity {
 	private Handler tmpMainHandler4;
 	private TextView notice;
 	
-	String[] appArr={"function_1_icon,实名认证"};
+	String[] appArr={"function_1_icon,实名认证", "function_2_icon,实名记录"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +146,10 @@ public class Main extends Activity {
     	if("function_1_icon".equals(p.getAppcode())){
     		Intent mainIntent = new Intent(con,XiaoShouAnalysis.class);
     		startActivity(mainIntent); 
-    	}
+    	}else if("function_2_icon".equals(p.getAppcode())){
+			Intent mainIntent = new Intent(con,XiaoShouAnalysis4.class);
+			startActivity(mainIntent);
+		}
     	else{
     		Toast.makeText(con, p.getName()+"尚未开发", Toast.LENGTH_SHORT).show();
     	}

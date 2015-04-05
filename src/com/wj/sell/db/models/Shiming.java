@@ -23,6 +23,8 @@ public class Shiming implements Serializable{
 	private String qfjg;
 	private String yxqx;
 
+	private String create_time;
+
 	public int getS_id() {
 		return s_id;
 	}
@@ -57,6 +59,14 @@ public class Shiming implements Serializable{
 
 	public String getAddress() {
 		return address;
+	}
+
+	public String getCreate_time() {
+		return create_time;
+	}
+
+	public void setCreate_time(String create_time) {
+		this.create_time = create_time;
 	}
 
 	public void setAddress(String address) {

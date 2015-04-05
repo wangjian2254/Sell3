@@ -12,4 +12,8 @@
     <color name="white">#ffffffff</color>
     <color name="blue">#ff1b4f92</color>
     <color name="dark_orange">#ffa61717</color>
+
+    <color name="project_item_normal1">#ffffff</color>
+    <color name="project_item_normal2">#f0f0f0</color>
+    <color name="project_item_pressed">#d9d9d9</color>
 </resources>
