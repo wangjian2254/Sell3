@@ -502,6 +502,10 @@ public class XiaoShouAnalysis extends Activity {
                     }
 
 
+                }else{
+                    if(!result.isSuccess()){
+                        SellApplication.failureResult(result);
+                    }
                 }
             }
 
