@@ -322,7 +322,7 @@ public class XiaoShouAnalysis extends Activity {
                 String key = (String) localIterator.next();
                 String value = (String) localMap.get(key);
                 if (key.equals("name")) {
-
+                    name.setText(value);
                 } else if (key.equals("id_number")) {
                     number.setText(value);
                 } else if (key.equals("address")) {
@@ -464,7 +464,7 @@ public class XiaoShouAnalysis extends Activity {
         params.addBodyParameter("address", address.getText().toString());
         params.addBodyParameter("qfjg", danwei.getText().toString());
         params.addBodyParameter("yxqx", qixian.getText().toString());
-        Shiming shiming = new Shiming();
+        final Shiming shiming = new Shiming();
         shiming.setAddress(address.getText().toString());
         shiming.setCardno(number.getText().toString());
         shiming.setName(name.getText().toString());
@@ -480,7 +480,7 @@ public class XiaoShouAnalysis extends Activity {
             e.printStackTrace();
         }
 
-        SellApplication.showDialog("正在加载","", con);
+        SellApplication.showDialog("正在实名","", con);
         HttpCallResultBackShiming httpCallResultBackShiming = new HttpCallResultBackShiming(new HttpCallResultBack() {
             @Override
             public void doresult(HttpResult result) {
@@ -493,6 +493,7 @@ public class XiaoShouAnalysis extends Activity {
                     }
                     else{
                         shiming1.setSuccess(0);
+                        shiming1.setMessage(result.getMessage());
                         SellApplication.failureResult(result);
                     }
                     try {
@@ -504,6 +505,12 @@ public class XiaoShouAnalysis extends Activity {
 
                 }else{
                     if(!result.isSuccess()){
+                        shiming.setMessage(result.getMessage());
+                        try {
+                            SellApplication.db.saveOrUpdate(shiming);
+                        } catch (DbException e) {
+                            e.printStackTrace();
+                        }
                         SellApplication.failureResult(result);
                     }
                 }
