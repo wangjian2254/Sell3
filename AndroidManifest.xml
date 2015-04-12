@@ -64,6 +64,11 @@
 				  android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
 
 		</activity>
+		<activity android:name="com.wj.sell3.XiaoShouAnalysis5"
+				  android:screenOrientation="portrait"
+				  android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
+
+		</activity>
 
         <activity android:theme="@android:style/Theme.NoTitleBar" android:name=".ui.BluetoothActivity" android:screenOrientation="portrait">
             <intent-filter>

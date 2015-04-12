@@ -45,7 +45,7 @@ public class Main extends Activity {
 	private Handler tmpMainHandler4;
 	private TextView notice;
 	
-	String[] appArr={"function_1_icon,实名认证", "function_2_icon,实名记录"};
+	String[] appArr={"function_1_icon,实名认证", "function_2_icon,实名记录", "function_3_icon,实名统计"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +148,9 @@ public class Main extends Activity {
     		startActivity(mainIntent); 
     	}else if("function_2_icon".equals(p.getAppcode())){
 			Intent mainIntent = new Intent(con,XiaoShouAnalysis4.class);
+			startActivity(mainIntent);
+		}else if("function_3_icon".equals(p.getAppcode())){
+			Intent mainIntent = new Intent(con,XiaoShouAnalysis5.class);
 			startActivity(mainIntent);
 		}
     	else{

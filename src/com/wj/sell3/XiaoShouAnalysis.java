@@ -489,7 +489,8 @@ public class XiaoShouAnalysis extends Activity {
                     if(result.isSuccess()){
 
                         shiming1.setSuccess(2);
-                        finish();
+                        ToastCustom.showMessage(con, "实名成功。");
+                        return;
                     }
                     else{
                         shiming1.setSuccess(0);
