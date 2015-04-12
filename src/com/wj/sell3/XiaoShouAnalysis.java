@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.*;
 import com.lidroid.xutils.exception.DbException;
+import com.umeng.analytics.MobclickAgent;
 import com.wj.sell3.ui.*;
 import com.lidroid.xutils.http.RequestParams;
 import com.wj.sell.db.models.Shiming;
@@ -53,6 +54,7 @@ public class XiaoShouAnalysis extends Activity {
     EditText qixian;
     EditText address;
     EditText danwei;
+    Button photo;
 
 
     AlertDialogCustom localAlertDialogCustom;
@@ -121,6 +123,8 @@ public class XiaoShouAnalysis extends Activity {
         setContentView(R.layout.real_name_registration_form);
 
 
+
+        photo = (Button) findViewById(R.id.photo);
         name = (EditText) findViewById(R.id.name);
         tel = (EditText) findViewById(R.id.tel);
         number = (EditText) findViewById(R.id.number);
@@ -200,6 +204,11 @@ public class XiaoShouAnalysis extends Activity {
             }
         });
         this.titleBar.setUp();
+
+        String p = MobclickAgent.getConfigParams(this, "isusephoto");
+        if("1".equals(p)){
+            photo.setVisibility(View.VISIBLE);
+        }
     }
 
     public void showOffice() {
