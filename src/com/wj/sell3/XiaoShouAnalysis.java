@@ -63,8 +63,13 @@ public class XiaoShouAnalysis extends Activity {
     public static final int APPLIST = Menu.FIRST + 2;
     TitleBar titleBar;
     Handler handler = new Handler() {
+        /**
+         * 实名获取到无有效期的身份证的处理优化
+         * @param msg
+         */
         @Override
         public void handleMessage(Message msg) {
+
             switch (msg.what) {
                 case 0:
                     Bundle b = msg.getData();
@@ -77,12 +82,16 @@ public class XiaoShouAnalysis extends Activity {
                     String address = cardInfo[i++].trim();
                     String number = cardInfo[i++].trim();
                     String danwei = cardInfo[i++].trim();
-                    String[] qixian = cardInfo[i++].trim().replace(" ", "").split("-");
-                    String qixian_start = qixian[0];
-                    String qixian_end = qixian[1];
-                    String qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "." + qixian_start.substring(6, 8)
-                            + "-" + qixian_end.substring(0, 4) + "." + qixian_end.substring(4, 6) + "." + qixian_end.substring(6, 8);
+                    String qixian_str = "";
+                    try {
+                        String[] qixian = cardInfo[i++].trim().replace(" ", "").split("-");
+                        String qixian_start = qixian[0];
+                        String qixian_end = qixian[1];
+                        qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "." + qixian_start.substring(6, 8)
+                                + "-" + qixian_end.substring(0, 4) + "." + qixian_end.substring(4, 6) + "." + qixian_end.substring(6, 8);
+                    }catch(Exception e){
 
+                    }
                     XiaoShouAnalysis.this.name.setText(name);
                     XiaoShouAnalysis.this.number.setText(number);
 
@@ -453,10 +462,10 @@ public class XiaoShouAnalysis extends Activity {
             ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
-        if("".equals(qixian.getText().toString())){
-            ToastCustom.showMessage(con, "请扫描身份证");
-            return;
-        }
+//        if("".equals(qixian.getText().toString())){
+//            ToastCustom.showMessage(con, "请扫描身份证");
+//            return;
+//        }
         RequestParams params = new RequestParams();
         params.addBodyParameter("phone_number", tel.getText().toString());
         params.addBodyParameter("cardno", number.getText().toString());
