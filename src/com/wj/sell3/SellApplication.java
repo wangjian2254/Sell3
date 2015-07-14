@@ -40,6 +40,7 @@ import com.wj.sell.util.Convert;
 import com.wj.sell.util.HttpCallResultBackBase;
 import com.wj.sell.util.HttpResult;
 import com.wj.sell3.ui.AlertDialogCustom;
+import com.wj.sell3.ui.ToastCustom;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie;
 
@@ -141,7 +142,8 @@ public class SellApplication extends Application {
                 HttpResult result = (HttpResult)msg.obj;
                 if (msg.what == 0) {
                     if(result.getDialog()==0){
-                        Toast.makeText(instance, result.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(instance, result.getMessage(), Toast.LENGTH_SHORT).show();
+                        ToastCustom.showMessage(instance, result.getMessage());
                     }
                     if(result.getDialog()==1){
                         AlertDialogCustom dialogCustom = new AlertDialogCustom(instance);
@@ -170,6 +172,9 @@ public class SellApplication extends Application {
                                 showMessage(result);
                                 break;
                             case 3:             //需要username/password
+                                showMessage(result);
+                                break;
+                            case 4:             //需要username/password
                                 showMessage(result);
                                 break;
                             case 401:             //error

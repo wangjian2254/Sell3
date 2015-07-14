@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.*;
 import com.lidroid.xutils.exception.DbException;
+import com.umeng.analytics.MobclickAgent;
 import com.wj.sell3.ui.*;
 import com.lidroid.xutils.http.RequestParams;
 import com.wj.sell.db.models.Shiming;
@@ -53,6 +54,7 @@ public class XiaoShouAnalysis extends Activity {
     EditText qixian;
     EditText address;
     EditText danwei;
+    Button photo;
 
 
     AlertDialogCustom localAlertDialogCustom;
@@ -130,6 +132,8 @@ public class XiaoShouAnalysis extends Activity {
         setContentView(R.layout.real_name_registration_form);
 
 
+
+        photo = (Button) findViewById(R.id.photo);
         name = (EditText) findViewById(R.id.name);
         tel = (EditText) findViewById(R.id.tel);
         number = (EditText) findViewById(R.id.number);
@@ -209,6 +213,11 @@ public class XiaoShouAnalysis extends Activity {
             }
         });
         this.titleBar.setUp();
+
+        String p = MobclickAgent.getConfigParams(this, "isusephoto");
+        if("1".equals(p)){
+            photo.setVisibility(View.VISIBLE);
+        }
     }
 
     public void showOffice() {
@@ -331,7 +340,7 @@ public class XiaoShouAnalysis extends Activity {
                 String key = (String) localIterator.next();
                 String value = (String) localMap.get(key);
                 if (key.equals("name")) {
-
+                    name.setText(value);
                 } else if (key.equals("id_number")) {
                     number.setText(value);
                 } else if (key.equals("address")) {
@@ -473,7 +482,7 @@ public class XiaoShouAnalysis extends Activity {
         params.addBodyParameter("address", address.getText().toString());
         params.addBodyParameter("qfjg", danwei.getText().toString());
         params.addBodyParameter("yxqx", qixian.getText().toString());
-        Shiming shiming = new Shiming();
+        final Shiming shiming = new Shiming();
         shiming.setAddress(address.getText().toString());
         shiming.setCardno(number.getText().toString());
         shiming.setName(name.getText().toString());
@@ -489,7 +498,7 @@ public class XiaoShouAnalysis extends Activity {
             e.printStackTrace();
         }
 
-        SellApplication.showDialog("正在加载","", con);
+        SellApplication.showDialog("正在实名","", con);
         HttpCallResultBackShiming httpCallResultBackShiming = new HttpCallResultBackShiming(new HttpCallResultBack() {
             @Override
             public void doresult(HttpResult result) {
@@ -498,10 +507,12 @@ public class XiaoShouAnalysis extends Activity {
                     if(result.isSuccess()){
 
                         shiming1.setSuccess(2);
-                        finish();
+                        ToastCustom.showMessage(con, "实名成功。");
+                        return;
                     }
                     else{
                         shiming1.setSuccess(0);
+                        shiming1.setMessage(result.getMessage());
                         SellApplication.failureResult(result);
                     }
                     try {
@@ -511,6 +522,16 @@ public class XiaoShouAnalysis extends Activity {
                     }
 
 
+                }else{
+                    if(!result.isSuccess()){
+                        shiming.setMessage(result.getMessage());
+                        try {
+                            SellApplication.db.saveOrUpdate(shiming);
+                        } catch (DbException e) {
+                            e.printStackTrace();
+                        }
+                        SellApplication.failureResult(result);
+                    }
                 }
             }
 

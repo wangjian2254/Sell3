@@ -14,11 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lidroid.xutils.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
@@ -44,12 +41,14 @@ public class Main extends Activity {
 	public static final int RELOGIN = Menu.FIRST + 1;
 	private Handler tmpMainHandler4;
 	private TextView notice;
+
 	
-	String[] appArr={"function_1_icon,实名认证", "function_2_icon,实名记录"};
+	String[] appArr={"function_1_icon,实名认证", "function_2_icon,实名记录", "function_3_icon,实名统计"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ChannelApplication.mContext=this;
+		MobclickAgent.updateOnlineConfig(this);
 		UmengUpdateAgent.update(this);
         UmengUpdateAgent.update(this);
         UmengUpdateAgent.setUpdateAutoPopup(true);
@@ -148,6 +147,9 @@ public class Main extends Activity {
     		startActivity(mainIntent); 
     	}else if("function_2_icon".equals(p.getAppcode())){
 			Intent mainIntent = new Intent(con,XiaoShouAnalysis4.class);
+			startActivity(mainIntent);
+		}else if("function_3_icon".equals(p.getAppcode())){
+			Intent mainIntent = new Intent(con,XiaoShouAnalysis5.class);
 			startActivity(mainIntent);
 		}
     	else{

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/form_bg" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.wj.sell3.ui.TitleBar android:id="@id/titlebar" android:layout_width="fill_parent" android:layout_height="45dip" android:layout_alignParentTop="true" />
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"  android:padding="10dp" android:orientation="vertical">
+      <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#000" android:text="开始时间"/>
+      </LinearLayout>
+      <DatePicker android:id="@+id/datePicker_start"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_horizontal"/>
+      <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#000" android:text="结束时间"/>
+      </LinearLayout>
+      <DatePicker android:id="@+id/datePicker_end"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_horizontal"/>
+      <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <Button android:id="@+id/btn_query" android:text="查询" android:onClick="queryTongji" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+      </LinearLayout>
+      <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+        <TextView android:id="@+id/result" android:gravity="center" android:text="实名成功数量" android:textColor="#000"
+                  android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+      </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

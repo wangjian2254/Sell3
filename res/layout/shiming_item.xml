@@ -10,25 +10,18 @@
 	>
 	</Button> -->
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="35dp" android:orientation="horizontal" android:padding="5dp">
+
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="30dp" android:orientation="horizontal" android:paddingBottom="5dp" android:paddingLeft="5dp" android:paddingRight="5dp">
 		<TextView android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="手机号码:" android:textSize="18dip"/>
 		<TextView android:id="@+id/phone_number"
-				  android:gravity="center_horizontal"
-				  android:layout_width="wrap_content" android:layout_height="22dip"
-				  android:textSize="18dip" android:textColor="#000000" android:text="2323234234234"
-				/>
-	</LinearLayout>
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="30dp" android:orientation="horizontal" android:paddingBottom="5dp" android:paddingLeft="5dp" android:paddingRight="5dp">
-		<TextView android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="客户姓名:" android:textSize="18dip"/>
-		<TextView android:id="@+id/user_name"
 				  android:gravity="center_horizontal"
 				  android:layout_width="wrap_content"
 				  android:layout_weight="1.0"
 				  android:layout_height="22dip"
 				  android:textSize="18dip" android:textColor="#000000" android:text="sdf"
 				/>
-		<TextView android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="实名状态:" android:textSize="18dip"/>
-		<TextView android:id="@+id/real_status"
+		<TextView android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="客户姓名:" android:textSize="18dip"/>
+		<TextView android:id="@+id/user_name"
 				  android:gravity="center_horizontal"
 				  android:layout_width="wrap_content"
 				  android:layout_weight="1.0"
@@ -36,6 +29,15 @@
 				  android:textSize="18dip" android:textColor="#000000" android:text="成功"
 				/>
 
+	</LinearLayout>
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="35dp" android:orientation="horizontal" android:padding="5dp">
+		<TextView android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="实名状态:" android:textSize="18dip"/>
+		<TextView
+				android:id="@+id/real_status"
+				  android:gravity="center_horizontal"
+				  android:layout_width="wrap_content" android:layout_height="22dip"
+				  android:textSize="18dip" android:textColor="#000000" android:text="2323234234234"
+				/>
 	</LinearLayout>
 
 </LinearLayout>

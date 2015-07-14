@@ -68,7 +68,12 @@ public class ShimingItemAdapter extends BaseAdapter {
 		user_name.setText(appItem.getName());
 		switch (appItem.getSuccess()){
 			case 0:
-				real_status.setText("等待实名审核");
+				if(appItem.getMessage()==null){
+					real_status.setText("等待实名");
+				}else{
+					real_status.setText(appItem.getMessage());
+				}
+
 				break;
 			case 1:
 				real_status.setText("实名失败");
