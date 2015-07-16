@@ -21,7 +21,7 @@ public class ToastCustom {
         localTextView.setTextSize(14.0F);
         Toast localToast = new Toast(paramContext);
         localToast.setGravity(17, 0, 0);
-        localToast.setDuration(Toast.LENGTH_SHORT);
+        localToast.setDuration(Toast.LENGTH_LONG);
         localToast.setView(view);
         localToast.show();
 
