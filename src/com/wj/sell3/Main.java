@@ -43,7 +43,7 @@ public class Main extends Activity {
 	private TextView notice;
 
 	
-	String[] appArr={"function_1_icon,实名认证", "function_2_icon,实名记录", "function_3_icon,实名统计"};
+	String[] appArr={"function_1_icon,蓝牙读卡登记", "function_2_icon,快递信息比对", "function_3_icon,USB读卡登记"};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,11 +146,12 @@ public class Main extends Activity {
     		Intent mainIntent = new Intent(con,XiaoShouAnalysis.class);
     		startActivity(mainIntent); 
     	}else if("function_2_icon".equals(p.getAppcode())){
-			Intent mainIntent = new Intent(con,XiaoShouAnalysis4.class);
-			startActivity(mainIntent);
+
+//			Intent mainIntent = new Intent(con,XiaoShouAnalysis4.class);
+//			startActivity(mainIntent);
 		}else if("function_3_icon".equals(p.getAppcode())){
-			Intent mainIntent = new Intent(con,XiaoShouAnalysis5.class);
-			startActivity(mainIntent);
+//			Intent mainIntent = new Intent(con,XiaoShouAnalysis5.class);
+//			startActivity(mainIntent);
 		}
     	else{
     		Toast.makeText(con, p.getName()+"尚未开发", Toast.LENGTH_SHORT).show();

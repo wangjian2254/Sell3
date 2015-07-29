@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:orientation="vertical" android:background="@color/form_bg" android:layout_width="fill_parent" android:layout_height="fill_parent"
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.ailk.mobile.channel.widget.TitleBar android:id="@id/titlebar" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" />
+    <com.wj.sell3.ui.TitleBar android:id="@id/titlebar" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" />
     <LinearLayout android:orientation="horizontal" android:id="@id/bottom" android:background="#ffdde2e9" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
         <Button android:textColor="@color/dark_orange" android:id="@id/agree" android:background="@drawable/bg_orange_btn" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="同意" android:layout_weight="3.0" />
         <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="5.0" />

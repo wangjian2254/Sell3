@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/form_bg" android:padding="@dimen/layout_margin15" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:background="@drawable/form_back" android:layout_width="fill_parent" android:layout_height="0.0px" android:layout_weight="1.0">
+        <TextView android:textSize="18.0sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="已配对设备：" />
+        <ImageView android:background="#ffcbd1d9" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        <ListView android:id="@id/btAdrr_list" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:background="@drawable/form_back" android:layout_width="fill_parent" android:layout_height="0.0px" android:layout_marginTop="@dimen/layout_margin10" android:layout_weight="1.0">
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="18.0sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="可用设备：" android:layout_weight="1.0" />
+            <Button android:textSize="15.0sp" android:textColor="@color/dark_orange" android:id="@+id/search_button" android:background="@drawable/bg_orange_btn" android:padding="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="点击扫描" android:layout_weight="2.0" />
+        </LinearLayout>
+        <ImageView android:background="#ffcbd1d9" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        <ListView android:id="@+id/btAdrr_list2" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

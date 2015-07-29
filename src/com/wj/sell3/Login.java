@@ -3,6 +3,7 @@ package com.wj.sell3;
 import java.io.File;
 import java.util.List;
 
+import android.widget.*;
 import com.lidroid.xutils.http.RequestParams;
 import com.wj.sell.util.HttpCallResultBack;
 import com.wj.sell.util.HttpCallResultBackLogin;
@@ -31,18 +32,14 @@ import android.os.Message;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class Login extends Activity implements AlertDialogCancelListener,AlertDialogOKListener {
 
 	Button login;
 	Button reset;
-	EditTextCustom username;
-	EditTextCustom password;
+	EditText username;
+	EditText password;
 	private ImageView bg;
 	  private ImageView loadImage;
 	  private TextView loadingTextView;
@@ -90,17 +87,17 @@ public class Login extends Activity implements AlertDialogCancelListener,AlertDi
 		setContentView(R.layout.load);
 		client = new DefaultHttpClient();
 		this.loadImage = ((ImageView)findViewById(R.id.image_load));
-	    Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.load);
-	    this.loadImage.setAnimation(localAnimation);
-	    localAnimation.startNow();
+//	    Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.load);
+//	    this.loadImage.setAnimation(localAnimation);
+//	    localAnimation.startNow();
 	    this.loadingView = findViewById(R.id.loading_layout_id);
 	    this.loginView = findViewById(R.id.login_with_name_pwd_layout_id);
 	    this.rLayout = ((IMELayout)findViewById(R.id.b_layout));
 	    this.bg = ((ImageView)findViewById(R.id.image_bg));
 		login = (Button) findViewById(R.id.login_btn_ok_id);
-		username = (EditTextCustom) findViewById(R.id.channal_num_edittext_id);
+		username = (EditText) findViewById(R.id.channal_num_edittext_id);
 //		username.setText("bj040_01");
-		password = (EditTextCustom) findViewById(R.id.channal_pwd_edittext_id);
+		password = (EditText) findViewById(R.id.channal_pwd_edittext_id);
 //		password.setText("111111");
 		
 //		this.titleBar = ((TitleBar)findViewById(R.id.titlebar));

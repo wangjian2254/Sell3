@@ -3,26 +3,29 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView android:id="@id/image_bg" android:background="@drawable/bg_load" android:layout_width="fill_parent" android:layout_height="fill_parent" />
     <LinearLayout android:gravity="bottom" android:orientation="vertical" android:id="@id/loading_content_layout_id" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
-        <RelativeLayout android:gravity="center" android:id="@id/loading_layout_id" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="70.0dip">
-            <ImageView android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/load_bgline" android:layout_centerInParent="true" />
-            <ImageView android:id="@id/image_load" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/load_point" android:layout_centerVertical="true" />
-        </RelativeLayout>
-        <LinearLayout android:orientation="vertical" android:id="@id/login_with_name_pwd_layout_id" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="15.0dip">
-            <LinearLayout android:orientation="vertical" android:background="@drawable/form_back" android:padding="0.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
-                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="7.0dip">
-                    <TextView android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/username" android:layout_weight="3.0" />
-                    <com.wj.sell3.ui.EditTextCustom android:gravity="left" android:id="@id/channal_num_edittext_id" android:background="@null" android:paddingLeft="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:hint="@string/username_comments" android:text="" android:singleLine="true" android:maxLength="100" android:layout_weight="1.0" android:inputType="none" />
-                </LinearLayout>
-                <ImageView android:background="#ff97adca" android:layout_width="fill_parent" android:layout_height="0.5dip" />
-                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="7.0dip">
-                    <TextView android:textColor="@color/text_blue" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/password" android:layout_weight="3.0" />
-                    <com.wj.sell3.ui.EditTextCustom android:gravity="left" android:id="@id/channal_pwd_edittext_id" android:background="@null" android:paddingLeft="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:hint="@string/password_comments" android:text="" android:singleLine="true" android:maxLength="100" android:layout_weight="1.0" android:inputType="textPassword" />
-                </LinearLayout>
+        <LinearLayout android:gravity="center" android:id="@+id/version_id" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+            <TextView android:id="@+id/version_code" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/versioncode" />
+            <TextView android:id="@+id/version_code_comments" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1.5" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/login_with_name_pwd_layout_id" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="35.0dip">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="12.0sp" android:textColor="#fffefefe" android:gravity="center" android:id="@+id/title_tel" android:layout_width="0.0dip" android:layout_height="30.0dip" android:text="渠道账号" android:layout_weight="1.0" />
+                <TextView android:textSize="12.0sp" android:textColor="#fffefefe" android:gravity="center" android:id="@+id/title_4A" android:layout_width="0.0dip" android:layout_height="30.0dip" android:text="4A工号" android:layout_weight="1.0" />
             </LinearLayout>
-            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="25.0dip">
-                <Button android:textColor="@color/dark_orange" android:id="@id/login_btn_ok_id" android:onClick="onLogin" android:background="@drawable/bg_orange_btn" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/login_btn" />
+            <LinearLayout android:id="@+id/indicator_line" android:background="#ff4daade" android:layout_width="fill_parent" android:layout_height="3.0dip">
+                <ImageView android:id="@+id/indicator" android:layout_width="150.0dip" android:layout_height="fill_parent" android:src="#ffffffff" android:scaleType="matrix" />
+            </LinearLayout>
+            <RelativeLayout android:id="@+id/tab1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp">
+                <ImageView android:id="@+id/ic_account_4A" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_account_boss" />
+                <EditText android:textSize="14.0sp" android:id="@id/channal_num_edittext_id" android:tag="account" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="渠道账号" android:singleLine="true" android:layout_weight="1.0" android:layout_toRightOf="@id/ic_account_4A" android:layout_alignTop="@id/ic_account_4A" android:layout_alignBottom="@id/ic_account_4A" style="@style/CustomEditTextTheme" />
+                <ImageView android:id="@+id/ic_psw_4A" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dip" android:src="@drawable/ic_psw_boss" android:layout_below="@id/ic_account_4A" android:layout_alignRight="@id/ic_account_4A" />
+                <EditText android:id="@id/channal_pwd_edittext_id" android:tag="psw" android:background="@drawable/bg_edittext" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="密码" android:layout_toRightOf="@id/ic_psw_4A" android:layout_alignTop="@id/ic_psw_4A" android:layout_alignBottom="@id/ic_psw_4A" android:inputType="textPassword" style="@style/CustomEditTextTheme" />
+            </RelativeLayout>
+
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="25.0dip" android:layout_marginBottom="20dp">
+                <Button android:textSize="20.0sp" android:textColor="#ffffffff" android:id="@id/login_btn_ok_id" android:onClick="onLogin" android:background="@drawable/bg_login_btn_disable" android:paddingTop="10.0dip" android:paddingBottom="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="96.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="96.0dip" android:text="登  录"  />
+
             </LinearLayout>
         </LinearLayout>
-        <ImageView android:id="@id/image_cmc" android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/cmc" />
     </LinearLayout>
 </com.wj.sell3.ui.IMELayout>

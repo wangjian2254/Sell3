@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wj.sell3.ui.IMELayout android:id="@id/b_layout" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/image_bg" android:background="@drawable/bg_load" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <LinearLayout android:gravity="bottom" android:orientation="vertical" android:id="@id/loading_content_layout_id" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <LinearLayout android:gravity="center" android:id="@+id/version_id" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+            <TextView android:id="@+id/version_code" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/versioncode" />
+            <TextView android:id="@+id/version_code_comments" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1.5" />
+        </LinearLayout>
+        <RelativeLayout android:gravity="center" android:id="@id/loading_layout_id" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="70.0dip">
+            <ImageView android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/load_bgline" android:layout_centerInParent="true" />
+            <ImageView android:id="@id/image_load" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/load_point" android:layout_centerVertical="true" />
+        </RelativeLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/login_with_name_pwd_layout_id" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="15.0dip">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="12.0sp" android:textColor="#fffefefe" android:gravity="center" android:id="@+id/title_tel" android:layout_width="0.0dip" android:layout_height="30.0dip" android:text="渠道账号" android:layout_weight="1.0" />
+                <TextView android:textSize="12.0sp" android:textColor="#fffefefe" android:gravity="center" android:id="@+id/title_4A" android:layout_width="0.0dip" android:layout_height="30.0dip" android:text="4A工号" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/indicator_line" android:background="#ff4daade" android:layout_width="fill_parent" android:layout_height="3.0dip">
+                <ImageView android:id="@+id/indicator" android:layout_width="150.0dip" android:layout_height="fill_parent" android:src="#ffffffff" android:scaleType="matrix" />
+            </LinearLayout>
+            <android.support.v4.view.ViewPager android:id="@+id/pager" android:layout_width="fill_parent" android:layout_height="235.0dip" android:layout_marginTop="8.0dip" />
+        </LinearLayout>
+    </LinearLayout>
+</com.wj.sell3.ui.IMELayout>

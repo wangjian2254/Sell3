@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">渠道系统</string>
+    <string name="app_name">实名登记</string>
     <string name="shiming_luru">实名信息录入</string>
     <string name="shiming_jilu">实名记录</string>
     <string name="action_settings">Settings</string>
@@ -9,7 +9,15 @@
     <string name="repassword">确认密码：</string>
     <string name="writepassword">自动登录</string>
     <string name="copyright">技术支持:北京六律科技有限公司</string>
-    <string name="app">渠道系统</string>
+    <string name="form_card">身份证号:</string>
+    <string name="form_card_type_comments1">身份证</string>
+    <string name="form_submit2">返回</string>
+    <string name="form_photo">拍照</string>
+    <string name="form_bluetooth">蓝牙</string>
+    <string name="form_qixian">期限:</string>
+    <string name="form_qianfa">签发单位:</string>
+
+    <string name="app">实名登记</string>
     <string name="dialog_button_ok">确定</string>
     <string name="dialog_button_cancel">取消</string>
     <string name="net_error">网络异常</string>
@@ -21,14 +29,15 @@
     <string name="reset_btn">重 置</string>
     <string name="login_error_tips">请检查用户名和密码</string>
     <string name="pwd_no_cn_tips">密码禁止输入中文</string>
+    <string name="versioncode">版本号:</string>
     <string name="function_title">渠道系统功能导航</string>
-    <string name="form_title">实名信息录入</string>
+    <string name="form_title">集团版拍照登记</string>
+    <string name="form_title2">本地版拍照登记</string>
+    <string name="form_title_distribution">分销二级店面实名登记</string>
     <string name="form_phoneno">手机号码:</string>
     <string name="form_phoneno_comments" />
     <string name="form_card_type">证件类型:</string>
-    <string name="form_card">身份证号:</string>
     <string name="form_card_type_comments">请选择证件类型</string>
-    <string name="form_card_type_comments1">身份证</string>
     <string name="form_name">姓名:</string>
     <string name="form_name_comments" />
     <string name="form_gender">性别:</string>
@@ -43,9 +52,11 @@
     <string name="form_card_no_comments" />
     <string name="form_gender_male">男</string>
     <string name="form_gender_famale">女</string>
+    <string name="form_nextstep">下一步</string>
     <string name="form_submit">提交</string>
-    <string name="form_submit2">返回</string>
     <string name="form_reset">重置</string>
+    <string name="form_authority">签发单位:</string>
+    <string name="form_validate">有效期限:</string>
     <string name="confirm_title">实名信息确认</string>
     <string name="confirm_card_type">证件类型:</string>
     <string name="confirm_name">姓名:</string>
@@ -56,14 +67,31 @@
     <string name="confirm_card_no">证件号码:</string>
     <string name="confirm">通过</string>
     <string name="cancel">不通过</string>
+    <string name="form_tooth">蓝牙</string>
+    <string name="form_tooth_tittle">蓝牙读卡登记</string>
+    <string name="info_comp_tittle">快递信息比对</string>
+    <string name="form_order_id">订单编号:</string>
+    <string name="form_order_id_comments" />
+    <string name="form_usb_title">USB读卡登记</string>
+    <string name="form_usb_button">USB读卡</string>
     <string name="protocol_title">预付费用户入网协议</string>
     <string name="result_title">登记成功</string>
-    <string name="result_ok">恭喜您，新用户入网实名登记办理成功！</string>
+    <string name="result_ok">尊敬的客户，%1$s号码的身份信息登记办理成功，如果您还希望后续凭您登记的身份证在我公司办理业务，请在营业厅完成相关手续，谢谢您的合作。</string>
     <string name="redo">再次办理</string>
     <string name="toIndex">返回首页</string>
     <string name="login_title">登录</string>
-    <string name="form_photo">拍照</string>
-    <string name="form_bluetooth">蓝牙</string>
-    <string name="form_qixian">期限:</string>
-    <string name="form_qianfa">签发单位:</string>
+    <string name="take_photo">拍照</string>
+    <string name="upload_photo">上传</string>
+    <string name="upload_success">上传成功</string>
+    <string name="upload_fail">上传失败</string>
+    <string name="notice_info">提示信息:</string>
+    <string name="infomation">请拍摄包含本人头像以及身份证的清晰图片并上传至服务器</string>
+    <string name="anti_cmcc">本机非移动用户，实名登记后将无法收到短信提示,请改用移动用户做实名登记</string>
+    <string name="form_title_result">分销实名登记结果查询</string>
+    <string name="time_start">开始时间:</string>
+    <string name="time_end">结束时间:</string>
+    <string name="btn_query">查询</string>
+    <string name="btn_reset">重置</string>
+    <string name="result_auth">认证结果:</string>
+    <string name="time_auth">认证时间:</string>
 </resources>
