@@ -43,7 +43,8 @@ public class Main extends Activity {
 	private TextView notice;
 
 	
-	String[] appArr={"function_1_icon,蓝牙读卡登记", "function_2_icon,快递信息比对", "function_3_icon,USB读卡登记"};
+	String[] appArr={"function_1_icon,蓝牙读卡登记","function_2_icon,实名记录", "function_3_icon,实名统计", "function_4_icon,快递信息比对", "function_5_icon,USB读卡登记"};
+	//String[] appArr={"function_1_icon,实名认证", };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,11 +135,21 @@ public class Main extends Activity {
     
     private void getPluginList(){
     	pluginList.clear();
+		String isshowyidongapp = MobclickAgent.getConfigParams(this, "isshowyidongapp");
+		int num = 0;
     	for(String appcode:appArr){
+			num++;
+			if("1".equals(isshowyidongapp)&&num>3){
+				continue;
+			}
+			if("0".equals(isshowyidongapp)&&num>1&&num<4){
+				continue;
+			}
     		PluginMod p=new PluginMod();
     		p.setAppcode(appcode.split(",")[0]);
     		p.setName(appcode.split(",")[1]);
     		pluginList.add(p);
+
     	}
     }
     public void gotoPlugin(PluginMod p){
@@ -147,11 +158,11 @@ public class Main extends Activity {
     		startActivity(mainIntent); 
     	}else if("function_2_icon".equals(p.getAppcode())){
 
-//			Intent mainIntent = new Intent(con,XiaoShouAnalysis4.class);
-//			startActivity(mainIntent);
+			Intent mainIntent = new Intent(con,XiaoShouAnalysis4.class);
+			startActivity(mainIntent);
 		}else if("function_3_icon".equals(p.getAppcode())){
-//			Intent mainIntent = new Intent(con,XiaoShouAnalysis5.class);
-//			startActivity(mainIntent);
+			Intent mainIntent = new Intent(con,XiaoShouAnalysis5.class);
+			startActivity(mainIntent);
 		}
     	else{
     		Toast.makeText(con, p.getName()+"尚未开发", Toast.LENGTH_SHORT).show();
