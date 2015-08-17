@@ -14,6 +14,7 @@
     <string name="form_submit2">返回</string>
     <string name="form_photo">拍照</string>
     <string name="form_bluetooth">蓝牙</string>
+    <string name="form_usb">USB</string>
     <string name="form_qixian">期限:</string>
     <string name="form_qianfa">签发单位:</string>
 

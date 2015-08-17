@@ -10,8 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.Path;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.*;
+import com.cmcc.nativepackage.UsbIDCard;
 import com.lidroid.xutils.exception.DbException;
 import com.umeng.analytics.MobclickAgent;
 import com.wj.sell3.ui.*;
@@ -91,7 +93,7 @@ public class XiaoShouAnalysis extends Activity {
                         String qixian_end = qixian[1];
                         qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "." + qixian_start.substring(6, 8)
                                 + "-" + qixian_end.substring(0, 4) + "." + qixian_end.substring(4, 6) + "." + qixian_end.substring(6, 8);
-                    }catch(Exception e){
+                    } catch (Exception e) {
 
                     }
                     XiaoShouAnalysis.this.name.setText(name);
@@ -130,7 +132,6 @@ public class XiaoShouAnalysis extends Activity {
         Bundle bunde = this.getIntent().getExtras();
         user = SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
         setContentView(R.layout.real_name_registration_form);
-
 
 
         photo = (Button) findViewById(R.id.photo);
@@ -215,7 +216,7 @@ public class XiaoShouAnalysis extends Activity {
         this.titleBar.setUp();
 
         String p = MobclickAgent.getConfigParams(this, "isusephoto");
-        if("1".equals(p)){
+        if ("1".equals(p)) {
             photo.setVisibility(View.VISIBLE);
         }
     }
@@ -379,6 +380,35 @@ public class XiaoShouAnalysis extends Activity {
         startActivityForResult(new Intent(this, BluetoothActivity.class), 100);
     }
 
+    public void usbTooth(View view) {
+        String[] arrayOfString = new String[9];
+        byte[] arrayOfByte = new byte[65530];
+        if (UsbIDCard.isOTGDevice() != 0) {
+            ToastCustom.showMessage(con, "未检测到二代证设备连接到手机，请重启二代证设备后进行重试");
+        } else if (UsbIDCard.openIDCard(1, "", "") != 0) {
+            ToastCustom.showMessage(con, "打开设备失败，请尝试重新连接二代证设备");
+        } else if (UsbIDCard.initialIDCard() != 0) {
+            ToastCustom.showMessage(con, "初始化设备失败，请尝试重启二代证设备并重新操作");
+        } else if (UsbIDCard.getIdCardInfo(arrayOfString, arrayOfByte) != 0) {
+            ToastCustom.showMessage(con, "读取信息失败，请尝试调整证件摆放位置并重新操作");
+        } else {
+
+            ToastCustom.showMessage(con, arrayOfString[0].toString());
+//            this.e.setText(arrayOfString[0].toString());
+//
+//            this.g.setText(arrayOfString[1].toString());
+//            this.j.setText(arrayOfString[2].toString());
+//            this.k.setText(arrayOfString[3].toString());
+//            this.f.setText(arrayOfString[4].toString());
+//            this.h.setText(arrayOfString[5].toString());
+//            this.l.setText(arrayOfString[7].toString());
+//            this.m.setText(arrayOfString[6].toString());
+//            this.x = Base64.decode(arrayOfByte, 0);
+            if (UsbIDCard.closeIDCard() != 0)
+                ToastCustom.showMessage(con, "关闭设备失败");
+        }
+    }
+
     public void failResult(String msg) {
         localAlertDialogCustom = new AlertDialogCustom(this);
         localAlertDialogCustom.show();
@@ -454,20 +484,20 @@ public class XiaoShouAnalysis extends Activity {
             return;
         }
 
-        if("".equals(number.getText().toString())){
+        if ("".equals(number.getText().toString())) {
             ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
 
-        if("".equals(name.getText().toString())){
+        if ("".equals(name.getText().toString())) {
             ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
-        if("".equals(address.getText().toString())){
+        if ("".equals(address.getText().toString())) {
             ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
-        if("".equals(danwei.getText().toString())){
+        if ("".equals(danwei.getText().toString())) {
             ToastCustom.showMessage(con, "请扫描身份证");
             return;
         }
@@ -490,7 +520,7 @@ public class XiaoShouAnalysis extends Activity {
         shiming.setQfjg(danwei.getText().toString());
         shiming.setYxqx(qixian.getText().toString());
         Date date1 = new Date();
-        shiming.setCreate_time(""+(date1.getYear()+1900)+"."+date1.getMonth()+"."+date1.getDate()+" "+date1.getHours()+":"+date1.getMinutes()+":"+date1.getSeconds());
+        shiming.setCreate_time("" + (date1.getYear() + 1900) + "." + date1.getMonth() + "." + date1.getDate() + " " + date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds());
 
         try {
             SellApplication.db.saveOrUpdate(shiming);
@@ -498,19 +528,18 @@ public class XiaoShouAnalysis extends Activity {
             e.printStackTrace();
         }
 
-        SellApplication.showDialog("正在实名","", con);
+        SellApplication.showDialog("正在实名", "", con);
         HttpCallResultBackShiming httpCallResultBackShiming = new HttpCallResultBackShiming(new HttpCallResultBack() {
             @Override
             public void doresult(HttpResult result) {
-                if(result.getResult()!=null){
+                if (result.getResult() != null) {
                     Shiming shiming1 = new Shiming(result.getResult());
-                    if(result.isSuccess()){
+                    if (result.isSuccess()) {
 
                         shiming1.setSuccess(2);
                         ToastCustom.showMessage(con, "实名成功。");
                         return;
-                    }
-                    else{
+                    } else {
                         shiming1.setSuccess(0);
                         shiming1.setMessage(result.getMessage());
                         SellApplication.failureResult(result);
@@ -522,8 +551,8 @@ public class XiaoShouAnalysis extends Activity {
                     }
 
 
-                }else{
-                    if(!result.isSuccess()){
+                } else {
+                    if (!result.isSuccess()) {
                         shiming.setMessage(result.getMessage());
                         try {
                             SellApplication.db.saveOrUpdate(shiming);
