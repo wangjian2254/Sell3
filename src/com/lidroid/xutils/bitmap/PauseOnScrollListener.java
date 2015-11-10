@@ -32,9 +32,9 @@ public class PauseOnScrollListener implements OnScrollListener {
     /**
      * Constructor
      *
-     * @param taskHandler   {@linkplain BitmapUtils} instance for controlling
-     * @param pauseOnScroll Whether {@linkplain BitmapUtils#pause() pause loading} during touch scrolling
-     * @param pauseOnFling  Whether {@linkplain BitmapUtils#pause() pause loading} during fling
+     * @param taskHandler   {@linkplain com.lidroid.xutils.BitmapUtils} instance for controlling
+     * @param pauseOnScroll Whether {@linkplain com.lidroid.xutils.BitmapUtils#pause() pause loading} during touch scrolling
+     * @param pauseOnFling  Whether {@linkplain com.lidroid.xutils.BitmapUtils#pause() pause loading} during fling
      */
     public PauseOnScrollListener(TaskHandler taskHandler, boolean pauseOnScroll, boolean pauseOnFling) {
         this(taskHandler, pauseOnScroll, pauseOnFling, null);
@@ -43,9 +43,9 @@ public class PauseOnScrollListener implements OnScrollListener {
     /**
      * Constructor
      *
-     * @param taskHandler    {@linkplain BitmapUtils} instance for controlling
-     * @param pauseOnScroll  Whether {@linkplain BitmapUtils#pause() pause loading} during touch scrolling
-     * @param pauseOnFling   Whether {@linkplain BitmapUtils#pause() pause loading} during fling
+     * @param taskHandler    {@linkplain com.lidroid.xutils.BitmapUtils} instance for controlling
+     * @param pauseOnScroll  Whether {@linkplain com.lidroid.xutils.BitmapUtils#pause() pause loading} during touch scrolling
+     * @param pauseOnFling   Whether {@linkplain com.lidroid.xutils.BitmapUtils#pause() pause loading} during fling
      * @param customListener Your custom {@link android.widget.AbsListView.OnScrollListener} for {@linkplain android.widget.AbsListView list view} which also will
      *                       be get scroll events
      */

@@ -59,8 +59,8 @@ import java.util.concurrent.TimeUnit;
  * to supply data for every value; values default to their previous
  * value.
  * </ul>
- * Every {@link #edit} call must be matched by a call to {@link Editor#commit}
- * or {@link Editor#abort}. Committing is atomic: a read observes the full set
+ * Every {@link #edit} call must be matched by a call to {@link com.lidroid.xutils.cache.LruDiskCache.Editor#commit}
+ * or {@link com.lidroid.xutils.cache.LruDiskCache.Editor#abort}. Committing is atomic: a read observes the full set
  * of values as they were before or after the commit, but never a mix of values.
  * <p/>
  * <p>Clients call {@link #get} to read a snapshot of an entry. The read will
@@ -184,7 +184,7 @@ public final class LruDiskCache implements Closeable {
      * @param directory  a writable directory
      * @param valueCount the number of values per cache entry. Must be positive.
      * @param maxSize    the maximum number of bytes this cache should use to store
-     * @throws IOException if reading or writing the cache directory fails
+     * @throws java.io.IOException if reading or writing the cache directory fails
      */
     public static LruDiskCache open(File directory, int appVersion, int valueCount, long maxSize)
             throws IOException {
@@ -1121,7 +1121,7 @@ public final class LruDiskCache implements Closeable {
          * Closes the reader by closing the underlying {@code InputStream} and
          * marking this reader as closed.
          *
-         * @throws IOException for errors when closing the underlying {@code InputStream}.
+         * @throws java.io.IOException for errors when closing the underlying {@code InputStream}.
          */
         @Override
         public void close() throws IOException {
@@ -1138,8 +1138,8 @@ public final class LruDiskCache implements Closeable {
          * this end of line marker is not included in the result.
          *
          * @return the next line from the input.
-         * @throws IOException  for underlying {@code InputStream} errors.
-         * @throws EOFException for the end of source stream.
+         * @throws java.io.IOException  for underlying {@code InputStream} errors.
+         * @throws java.io.EOFException for the end of source stream.
          */
         public String readLine() throws IOException {
             synchronized (in) {

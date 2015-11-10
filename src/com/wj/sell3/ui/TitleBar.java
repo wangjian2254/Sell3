@@ -55,7 +55,7 @@ public class TitleBar extends FrameLayout
     this.mInflater = LayoutInflater.from(this.context);
     View localView = this.mInflater.inflate(R.layout.topview, null);
     this.back = ((ImageView)localView.findViewById(R.id.back));
-    this.back.setOnTouchListener(new View.OnTouchListener()
+    this.back.setOnTouchListener(new OnTouchListener()
     {
       public boolean onTouch(View paramView, MotionEvent paramMotionEvent)
       {
@@ -78,7 +78,7 @@ public class TitleBar extends FrameLayout
     addView(localView);
   }
 
-  public void addRightViewItem(View paramView, View.OnClickListener paramOnClickListener)
+  public void addRightViewItem(View paramView, OnClickListener paramOnClickListener)
   {
     paramView.setBackgroundResource(R.drawable.imagebutton_back_selector);
     paramView.setLayoutParams(new LinearLayout.LayoutParams(DensityUtil.dip2px(this.context, 45.0F), -1));
@@ -92,7 +92,7 @@ public class TitleBar extends FrameLayout
     return this.title.getText().toString().trim();
   }
 
-  public void setBackListener(View.OnClickListener paramOnClickListener)
+  public void setBackListener(OnClickListener paramOnClickListener)
   {
     this.paramOnClickListener=paramOnClickListener;
   }

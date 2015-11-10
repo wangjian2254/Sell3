@@ -272,7 +272,7 @@ public class XiaoShouAnalysis extends Activity {
     }
 
     private File save2SDCard(InputStream inputstream) {
-        boolean sdCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED); //判断sd卡是否存在
+        boolean sdCardExist = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED); //判断sd卡是否存在
         if (sdCardExist) {
             String path = Environment.getExternalStorageDirectory().getPath() + File.separator + "IDScanner.apk";
             File f = new File(path);

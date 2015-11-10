@@ -39,7 +39,7 @@ abstract class DecompressingEntity extends HttpEntityWrapper implements UploadEn
     private InputStream content;
 
     /**
-     * Creates a new {@link DecompressingEntity}.
+     * Creates a new {@link com.lidroid.xutils.http.client.entity.DecompressingEntity}.
      *
      * @param wrapped the non-null {@link org.apache.http.HttpEntity} to be wrapped
      */

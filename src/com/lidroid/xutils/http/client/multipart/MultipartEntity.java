@@ -83,9 +83,9 @@ public class MultipartEntity implements HttpEntity, UploadEntity {
     /**
      * Creates an instance using the specified parameters
      *
-     * @param mode     the mode to use, may be {@code null}, in which case {@link HttpMultipartMode#STRICT} is used
+     * @param mode     the mode to use, may be {@code null}, in which case {@link com.lidroid.xutils.http.client.multipart.HttpMultipartMode#STRICT} is used
      * @param boundary the boundary string, may be {@code null}, in which case {@link #generateBoundary()} is invoked to create the string
-     * @param charset  the character set to use, may be {@code null}, in which case {@link MIME#DEFAULT_CHARSET} - i.e. UTF-8 - is used.
+     * @param charset  the character set to use, may be {@code null}, in which case {@link com.lidroid.xutils.http.client.multipart.MIME#DEFAULT_CHARSET} - i.e. UTF-8 - is used.
      */
     public MultipartEntity(
             HttpMultipartMode mode,
@@ -108,7 +108,7 @@ public class MultipartEntity implements HttpEntity, UploadEntity {
     }
 
     /**
-     * Creates an instance using the specified {@link HttpMultipartMode} mode.
+     * Creates an instance using the specified {@link com.lidroid.xutils.http.client.multipart.HttpMultipartMode} mode.
      * Boundary and charset are set to {@code null}.
      *
      * @param mode the desired mode
@@ -118,7 +118,7 @@ public class MultipartEntity implements HttpEntity, UploadEntity {
     }
 
     /**
-     * Creates an instance using mode {@link HttpMultipartMode#STRICT}
+     * Creates an instance using mode {@link com.lidroid.xutils.http.client.multipart.HttpMultipartMode#STRICT}
      */
     public MultipartEntity() {
         this(HttpMultipartMode.STRICT, null, null);

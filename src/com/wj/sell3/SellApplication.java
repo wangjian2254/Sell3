@@ -414,7 +414,7 @@ public class SellApplication extends Application {
      * @param path
      * @param resultBack
      */
-    public static void download(String url,String path,final RequestCallBack<java.io.File> resultBack){
+    public static void download(String url,String path,final RequestCallBack<File> resultBack){
         SellApplication.httpUtils.download(url,path,true,false,resultBack);
 
     }

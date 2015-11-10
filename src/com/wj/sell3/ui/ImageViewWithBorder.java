@@ -36,7 +36,7 @@ public class ImageViewWithBorder extends ImageView
     localRect.right = (-1 + localRect.right);
     Paint localPaint = new Paint();
     localPaint.setColor(this.co);
-    localPaint.setStyle(Paint.Style.STROKE);
+    localPaint.setStyle(Style.STROKE);
     localPaint.setStrokeWidth(this.borderwidth);
     paramCanvas.drawRect(localRect, localPaint);
   }

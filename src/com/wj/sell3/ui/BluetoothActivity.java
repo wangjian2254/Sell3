@@ -30,8 +30,8 @@ public class BluetoothActivity extends Activity {
     private ArrayList listItem;
     private SimpleAdapter listItemAdapter;
     private ListView listView_btAddr;
-    private View.OnClickListener myClickListener;
-    private AdapterView.OnItemClickListener myListItemClickListener;
+    private OnClickListener myClickListener;
+    private OnItemClickListener myListItemClickListener;
 
     private void bundleID() {
         this.listView_btAddr = ((ListView) findViewById(R.id.btAdrr_list));
@@ -69,7 +69,7 @@ public class BluetoothActivity extends Activity {
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        this.myListItemClickListener = new AdapterView.OnItemClickListener() {
+        this.myListItemClickListener = new OnItemClickListener() {
             public void onItemClick(AdapterView<?> paramAnonymousAdapterView, View paramAnonymousView, int paramAnonymousInt, long paramAnonymousLong) {
                 Intent localIntent = new Intent();
                 localIntent.putExtra("addr", ((HashMap) BluetoothActivity.this.listItem.get((int) paramAnonymousLong)).get("bluetoothAddr").toString());

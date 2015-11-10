@@ -85,7 +85,9 @@ public class AppItemAdapter extends BaseAdapter {
 		}
 //		appItem.setImg(bitmap);
 		appItem.setTitle(imgarrlist.get(position).getName());
-		appItem.setImg(imgarrlist.get(position).getAppcode());
+		//appItem.setImg(imgarrlist.get(position).getAppcode());
+		appItem.setImg("function_1_icon");
+		
 		
 //		imageview.setImageResource();
 //		setViewImage(imageview,stra[0]+stra[1]);

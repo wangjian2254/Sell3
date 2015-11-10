@@ -29,7 +29,7 @@ public class NetWork
     if (localConnectivityManager == null)
       return false;
     NetworkInfo localNetworkInfo = localConnectivityManager.getActiveNetworkInfo();
-    if ((localNetworkInfo == null) || (!localNetworkInfo.isConnected()) || (localNetworkInfo.getState() != NetworkInfo.State.CONNECTED)){
+    if ((localNetworkInfo == null) || (!localNetworkInfo.isConnected()) || (localNetworkInfo.getState() != State.CONNECTED)){
     	return false;
     }
       return true;

@@ -26,7 +26,7 @@ import java.util.zip.GZIPInputStream;
 public class GZipDecompressingEntity extends DecompressingEntity {
 
     /**
-     * Creates a new {@link GZipDecompressingEntity} which will wrap the specified
+     * Creates a new {@link com.lidroid.xutils.http.client.entity.GZipDecompressingEntity} which will wrap the specified
      * {@link org.apache.http.HttpEntity}.
      *
      * @param entity the non-null {@link org.apache.http.HttpEntity} to be wrapped

@@ -28,107 +28,99 @@ import java.util.Calendar;
 import java.util.List;
 
 public class XiaoShouAnalysis5 extends Activity {
-    /**
-     * Called when the activity is first created.
-     */
-    Context con;
-    UserInfo user = null;
-    DatePicker datePicker_start ;
-    DatePicker datePicker_end ;
-    Calendar c;
-    Calendar c_end;
-    TextView txt_result ;
+	/**
+	 * Called when the activity is first created.
+	 */
+	Context con;
+	UserInfo user = null;
+	DatePicker datePicker_start;
+	DatePicker datePicker_end;
+	Calendar c;
+	Calendar c_end;
+	TextView txt_result;
 
+	TitleBar titleBar;
 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		con = this;
+		Bundle bunde = this.getIntent().getExtras();
+		user = SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
+		setContentView(R.layout.real_name_query);
 
-    TitleBar titleBar;
+		txt_result = (TextView) findViewById(R.id.result);
 
+		this.titleBar = ((TitleBar) findViewById(R.id.titlebar));
+		this.titleBar.setTitle(R.string.shiming_jilu);
+		this.titleBar.setBackListener(new OnClickListener() {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        con = this;
-        Bundle bunde = this.getIntent().getExtras();
-        user = SellApplication.getUserInfoIdByUid(SellApplication.getUidCurrent());
-        setContentView(R.layout.real_name_query);
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		this.titleBar.setUp();
+		datePicker_start = (DatePicker) findViewById(R.id.datePicker_start);
+		datePicker_end = (DatePicker) findViewById(R.id.datePicker_end);
 
-        txt_result = (TextView)findViewById(R.id.result);
+		c = Calendar.getInstance();
+		c_end = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+		int monthOfYear = c.get(Calendar.MONTH);
+		int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+		datePicker_start.init(year, monthOfYear, dayOfMonth, new DatePicker.OnDateChangedListener() {
 
+			public void onDateChanged(DatePicker view, int year,
+					int monthOfYear, int dayOfMonth) {
+				c.set(year, monthOfYear, dayOfMonth);
+			}
 
+		});
 
-        this.titleBar = ((TitleBar) findViewById(R.id.titlebar));
-        this.titleBar.setTitle(R.string.shiming_jilu);
-        this.titleBar.setBackListener(new OnClickListener() {
+		datePicker_end.init(year, monthOfYear, dayOfMonth, new DatePicker.OnDateChangedListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                finish();
-            }
-        });
-        this.titleBar.setUp();
-        datePicker_start = (DatePicker)findViewById(R.id.datePicker_start);
-        datePicker_end = (DatePicker)findViewById(R.id.datePicker_end);
+			public void onDateChanged(DatePicker view, int year,
+					int monthOfYear, int dayOfMonth) {
+				c_end.set(year, monthOfYear, dayOfMonth);
+			}
 
-        c = Calendar.getInstance();
-        c_end = Calendar.getInstance();
-        int year=c.get(Calendar.YEAR);
-        int monthOfYear=c.get(Calendar.MONTH);
-        int dayOfMonth=c.get(Calendar.DAY_OF_MONTH);
-        datePicker_start.init(year, monthOfYear, dayOfMonth, new DatePicker.OnDateChangedListener(){
+		});
 
-            public void onDateChanged(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth) {
-                c.set(year, monthOfYear, dayOfMonth);
-            }
+		queryTongji(null);
+	}
 
-        });
+	public void queryTongji(View view) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        datePicker_end.init(year, monthOfYear, dayOfMonth, new DatePicker.OnDateChangedListener(){
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("start_date", df.format(c.getTime()));
+		params.addBodyParameter("end_date", df.format(c_end.getTime()));
+		HttpCallResultBackShimingResultQuery httpCallResultBackShiming = new HttpCallResultBackShimingResultQuery(
+				new HttpCallResultBack() {
+					@Override
+					public void doresult(HttpResult result) {
+						if (result.getResult() != null) {
+							if (result.getResult().has("count")) {
 
-            public void onDateChanged(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth) {
-                c_end.set(year, monthOfYear, dayOfMonth);
-            }
+								txt_result.setText("实名成功数量：" + result.getResult().optInt("count"));
+							}
+						} else {
+							SellApplication.failureResult(result);
+						}
+					}
 
-        });
+					@Override
+					public void dofailure() {
+					}
+				});
+		httpCallResultBackShiming.setParams(params);
+		SellApplication.post(httpCallResultBackShiming);
 
+	}
 
-        queryTongji(null);
-    }
-
-
-
-
-    public void queryTongji(View view) {
-        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("start_date", df.format(c.getTime()));
-        params.addBodyParameter("end_date", df.format(c_end.getTime()));
-        HttpCallResultBackShimingResultQuery httpCallResultBackShiming =new HttpCallResultBackShimingResultQuery(new HttpCallResultBack() {
-            @Override
-            public void doresult(HttpResult result) {
-                if(result.getResult()!=null){
-                    if(result.getResult().has("count")){
-
-                        txt_result.setText("实名成功数量："+result.getResult().optInt("count"));
-                    }
-                }else{
-                    SellApplication.failureResult(result);
-                }
-            }
-
-            @Override
-            public void dofailure() {
-            }
-        });
-        httpCallResultBackShiming.setParams(params);
-        SellApplication.post(httpCallResultBackShiming);
-
-    }
-
-    public void onPause() {
-        super.onPause();
-    }
+	public void onPause() {
+		super.onPause();
+	}
 }

@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AlertDialogCustom extends Dialog
-  implements View.OnClickListener
+  implements OnClickListener
 {
   private Button cancel;
   private AlertDialogCancelListener cancelListener;
@@ -58,7 +58,7 @@ public class AlertDialogCustom extends Dialog
     requestWindowFeature(1);
     setContentView(R.layout.alert_dialog);
     Display localDisplay = getWindow().getWindowManager().getDefaultDisplay();
-    WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+    LayoutParams localLayoutParams = getWindow().getAttributes();
     localLayoutParams.width = (int)(0.95D * localDisplay.getWidth());
     getWindow().setAttributes(localLayoutParams);
     this.message = ((TextView)findViewById(R.id.message));

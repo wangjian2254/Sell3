@@ -32,14 +32,14 @@ public class OAUtil {
 	
 	public static boolean isGPSProviderAvaliable(Context con){
 		LocationManager alm = (LocationManager) con.getSystemService(Context.LOCATION_SERVICE);
-		if (alm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
+		if (alm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			return true;
 		}
 		return false;
 	}
 	public static boolean isWIFIProviderAvaliable(Context con){
 		LocationManager alm = (LocationManager) con.getSystemService(Context.LOCATION_SERVICE);
-		if (alm.isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER)) {
+		if (alm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			return true;
 		}
 		return false;
@@ -50,7 +50,7 @@ public class OAUtil {
 //			
 //			Secure.setLocationProviderEnabled(con.getContentResolver(), privder,true);
 //		}
-		if (alm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)||alm.isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER)) {
+		if (alm.isProviderEnabled(LocationManager.GPS_PROVIDER)||alm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			return true;
 		}
 		gpscon=con;
