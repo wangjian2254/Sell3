@@ -63,6 +63,7 @@ public class HttpCallResultBackLogin extends HttpCallResultBackBase {
                     }else{
                         Convert.currentUser.initUserInfo();
                     }
+                    SellApplication.saveLoginUser(user.getS_id());
                 } catch (DbException e) {
                     e.printStackTrace();
                 }
