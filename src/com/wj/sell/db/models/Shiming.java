@@ -23,6 +23,17 @@ public class Shiming implements Serializable{
 	private String qfjg;
 	private String yxqx;
 
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	private int state;
+
 	public String getMessage() {
 		return message;
 	}
@@ -145,6 +156,7 @@ public class Shiming implements Serializable{
 			this.yxqx = p.getYxqx();
 			this.success = p.getSuccess();
 			this.message = p.getMessage();
+			this.state = p.getState();
 
 		}
 
@@ -183,6 +195,9 @@ public class Shiming implements Serializable{
 			this.success = json.optInt("success");
 		}
 
+		if(json.has("state")){
+			this.state = json.optInt("state");
+		}
 
 
 	}

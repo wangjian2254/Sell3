@@ -535,20 +535,52 @@ public class XiaoShouAnalysis extends Activity {
                 if (result.getResult() != null) {
                     Shiming shiming1 = new Shiming(result.getResult());
                     if (result.isSuccess()) {
+                        if(shiming1.getState()==0){
+                            shiming1.setSuccess(2);
+                            ToastCustom.showMessage(con, "实名成功。");
+                            try {
+                                SellApplication.db.saveOrUpdate(shiming1);
+                            } catch (DbException e) {
+                                e.printStackTrace();
+                            }
+                        }else if(shiming1.getState()==1){
+                            //todo:跳转到 拍照
 
-                        shiming1.setSuccess(2);
-                        ToastCustom.showMessage(con, "实名成功。");
-                        return;
+
+                            shiming1.setSuccess(1);
+                            try {
+                                SellApplication.db.saveOrUpdate(shiming1);
+                            } catch (DbException e) {
+                                e.printStackTrace();
+                            }
+                            Intent mainIntent = new Intent(con, CameraActivity.class);
+                            Bundle extras = new Bundle();
+                            extras.putSerializable("shiming", shiming1);
+                            mainIntent.putExtras(extras);
+                            con.startActivity(mainIntent);
+                            ((Activity)con).finish();
+                        }else {
+                            shiming1.setSuccess(0);
+                            shiming1.setMessage(result.getMessage());
+
+                            try {
+                                SellApplication.db.saveOrUpdate(shiming1);
+                            } catch (DbException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                     } else {
                         shiming1.setSuccess(0);
                         shiming1.setMessage(result.getMessage());
                         SellApplication.failureResult(result);
+                        try {
+                            SellApplication.db.saveOrUpdate(shiming1);
+                        } catch (DbException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    try {
-                        SellApplication.db.saveOrUpdate(shiming1);
-                    } catch (DbException e) {
-                        e.printStackTrace();
-                    }
+
 
 
                 } else {

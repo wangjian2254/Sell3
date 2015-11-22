@@ -21,6 +21,7 @@ import com.lidroid.xutils.exception.DbException;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.ResponseStream;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.util.PreferencesCookieStore;
@@ -45,6 +46,7 @@ import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -393,6 +395,21 @@ public class SellApplication extends Application {
     public static void post(HttpCallResultBackBase resultBack){
         httpservice(HttpRequest.HttpMethod.POST, resultBack.getUrl(), resultBack.getParams(), resultBack);
 
+    }
+
+    public static String post_sync(HttpCallResultBackBase resultBack){
+        Log.e("http_api", resultBack.getUrl());
+        try {
+            ResponseStream responseStream =  SellApplication.httpUtils.sendSync(HttpRequest.HttpMethod.POST, Convert.hosturl + resultBack.getUrl(), resultBack.getParams());
+            try {
+                return responseStream.readString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (HttpException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

@@ -1,71 +1,459 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:background="@color/form_bg" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.wj.sell3.ui.TitleBar android:id="@id/titlebar" android:layout_width="fill_parent" android:layout_height="45dip" android:layout_alignParentTop="true" />
-    <ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/titlebar">
-        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-            <LinearLayout android:orientation="horizontal"  android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="2.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="5.0dip">
-                <Button android:textColor="@color/dark_orange" android:id="@+id/photo" android:visibility="gone" android:background="@drawable/bg_orange_btn" android:onClick="paiZhao" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/form_photo" android:layout_weight="3.0" />
-            </LinearLayout>
-            <LinearLayout android:orientation="vertical"  android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="2.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="5.0dip">
-                <Button android:textColor="@color/dark_orange" android:id="@+id/bluetooth" android:background="@drawable/bg_orange_btn" android:onClick="blueTooth" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/form_bluetooth" android:layout_weight="3.0" />
-                <Button android:textColor="@color/dark_orange" android:id="@+id/usb" android:background="@drawable/bg_orange_btn" android:onClick="usbTooth" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/form_usb" android:layout_marginTop="5dip" android:layout_weight="3.0" />
-            </LinearLayout>
-            <LinearLayout android:orientation="vertical" android:background="@drawable/form_back" android:padding="0.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="20.0dip">
-                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_marginRight="10.0dip" android:layout_marginBottom="10.0dip">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_phoneno" android:layout_weight="2.0" />
-                    <com.wj.sell3.ui.EditTextCustom android:textColor="@color/form_text" android:id="@+id/tel" android:text="" android:background="@null" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/form_phoneno_comments" android:maxEms="16" android:singleLine="true" android:layout_weight="1.0" android:inputType="phone" />
-                </LinearLayout>
-                <ImageView android:background="#ffcbd1d9" android:layout_width="fill_parent" android:layout_height="0.5dip" />
-                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_marginRight="10.0dip" android:layout_marginBottom="10.0dip">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_card_type" android:layout_weight="2.0" />
-                    <EditText android:textColor="@color/form_text" android:id="@id/card_type" android:background="@null" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/form_card_type_comments1" android:singleLine="true"  android:layout_weight="1.0" />
-                </LinearLayout>
-                <ImageView android:background="#ffcbd1d9" android:layout_width="fill_parent" android:layout_height="0.5dip" />
-                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_marginRight="10.0dip" android:layout_marginBottom="10.0dip">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_card" android:layout_weight="2.0" />
-                    <EditText android:textColor="@color/form_text" android:id="@+id/number" android:text="" android:editable="false" android:background="@null" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/form_card_no_comments" android:singleLine="true" android:layout_weight="1.0" />
-                </LinearLayout>
-                <ImageView android:background="#ffcbd1d9" android:layout_width="fill_parent" android:layout_height="0.5dip" />
-                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_marginRight="10.0dip" android:layout_marginBottom="10.0dip">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_name" android:layout_weight="2.0" />
-                    <EditText android:textColor="@color/form_text" android:id="@id/name" android:text="" android:editable="false" android:background="@null" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/form_name_comments" android:singleLine="true" android:layout_weight="1.0" />
-                </LinearLayout>
-                <ImageView android:background="#ffcbd1d9" android:layout_width="fill_parent" android:layout_height="0.5dip" />
-                <LinearLayout android:orientation="horizontal" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_gender" android:layout_weight="2.0" />
-                    <RadioGroup android:orientation="horizontal" android:id="@id/gender_radioGroup" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
-                        <RadioButton android:textColor="@color/black" android:gravity="left|center" android:id="@id/gender_male" android:button="@drawable/bg_radio_form"  android:clickable="false"  android:paddingLeft="15.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:text="@string/form_gender_male" android:drawablePadding="10.0dip"   android:layout_weight="3.0" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/form_bg"
+    android:orientation="vertical" >
 
-                        <RadioButton android:textColor="@color/black" android:gravity="left|center" android:id="@id/gender_famale" android:button="@drawable/bg_radio_form"  android:clickable="false"  android:paddingLeft="15.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:text="@string/form_gender_famale" android:drawablePadding="10.0dip" android:layout_weight="3.0"  />
+    <com.wj.sell3.ui.TitleBar
+        android:id="@id/titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:layout_alignParentTop="true" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titlebar" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5.0dip"
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginRight="20.0dip"
+                android:layout_marginTop="2.0dip"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/photo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.0"
+                    android:background="@drawable/bg_orange_btn"
+                    android:onClick="paiZhao"
+                    android:text="@string/form_photo"
+                    android:textColor="@color/dark_orange"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5.0dip"
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginRight="20.0dip"
+                android:layout_marginTop="2.0dip"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/bluetooth"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.0"
+                    android:background="@drawable/bg_orange_btn"
+                    android:onClick="blueTooth"
+                    android:text="@string/form_bluetooth"
+                    android:textColor="@color/dark_orange" />
+
+                <Button
+                    android:id="@+id/usb"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_weight="3.0"
+                    android:background="@drawable/bg_orange_btn"
+                    android:onClick="usbTooth"
+                    android:text="@string/form_usb"
+                    android:textColor="@color/dark_orange"
+                    android:visibility="gone" />
+                
+                <Button
+                    android:id="@+id/nfc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_weight="3.0"
+                    android:background="@drawable/bg_orange_btn"
+                    android:text="@string/form_nfc"
+                    android:textColor="@color/dark_orange"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20.0dip"
+                android:background="@drawable/form_back"
+                android:orientation="vertical"
+                android:padding="0.0dip" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_phoneno"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <com.wj.sell3.ui.EditTextCustom
+                        android:id="@+id/tel"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:hint="@string/form_phoneno_comments"
+                        android:inputType="phone"
+                        android:maxEms="16"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/form_text" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dip"
+                    android:background="#ffcbd1d9" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_card_type"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <EditText
+                        android:id="@id/card_type"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:hint="@string/form_card_type_comments1"
+                        android:singleLine="true"
+                        android:textColor="@color/form_text" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dip"
+                    android:background="#ffcbd1d9" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_card"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <EditText
+                        android:id="@+id/number"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:editable="false"
+                        android:hint="@string/form_card_no_comments"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/form_text" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dip"
+                    android:background="#ffcbd1d9" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_name"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <EditText
+                        android:id="@id/name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:editable="false"
+                        android:hint="@string/form_name_comments"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/form_text" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dip"
+                    android:background="#ffcbd1d9" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal"
+                    android:visibility="visible" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_gender"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <RadioGroup
+                        android:id="@id/gender_radioGroup"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@id/gender_male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.0"
+                            android:button="@drawable/bg_radio_form"
+                            android:clickable="false"
+                            android:drawablePadding="10.0dip"
+                            android:gravity="left|center"
+                            android:paddingLeft="15.0dip"
+                            android:text="@string/form_gender_male"
+                            android:textColor="@color/black" />
+
+                        <RadioButton
+                            android:id="@id/gender_famale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.0"
+                            android:button="@drawable/bg_radio_form"
+                            android:clickable="false"
+                            android:drawablePadding="10.0dip"
+                            android:gravity="left|center"
+                            android:paddingLeft="15.0dip"
+                            android:text="@string/form_gender_famale"
+                            android:textColor="@color/black" />
                     </RadioGroup>
                 </LinearLayout>
-                <LinearLayout android:orientation="horizontal" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_ethnic" android:layout_weight="2.0" />
-                    <EditText android:textColor="@color/form_text" android:id="@id/ethnic" android:editable="false"  android:background="@null" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:singleLine="true" android:layout_weight="1.0" />
-                </LinearLayout>
-                <LinearLayout android:orientation="horizontal" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_birthday" android:layout_weight="2.0" />
-                    <EditText android:textColor="@color/form_text" android:id="@id/date"  android:editable="false"  android:background="@null" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:singleLine="true"  android:layout_weight="1.0" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal"
+                    android:visibility="visible" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_ethnic"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <EditText
+                        android:id="@id/ethnic"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:editable="false"
+                        android:singleLine="true"
+                        android:textColor="@color/form_text" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal"
+                    android:visibility="visible" >
 
-                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_qixian" android:layout_weight="2.0" />
-                    <EditText android:textColor="@color/form_text" android:id="@+id/qixian" android:background="@null" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:singleLine="true"  android:layout_weight="1.0" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_birthday"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <EditText
+                        android:id="@id/date"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:textColor="@color/form_text" />
                 </LinearLayout>
-                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" >
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_address" android:layout_weight="2.0" />
-                    <EditText android:textColor="@color/form_text" android:gravity="top|left|center" android:id="@id/address"  android:text="" android:background="@null" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:maxLines="3" android:minLines="2" android:maxLength="100" android:layout_weight="1.0" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_qixian"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <EditText
+                        android:id="@+id/qixian"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:textColor="@color/form_text" />
                 </LinearLayout>
-                <LinearLayout android:orientation="horizontal" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dp">
-                    <TextView android:textSize="15.0sp" android:textColor="@color/form_text" android:gravity="right" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:text="@string/form_qianfa" android:layout_weight="2.0" />
-                    <EditText android:textColor="@color/form_text" android:id="@+id/danwei" android:background="@null" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:singleLine="true"  android:layout_weight="1.0" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_address"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <EditText
+                        android:id="@id/address"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:gravity="top|left|center"
+                        android:maxLength="100"
+                        android:maxLines="3"
+                        android:minLines="2"
+                        android:text=""
+                        android:textColor="@color/form_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10.0dp"
+                    android:layout_marginTop="10.0dip"
+                    android:orientation="horizontal"
+                    android:visibility="visible" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_weight="2.0"
+                        android:gravity="right"
+                        android:text="@string/form_qianfa"
+                        android:textColor="@color/form_text"
+                        android:textSize="15.0sp" />
+
+                    <EditText
+                        android:id="@+id/danwei"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:textColor="@color/form_text" />
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout android:orientation="horizontal" android:id="@id/button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="2.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="20.0dip">
-                <Button android:textColor="@color/dark_orange" android:id="@id/submit" android:background="@drawable/bg_orange_btn" android:onClick="queryTongji" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/form_submit" android:layout_weight="3.0" />
+
+            <LinearLayout
+                android:id="@id/button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20.0dip"
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginRight="20.0dip"
+                android:layout_marginTop="2.0dip"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@id/submit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.0"
+                    android:background="@drawable/bg_orange_btn"
+                    android:onClick="queryTongji"
+                    android:text="@string/form_submit"
+                    android:textColor="@color/dark_orange" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

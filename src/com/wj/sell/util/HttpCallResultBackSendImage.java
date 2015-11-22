@@ -3,15 +3,14 @@ package com.wj.sell.util;
 import android.os.Handler;
 import com.lidroid.xutils.exception.DbException;
 import com.wj.sell.db.models.Shiming;
-import com.wj.sell.db.models.UserInfo;
 import com.wj.sell3.SellApplication;
 
 /**
  * Created by huanghaijie on 15/3/8.
  */
-public class HttpCallResultBackShiming extends HttpCallResultBackBase {
+public class HttpCallResultBackSendImage extends HttpCallResultBackBase {
 
-    public HttpCallResultBackShiming(HttpCallResultBack callResultBack) {
+    public HttpCallResultBackSendImage(HttpCallResultBack callResultBack) {
         super(callResultBack);
 
     }
@@ -23,7 +22,7 @@ public class HttpCallResultBackShiming extends HttpCallResultBackBase {
      */
     @Override
     protected String http_api() {
-            return "app/request_real_name";
+            return "app/send_image_message";
     }
 
     /**

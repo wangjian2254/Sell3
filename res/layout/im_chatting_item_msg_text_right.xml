@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:padding="6dp" >
+	
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" 
+	        android:gravity="center_horizontal">
+	
+	        <TextView
+            android:id="@+id/tv_sendtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:background="@drawable/datebackground"/>
+	        
+	    </LinearLayout>
+	
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginRight="5dp" >
+	        
+	        
+	           <ImageView 
+	           android:id="@+id/iv_userhead" 
+	           android:layout_width="52dp"
+		       android:layout_height="52dp"
+	           android:focusable="false" 
+	           android:layout_alignParentRight="true" 
+               android:layout_alignParentTop="true" 
+	           />
+ 				
+ 				<TextView 
+	            android:id="@+id/tv_chatcontent" 
+	            android:layout_toLeftOf="@id/iv_userhead"
+	            android:layout_marginRight="10dp"
+	            
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/im_chatto_bg" 
+	            android:textSize="15sp"
+	            android:textColor="#ff000000"
+	            android:gravity="left|center"
+	            android:minHeight="50dp" 
+	            android:maxWidth="212dp"
+	            android:lineSpacingExtra="2dp"
+	            />   
+	           <ImageView 
+	           android:id="@+id/im_chat_error" 
+	           android:layout_width="26dp"
+		       android:layout_height="26dp"
+	           android:focusable="false" 
+	           android:visibility="gone"
+               android:layout_alignParentTop="true" 
+               android:layout_marginTop="10dp"
+               android:layout_toLeftOf="@id/tv_chatcontent"
+	           android:background="@drawable/im_chat_error"/>
+	           <ImageView 
+	           android:id="@+id/im_chat_loading" 
+	           android:layout_width="26dp"
+		       android:layout_height="26dp"
+	           android:focusable="false" 
+	           android:visibility="gone"
+               android:layout_alignParentTop="true" 
+               android:layout_toLeftOf="@id/tv_chatcontent"
+	           android:background="@drawable/loading_01"/>
+	        
+	    </RelativeLayout>
+
+</LinearLayout>

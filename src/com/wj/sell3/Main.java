@@ -17,6 +17,8 @@ import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.lidroid.xutils.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -108,6 +110,11 @@ public class Main extends Activity {
 							mainIntent.putExtras(extras);
 							startActivity(mainIntent);
 							finish();
+						}else{
+//							SellApplication.getUidCurrent()
+
+							PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY, "3q1MuN9rcCazEGGaurhAZrgb");
+
 						}
 					}
 
