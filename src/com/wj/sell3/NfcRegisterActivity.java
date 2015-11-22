@@ -201,10 +201,10 @@ public class NfcRegisterActivity extends Activity {
 			ToastCustom.showMessage(con, "请扫描身份证");
 			return;
 		}
-		// if("".equals(qixian.getText().toString())){
-		// ToastCustom.showMessage(con, "请扫描身份证");
-		// return;
-		// }
+//        if("".equals(qixian.getText().toString())){
+//            ToastCustom.showMessage(con, "请扫描身份证");
+//            return;
+//        }
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("phone_number", tel.getText().toString());
 		params.addBodyParameter("cardno", number.getText().toString());
@@ -220,8 +220,7 @@ public class NfcRegisterActivity extends Activity {
 		shiming.setQfjg(danwei.getText().toString());
 		shiming.setYxqx(qixian.getText().toString());
 		Date date1 = new Date();
-		shiming.setCreate_time("" + (date1.getYear() + 1900) + "." + date1.getMonth() + "." + date1.getDate() + " "
-				+ date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds());
+		shiming.setCreate_time("" + (date1.getYear() + 1900) + "." + date1.getMonth() + "." + date1.getDate() + " " + date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds());
 
 		try {
 			SellApplication.db.saveOrUpdate(shiming);
@@ -236,20 +235,53 @@ public class NfcRegisterActivity extends Activity {
 				if (result.getResult() != null) {
 					Shiming shiming1 = new Shiming(result.getResult());
 					if (result.isSuccess()) {
+						if(shiming1.getState()==0){
+							shiming1.setSuccess(2);
+							ToastCustom.showMessage(con, "实名成功。");
+							try {
+								SellApplication.db.saveOrUpdate(shiming1);
+							} catch (DbException e) {
+								e.printStackTrace();
+							}
+						}else if(shiming1.getState()==1){
+							//todo:跳转到 拍照
 
-						shiming1.setSuccess(2);
-						ToastCustom.showMessage(con, "实名成功。");
-						return;
+
+							shiming1.setSuccess(1);
+							try {
+								SellApplication.db.saveOrUpdate(shiming1);
+							} catch (DbException e) {
+								e.printStackTrace();
+							}
+							Intent mainIntent = new Intent(con, CameraActivity.class);
+							Bundle extras = new Bundle();
+							extras.putSerializable("shiming", shiming1);
+							mainIntent.putExtras(extras);
+							con.startActivity(mainIntent);
+							((Activity)con).finish();
+						}else {
+							shiming1.setSuccess(0);
+							shiming1.setMessage(result.getMessage());
+
+							try {
+								SellApplication.db.saveOrUpdate(shiming1);
+							} catch (DbException e) {
+								e.printStackTrace();
+							}
+						}
+
 					} else {
 						shiming1.setSuccess(0);
 						shiming1.setMessage(result.getMessage());
 						SellApplication.failureResult(result);
+						try {
+							SellApplication.db.saveOrUpdate(shiming1);
+						} catch (DbException e) {
+							e.printStackTrace();
+						}
 					}
-					try {
-						SellApplication.db.saveOrUpdate(shiming1);
-					} catch (DbException e) {
-						e.printStackTrace();
-					}
+
+
 
 				} else {
 					if (!result.isSuccess()) {

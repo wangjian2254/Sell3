@@ -2,6 +2,8 @@ package com.wj.sell3;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -47,6 +49,49 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
     boolean surfaceInited = false;
     boolean cameraInited = false;
     boolean startPreviewed = false;
+
+    private Context context;
+    Camera.PictureCallback tmppictureCallback;
+    public boolean photo_runing=true;
+
+    private Thread photothread = new Thread(){
+
+
+        public void run(){
+            while (photo_runing){
+                try {
+                    sleep(2000);
+                    try{
+                        camera.takePicture(null,null,tmppictureCallback);
+
+                    }catch (Exception e){
+
+
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(imageslist.size()==0){
+                return;
+            }
+
+            //todo:
+            final SavePictureTask task = new SavePictureTask();
+            task.setContext(context);
+            startBtn.post(new Runnable() {
+                @Override
+                public void run() {
+                    task.execute(imageslist);
+                    startBtn.setEnabled(false);
+                }
+            });
+
+
+        }
+    };
 
 //    public Shiming getShiming() {
 //        return shiming;
@@ -105,7 +150,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
             result = (info.orientation - degrees + 360) % 360;
         }
 
-        final Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
+        tmppictureCallback = new Camera.PictureCallback() {
             //@Override
             public void onPictureTaken(byte[] data, Camera camera) {
 
@@ -126,7 +171,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
                     initCamera();
                     camera.cancelAutoFocus();
 
-                    camera.takePicture(null, null, pictureCallback);
+//                    camera.takePicture(null, null, pictureCallback);
                 }
 
             }
@@ -149,11 +194,15 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 
         }
 
+
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context = this;
 
         setContentView(R.layout.camera_layout);
 
@@ -183,7 +232,9 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 
                 SavePictureTask task = new SavePictureTask();
 //                task.setShiming(shiming);
+                task.setContext(context);
                 task.execute(imageslist);
+
 
                 startBtn.setEnabled(false);
             }
@@ -193,9 +244,13 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         startBtn.setOnClickListener(new Button.OnClickListener() {
 
             public void onClick(View v) {
-                camera.takePicture(null, null, pictureCallback);
+
+                photo_runing = false;
+
             }
         });
+
+
 
     }
 
@@ -303,6 +358,8 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         camera.release();
         cameraInited = false;
         startPreviewed = false;
+        photo_runing = false;
+        imageslist.clear();
 
         this.wakeLock.release();
     }
@@ -317,6 +374,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
     protected void onResume() {
 
         initCamera();
+        photothread.start();
         camera.cancelAutoFocus();
         super.onResume();
         this.wakeLock.acquire();
@@ -354,21 +412,28 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
 
 
-//    public Shiming getShiming() {
-//        return shiming;
-//    }
+    public Context getContext() {
+        return context;
+    }
 
-//    public void setShiming(Shiming shiming) {
-//        this.shiming = shiming;
-//    }
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
-//    private Shiming shiming=null;
+    private Context context=null;
+
+    private Dialog dialog;
 
 
     @Override
     protected void onPreExecute() {
         // TODO Auto-generated method stub
         super.onPreExecute();
+
+        dialog = new ProgressDialog(context);
+        dialog.setTitle("正在上传图片");
+        dialog.show();
+
     }
 
     @Override
@@ -416,12 +481,22 @@ class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
         HttpCallResultBackSendChat httpCallResultBackSendChat = new HttpCallResultBackSendChat(new HttpCallResultBack() {
             @Override
             public void doresult(HttpResult result) {
+                Intent mainIntent2 = new Intent(context, ChatActivity.class);
+                Bundle extras2 = new Bundle();
+                mainIntent2.putExtras(extras2);
+                context.startActivity(mainIntent2);
+                ((Activity)context).finish();
 
+                if(dialog!=null&&dialog.isShowing()){
+                    dialog.dismiss();
+                }
             }
 
             @Override
             public void dofailure() {
-
+                if(dialog!=null&&dialog.isShowing()){
+                    dialog.dismiss();
+                }
             }
         });
         httpCallResultBackSendChat.setParams(params);

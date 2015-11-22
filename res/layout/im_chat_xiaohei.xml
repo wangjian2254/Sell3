@@ -25,7 +25,7 @@
       		<TextView android:id="@+id/tousername"
         		android:layout_width="wrap_content" 
         		android:layout_height="wrap_content" 
-        		android:text="小黑"
+        		android:text=""
         		android:layout_centerInParent="true"
         		android:textSize="20sp"		
 				android:textColor="#ffffff" /> 
@@ -48,7 +48,7 @@
    <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/chat_footer_bg" >
         

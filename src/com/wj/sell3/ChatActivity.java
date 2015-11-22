@@ -13,6 +13,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
+import com.lidroid.xutils.db.sqlite.Selector;
+import com.lidroid.xutils.exception.DbException;
 import com.lidroid.xutils.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 import com.wj.sell.adapter.ChatMsgViewAdapter;
@@ -119,6 +121,19 @@ public class ChatActivity extends Activity implements OnClickListener, OnItemCli
 
     private void refreshData() {
         //todo:刷新获取的消息
+        try {
+            List<ChatMsgEntity> list = SellApplication.db.findAll(Selector.from(ChatMsgEntity.class).orderBy("id").limit(30));
+            if(list!=null){
+                mDataArrays.clear();
+                for(ChatMsgEntity chat:list){
+                    mDataArrays.add(chat);
+                }
+            }
+
+
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
         //mDataArrays;
 //
 //        ChatUtil.getChatList(mDataArrays, user, item);
@@ -188,20 +203,39 @@ public class ChatActivity extends Activity implements OnClickListener, OnItemCli
         params.addBodyParameter("request_id", request_id);
         if (contString.length() > 0) {
             String time = getDate();
-            ChatMsgEntity chat = new ChatMsgEntity();
+            final ChatMsgEntity chat = new ChatMsgEntity();
+            chat.fx = false;
+            chat.message = contString;
+            chat.time = getDate();
+            chat.status = 1;
             mDataArrays.add(chat);
 
             HttpCallResultBackSendChat httpCallResultBackSendChat = new HttpCallResultBackSendChat(new HttpCallResultBack() {
                 @Override
-                public void doresult(HttpResult result) {
-
-                    mListView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mListView.setSelection(mListView.getCount() - 1);
-                            mAdapter.notifyDataSetChanged();
+                public void doresult(final HttpResult result) {
+                    if(result.isSuccess()){
+                        chat.status = 2;
+                        try {
+                            SellApplication.db.save(chat);
+                        } catch (DbException e) {
+                            e.printStackTrace();
                         }
-                    });
+                        mListView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mListView.setSelection(mListView.getCount() - 1);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }else{
+                        mListView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(con, result.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
 
                 }
 

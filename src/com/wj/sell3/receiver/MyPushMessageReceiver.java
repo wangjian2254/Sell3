@@ -107,19 +107,27 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         String messageString = "透传消息 message=\"" + message
                 + "\" customContentString=" + customContentString;
         Log.d(TAG, messageString);
-
-        ChatMsgEntity chatMsgEntity = new ChatMsgEntity();
-        chatMsgEntity.fx = true;
-        chatMsgEntity.message = customContentString;
-        chatMsgEntity.time = Convert.format1.format(new Date());
         try {
-            SellApplication.db.save(chatMsgEntity);
-            if(ChatActivity.chathandler!=null){
-                ChatActivity.chathandler.obtainMessage(1, chatMsgEntity).sendToTarget();
+            JSONObject jsonmsg = new JSONObject(message);
+            ChatMsgEntity chatMsgEntity = new ChatMsgEntity();
+            chatMsgEntity.fx = true;
+            chatMsgEntity.message = jsonmsg.optString("description");
+            chatMsgEntity.time = Convert.format1.format(new Date());
+            chatMsgEntity.status = 2;
+            try {
+                SellApplication.db.save(chatMsgEntity);
+                if(ChatActivity.chathandler!=null){
+                    ChatActivity.chathandler.obtainMessage(1, chatMsgEntity).sendToTarget();
+                }
+            } catch (DbException e) {
+                e.printStackTrace();
             }
-        } catch (DbException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+
 
         // 自定义内容获取方式，mykey和myvalue对应透传消息推送时自定义内容中设置的键和值
 

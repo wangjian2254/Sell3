@@ -46,7 +46,7 @@ public class Main extends Activity {
 	private TextView notice;
 
 	String[] appArr = { "function_1_icon,蓝牙读卡登记", "function_2_icon,实名记录", "function_3_icon,实名统计",
-			"function_4_icon,快递信息比对", "function_5_icon,USB读卡登记","function_6_icon,NFC登记" };
+			"function_4_icon,快递信息比对", "function_5_icon,USB读卡登记","function_6_icon,NFC登记" ,"function_7_icon,客服" };
 
 	// String[] appArr={"function_1_icon,实名认证", };
 	@Override
@@ -180,6 +180,9 @@ public class Main extends Activity {
 			startActivity(mainIntent);
 		}else if ("function_6_icon".equals(p.getAppcode())) {
 			Intent mainIntent = new Intent(con, NfcRegisterActivity.class);
+			startActivity(mainIntent);
+		}else if ("function_7_icon".equals(p.getAppcode())) {
+			Intent mainIntent = new Intent(con, ChatActivity.class);
 			startActivity(mainIntent);
 		}
 		else {
