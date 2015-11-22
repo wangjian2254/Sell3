@@ -25,6 +25,8 @@
 	<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+	<uses-permission android:name="android.permission.NFC" />
+
 	<application
 			android:name=".SellApplication"
 			android:allowBackup="true"
@@ -75,6 +77,16 @@
 
 		</activity>
 		<activity android:name="com.wj.sell3.ChatActivity"
+				  android:screenOrientation="portrait"
+				  android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
+
+		</activity>
+		<activity android:name="com.wj.sell3.NfcRegisterActivity"
+				  android:screenOrientation="portrait"
+				  android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
+
+		</activity>
+		<activity android:name="com.wj.sell3.UsbRegisterActivity"
 				  android:screenOrientation="portrait"
 				  android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
 

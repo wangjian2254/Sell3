@@ -48,11 +48,11 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
     boolean cameraInited = false;
     boolean startPreviewed = false;
 
-    public Shiming getShiming() {
-        return shiming;
-    }
+//    public Shiming getShiming() {
+//        return shiming;
+//    }
 
-    private Shiming shiming=null;
+//    private Shiming shiming=null;
 
     private List<byte[]>  imageslist = new ArrayList<byte[]>();
     private static int image_count = 5;
@@ -157,7 +157,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 
         setContentView(R.layout.camera_layout);
 
-        shiming = (Shiming)savedInstanceState.getSerializable("shiming");
+//        shiming = (Shiming)savedInstanceState.getSerializable("shiming");
 
         // initCamera();
         this.powerManager = (PowerManager) this
@@ -182,7 +182,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
                 camera.startPreview();
 
                 SavePictureTask task = new SavePictureTask();
-                task.setShiming(shiming);
+//                task.setShiming(shiming);
                 task.execute(imageslist);
 
                 startBtn.setEnabled(false);
@@ -354,15 +354,15 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
 
 
-    public Shiming getShiming() {
-        return shiming;
-    }
+//    public Shiming getShiming() {
+//        return shiming;
+//    }
 
-    public void setShiming(Shiming shiming) {
-        this.shiming = shiming;
-    }
+//    public void setShiming(Shiming shiming) {
+//        this.shiming = shiming;
+//    }
 
-    private Shiming shiming=null;
+//    private Shiming shiming=null;
 
 
     @Override
@@ -379,7 +379,7 @@ class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
             InputStream inputStream = new ByteArrayInputStream(params[0].get(i));
             RequestParams httpparams = new RequestParams();
             httpparams.addBodyParameter("file", inputStream,params[0].get(i).length,"image.jpg");
-            httpparams.addBodyParameter("request_id", String.valueOf(shiming.getS_id()));
+//            httpparams.addBodyParameter("request_id", String.valueOf(shiming.getS_id()));
             HttpCallResultBackSendImage httpCallResultBackSendImage = new HttpCallResultBackSendImage(new HttpCallResultBack() {
                 @Override
                 public void doresult(HttpResult result) {
@@ -411,7 +411,7 @@ class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("text", "图片上传完成");
-        params.addBodyParameter("request_id", String.valueOf(shiming.getS_id()));
+//        params.addBodyParameter("request_id", String.valueOf(shiming.getS_id()));
 
         HttpCallResultBackSendChat httpCallResultBackSendChat = new HttpCallResultBackSendChat(new HttpCallResultBack() {
             @Override

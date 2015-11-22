@@ -59,7 +59,7 @@ public class ChatActivity extends Activity implements OnClickListener, OnItemCli
         super.onCreate(savedInstanceState);
         con = this;
         setContentView(R.layout.im_chat_xiaohei);
-        String username = this.getIntent().getExtras().getString("username");
+//        String username = this.getIntent().getExtras().getString("username");
 
 
         //启动activity时不自动弹出软键盘

@@ -41,6 +41,7 @@ public class Main extends Activity {
 	List<PluginMod> pluginList = new ArrayList<PluginMod>();
 	// public static final int SEARCHPLUGIN = Menu.FIRST + 1;
 	public static final int RELOGIN = Menu.FIRST + 1;
+	public static final int CHAT = Menu.FIRST + 2;
 	private Handler tmpMainHandler4;
 	private TextView notice;
 
@@ -195,7 +196,7 @@ public class Main extends Activity {
 	public void populateMenu(Menu menu) {
 		// menu.add(Menu.NONE, SEARCHPLUGIN, Menu.NONE, "查找插件");
 		menu.add(Menu.NONE, RELOGIN, Menu.NONE, "返回登录界面");
-		// menu.add(Menu.NONE, APPLIST, Menu.NONE, "应用列表");
+		menu.add(Menu.NONE, CHAT, Menu.NONE, "客服");
 		// menu.add(Menu.NONE, SYSTEM, Menu.NONE, "系统消息");
 		// menu.add(Menu.NONE, REFASH, Menu.NONE, "刷新");
 		// menu.add(Menu.NONE, ALLREFASH, Menu.NONE, "反馈意见");
@@ -217,13 +218,21 @@ public class Main extends Activity {
 	public boolean applyMenuChoice(MenuItem item) {
 		switch (item.getItemId()) {
 
-		case RELOGIN:
-			Intent mainIntent = new Intent(Main.this, Login.class);
-			Bundle extras = new Bundle();
-			mainIntent.putExtras(extras);
-			startActivity(mainIntent);
-			finish();
-			return true;
+			case RELOGIN:
+				Intent mainIntent = new Intent(Main.this, Login.class);
+				Bundle extras = new Bundle();
+				mainIntent.putExtras(extras);
+				startActivity(mainIntent);
+				finish();
+				return true;
+
+			case CHAT:
+				Intent mainIntent2 = new Intent(Main.this, ChatActivity.class);
+				Bundle extras2 = new Bundle();
+				mainIntent2.putExtras(extras2);
+				startActivity(mainIntent2);
+				finish();
+				return true;
 		}
 		return false;
 	}
