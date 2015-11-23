@@ -177,9 +177,11 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
             }
         });
         Camera.Parameters parameters = camera.getParameters();
-        parameters.setRotation(270);
+//        parameters.setRotation(270);
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-        parameters.setPictureSize(800, 600);
+//        parameters.setPictureSize(800, 600);
+        List<Camera.Size> cl = parameters.getSupportedPictureSizes();
+        parameters.setPictureSize(cl.get(0).width, cl.get(0).height);
         camera.setParameters(parameters);
 
         cameraInited = true;
