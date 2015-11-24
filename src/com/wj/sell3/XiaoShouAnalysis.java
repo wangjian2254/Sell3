@@ -321,9 +321,14 @@ public class XiaoShouAnalysis extends Activity {
         if (paramInt1 == 0) {
             getInfo();
         } else if (paramInt1 == 100) {
-            String str = paramIntent.getExtras().get("addr").toString();
-            System.out.println("btaddr = " + str);
-            doGetIDCardInfo(9, str);
+            try{
+                String str = paramIntent.getExtras().get("addr").toString();
+                System.out.println("btaddr = " + str);
+                doGetIDCardInfo(9, str);
+            }catch (Exception e){
+
+            }
+
         }
     }
 

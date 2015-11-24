@@ -6,8 +6,12 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
+import android.media.ExifInterface;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.*;
@@ -154,6 +158,9 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
             //@Override
             public void onPictureTaken(byte[] data, Camera camera) {
 
+
+
+
                 imageslist.add(data);
                 if(imageslist.size()>image_count){
                     imageslist.remove(0);
@@ -164,6 +171,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 
         camera.setDisplayOrientation(result);
 
+//        camera.autoFocus(null);
         camera.autoFocus(new Camera.AutoFocusCallback() {
             @Override
             public void onAutoFocus(boolean success, Camera camera) {
@@ -181,7 +189,19 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 //        parameters.setPictureSize(800, 600);
         List<Camera.Size> cl = parameters.getSupportedPictureSizes();
-        parameters.setPictureSize(cl.get(0).width, cl.get(0).height);
+        int w=0,h=0;
+        for(Camera.Size size:cl){
+            if(size.width>=1200){
+                w=size.width;
+                h=size.height;
+            }else{
+                break;
+            }
+        }
+        if(w>0){
+            parameters.setPictureSize(w,h);
+        }
+
         camera.setParameters(parameters);
 
         cameraInited = true;
@@ -438,12 +458,99 @@ class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
 
     }
 
+    /** *//**
+     * 把字节数组保存为一个文件
+
+     */
+    public int getDegreeFromBytes(byte[] b){
+        BufferedOutputStream stream = null;
+        File file = null;
+        try {
+            file = File.createTempFile("img", ".jpg");
+            FileOutputStream fstream = new FileOutputStream(file);
+            stream = new BufferedOutputStream(fstream);
+            stream.write(b);
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (stream != null){
+                try {
+                    stream.close();
+                } catch (IOException e1){
+                    e1.printStackTrace();
+                }
+            }
+        }
+        int degree  = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        file.delete();
+        return degree;
+    }
+
+    private Bitmap scaleBtmap(Bitmap a, int width) {
+        // TODO Auto-generated method stub
+
+        float scale_x = (float)width/a.getWidth();
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale_x, scale_x);
+
+        Bitmap aa = Bitmap.createBitmap(a, 0, 0, a.getWidth(), a.getHeight(), matrix, true);
+
+        return aa;
+    }
+
+    public byte[] rotaingImageView(int angle , byte[] bytes) {
+        //旋转图片 动作
+        Bitmap bitmap =  BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//        bitmap = scaleBtmap(bitmap, 800);
+        if(angle!=0){
+            Matrix matrix = new Matrix();
+            matrix.postRotate(angle);
+            // 创建新的图片
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                    bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        try {
+            baos.flush();
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] bs = baos.toByteArray();
+        return bs;
+//        return bytes;
+    }
+
+
     @Override
     protected String doInBackground(List<byte[]>... params) {
         String fname = DateFormat.format("yyyyMMddhhmmss", new Date()).toString()+".jpg";
 
         for(int i=0;i<params[0].size();i++){
-            InputStream inputStream = new ByteArrayInputStream(params[0].get(i));
+            InputStream inputStream = null;
+            int r = getDegreeFromBytes(params[0].get(i));
+//            inputStream = new ByteArrayInputStream(rotaingImageView(90,params[0].get(i)));
+
+            inputStream = new ByteArrayInputStream(params[0].get(i));
             RequestParams httpparams = new RequestParams();
             httpparams.addBodyParameter("file", inputStream,params[0].get(i).length,"image.jpg");
 //            httpparams.addBodyParameter("request_id", String.valueOf(shiming.getS_id()));
