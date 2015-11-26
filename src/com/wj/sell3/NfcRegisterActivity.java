@@ -1,5 +1,8 @@
 package com.wj.sell3;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,9 +13,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.nfc.NfcAdapter;
 import android.nfc.tech.NfcB;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -33,10 +39,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.otg.idcard.OTGReadCardAPI;
 import com.wj.sell.db.models.Shiming;
 import com.wj.sell.db.models.UserInfo;
-import com.wj.sell.util.Convert;
-import com.wj.sell.util.HttpCallResultBack;
-import com.wj.sell.util.HttpCallResultBackShiming;
-import com.wj.sell.util.HttpResult;
+import com.wj.sell.util.*;
 import com.wj.sell3.ui.AlertDialogCustom;
 import com.wj.sell3.ui.AlertDialogCustom.AlertDialogCancelListener;
 import com.wj.sell3.ui.AlertDialogCustom.AlertDialogOKListener;
@@ -61,6 +64,7 @@ public class NfcRegisterActivity extends Activity {
 	public EditText danwei;
 	public Button photo;
 	public Button btn;
+	byte[] photo_img;
 
 	AlertDialogCustom localAlertDialogCustom;
 
@@ -253,6 +257,30 @@ public class NfcRegisterActivity extends Activity {
 							} catch (DbException e) {
 								e.printStackTrace();
 							}
+							InputStream inputStream = null;
+
+
+							RequestParams httpparams = new RequestParams();
+							Bitmap bitmap = BitmapFactory.decodeByteArray(photo_img,0, photo_img.length);
+							ByteArrayOutputStream out = new ByteArrayOutputStream();
+							bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+							byte[] buffer = out.toByteArray();
+							inputStream = new ByteArrayInputStream(buffer);
+
+							httpparams.addBodyParameter("file", inputStream,buffer.length,"image.jpg");
+							HttpCallResultBackSendImage httpCallResultBackSendImage = new HttpCallResultBackSendImage(new HttpCallResultBack() {
+								@Override
+								public void doresult(HttpResult result) {
+								}
+
+								@Override
+								public void dofailure() {
+								}
+							});
+							httpCallResultBackSendImage.setParams(httpparams);
+							SellApplication.post(httpCallResultBackSendImage);
+
+
 							Intent mainIntent = new Intent(con, CameraActivity.class);
 							Bundle extras = new Bundle();
 							extras.putSerializable("shiming", shiming1);
@@ -434,6 +462,7 @@ public class NfcRegisterActivity extends Activity {
 			address.setText(ReadCardAPI.Address());
 			number.setText(ReadCardAPI.CardNo());
 			danwei.setText(ReadCardAPI.Police());
+			photo_img = ReadCardAPI.GetImage();
 			String qixian_start = ReadCardAPI.Activity();
 			String qixian_end = ReadCardAPI.ActivityL();
 			String qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "."

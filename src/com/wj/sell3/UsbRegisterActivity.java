@@ -1,14 +1,21 @@
 package com.wj.sell3;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.Date;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Base64;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,10 +31,7 @@ import com.lidroid.xutils.exception.DbException;
 import com.lidroid.xutils.http.RequestParams;
 import com.wj.sell.db.models.Shiming;
 import com.wj.sell.db.models.UserInfo;
-import com.wj.sell.util.Convert;
-import com.wj.sell.util.HttpCallResultBack;
-import com.wj.sell.util.HttpCallResultBackShiming;
-import com.wj.sell.util.HttpResult;
+import com.wj.sell.util.*;
 import com.wj.sell3.ui.AlertDialogCustom;
 import com.wj.sell3.ui.AlertDialogCustom.AlertDialogCancelListener;
 import com.wj.sell3.ui.AlertDialogCustom.AlertDialogOKListener;
@@ -221,6 +225,29 @@ public class UsbRegisterActivity extends Activity {
 							} catch (DbException e) {
 								e.printStackTrace();
 							}
+//							InputStream inputStream = null;
+//
+//
+//							RequestParams httpparams = new RequestParams();
+//							Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/photo.bmp");
+//							ByteArrayOutputStream out = new ByteArrayOutputStream();
+//							bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+//							byte[] buffer = out.toByteArray();
+//							inputStream = new ByteArrayInputStream(buffer);
+//
+//							httpparams.addBodyParameter("file", inputStream,buffer.length,"image.jpg");
+//							HttpCallResultBackSendImage httpCallResultBackSendImage = new HttpCallResultBackSendImage(new HttpCallResultBack() {
+//								@Override
+//								public void doresult(HttpResult result) {
+//								}
+//
+//								@Override
+//								public void dofailure() {
+//								}
+//							});
+//							httpCallResultBackSendImage.setParams(httpparams);
+//							SellApplication.post(httpCallResultBackSendImage);
+
 							Intent mainIntent = new Intent(con, CameraActivity.class);
 							Bundle extras = new Bundle();
 							extras.putSerializable("shiming", shiming1);

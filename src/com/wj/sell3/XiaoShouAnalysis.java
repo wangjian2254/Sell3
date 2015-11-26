@@ -7,6 +7,7 @@ import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Path;
 import android.net.Uri;
 import android.os.Environment;
@@ -558,6 +559,29 @@ public class XiaoShouAnalysis extends Activity {
                             } catch (DbException e) {
                                 e.printStackTrace();
                             }
+                            InputStream inputStream = null;
+
+
+                            RequestParams httpparams = new RequestParams();
+                            Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+"/photo.bmp");
+                            ByteArrayOutputStream out = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                            byte[] buffer = out.toByteArray();
+                            inputStream = new ByteArrayInputStream(buffer);
+
+                            httpparams.addBodyParameter("file", inputStream,buffer.length,"image.jpg");
+                            HttpCallResultBackSendImage httpCallResultBackSendImage = new HttpCallResultBackSendImage(new HttpCallResultBack() {
+                                @Override
+                                public void doresult(HttpResult result) {
+                                }
+
+                                @Override
+                                public void dofailure() {
+                                }
+                            });
+                            httpCallResultBackSendImage.setParams(httpparams);
+                            SellApplication.post(httpCallResultBackSendImage);
+
                             Intent mainIntent = new Intent(con, CameraActivity.class);
                             Bundle extras = new Bundle();
                             extras.putSerializable("shiming", shiming1);
