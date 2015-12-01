@@ -5,7 +5,7 @@
     <LinearLayout android:gravity="bottom" android:orientation="vertical" android:id="@id/loading_content_layout_id" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
         <LinearLayout android:gravity="center" android:id="@+id/version_id" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
             <TextView android:id="@+id/version_code" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/versioncode" />
-            <TextView android:id="@+id/version_code_comments" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1.5" />
+            <TextView android:id="@+id/version_code_comments" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1.8" />
         </LinearLayout>
         <LinearLayout android:orientation="vertical" android:id="@id/login_with_name_pwd_layout_id" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="35.0dip">
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">

@@ -12,8 +12,8 @@ public class Convert {
 
 	public static boolean debug=true;
 
-//	public static final String hosturl="http://sell4.liulv.net/";
-    public static final String hosturl="http://121.42.211.17/";
+	public static final String hosturl="http://sell4.liulv.net/";
+//    public static final String hosturl="http://121.42.211.17/";
 
 //	public static final String hosturl="http://192.168.1.110:8000"; 
 	public static final String domain=hosturl.substring(7); 

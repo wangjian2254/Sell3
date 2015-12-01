@@ -22,6 +22,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 import com.lidroid.xutils.http.RequestParams;
@@ -54,12 +55,37 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
     boolean cameraInited = false;
     boolean startPreviewed = false;
 
+    private ImageView rentou;
+
     private Context context;
     Camera.PictureCallback tmppictureCallback;
     public boolean photo_runing=true;
 
     private Thread photothread = new Thread(){
+        public byte[] rotaingImageView(int angle , byte[] bytes) {
+            //旋转图片 动作
+            Bitmap bitmap =  BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//        bitmap = scaleBtmap(bitmap, 800);
+            if(angle!=0){
+                Matrix matrix = new Matrix();
+                matrix.postRotate(angle);
+                // 创建新的图片
+                bitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                        bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            }
 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            try {
+                baos.flush();
+                baos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            byte[] bs = baos.toByteArray();
+            return bs;
+//        return bytes;
+        }
 
         public void run(){
             while (photo_runing){
@@ -88,6 +114,9 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
             startBtn.post(new Runnable() {
                 @Override
                 public void run() {
+                    byte[] bytes = rotaingImageView(90, imageslist.get(imageslist.size() - 1));
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    rentou.setImageBitmap(bitmap);
                     task.execute(imageslist);
                     startBtn.setEnabled(false);
                 }
@@ -236,6 +265,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         this.wakeLock = this.powerManager.newWakeLock(
                 PowerManager.FULL_WAKE_LOCK, "My Lock");
         startBtn = (Button) findViewById(R.id.Tack);
+        rentou = (ImageView) findViewById(R.id.rentou);
 
         vv = (VideoView) findViewById(R.id.videoview);
 
@@ -613,4 +643,6 @@ class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
         SellApplication.post(httpCallResultBackSendChat);
 
     }
+
+
 }

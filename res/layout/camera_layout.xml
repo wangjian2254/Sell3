@@ -7,9 +7,9 @@
           android:id="@+id/videoview"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"/>
-    <ImageView android:layout_width="300dp" android:layout_height="300dp" android:background="@drawable/camera_kuang" android:layout_marginTop="75dp" android:layout_centerHorizontal="true"/>
+    <ImageView android:id="@+id/rentou" android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/rentou" android:layout_centerHorizontal="true"/>
 
-    <TextView android:text="请拍购卡本人的一张照片" android:textColor="#ffffff" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="400dp"  android:layout_centerHorizontal="true"/>
+    <TextView android:text="请拍购卡本人的一张照片" android:textColor="#ffffff" android:textSize="20dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="80dp"  android:layout_alignParentBottom="true"  android:layout_centerHorizontal="true"/>
     <Button
             android:id="@+id/Tack"
 
