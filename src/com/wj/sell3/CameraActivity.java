@@ -548,11 +548,12 @@ class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
         for(int i=0;i<params[0].size();i++){
             InputStream inputStream = null;
             int r = getDegreeFromBytes(params[0].get(i));
-//            inputStream = new ByteArrayInputStream(rotaingImageView(90,params[0].get(i)));
+            byte[] bytes = rotaingImageView(90,params[0].get(i));
+            inputStream = new ByteArrayInputStream(bytes);
 
-            inputStream = new ByteArrayInputStream(params[0].get(i));
+//            inputStream = new ByteArrayInputStream(params[0].get(i));
             RequestParams httpparams = new RequestParams();
-            httpparams.addBodyParameter("file", inputStream,params[0].get(i).length,"image.jpg");
+            httpparams.addBodyParameter("file", inputStream,bytes.length,"image.jpg");
 //            httpparams.addBodyParameter("request_id", String.valueOf(shiming.getS_id()));
             HttpCallResultBackSendImage httpCallResultBackSendImage = new HttpCallResultBackSendImage(new HttpCallResultBack() {
                 @Override
