@@ -73,7 +73,10 @@ public class IDCardRunable
 
         try {
             oneStepReadIDCardInfo();
-        } finally {
+        }catch (Exception e){
+
+        }
+        finally {
         }
 
     }
