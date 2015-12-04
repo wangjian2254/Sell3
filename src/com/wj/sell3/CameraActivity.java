@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
@@ -570,35 +571,66 @@ class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
 //        return bytes;
     }
 
+    private Bitmap add2Bitmap(List<Bitmap> bitmapList) {
+        int width=0,height=0;
+        for(Bitmap bitmap:bitmapList){
+            width=width+bitmap.getWidth();
+            height = Math.max(height, bitmap.getHeight());
+        }
+        Bitmap result = Bitmap.createBitmap(width, height, bitmapList.get(0).getConfig());
+        Canvas canvas = new Canvas(result);
+        int x=0;
+        for(Bitmap bitmap:bitmapList){
+            canvas.drawBitmap(bitmap, x, 0, null);
+            x=x+bitmap.getWidth();
+        }
+        return result;
+    }
+
 
     @Override
     protected String doInBackground(List<byte[]>... params) {
         String fname = DateFormat.format("yyyyMMddhhmmss", new Date()).toString()+".jpg";
 
-        for(int i=0;i<params[0].size();i++){
-            InputStream inputStream = null;
-            int r = getDegreeFromBytes(params[0].get(i));
+        List<Bitmap> bitmapList = new ArrayList<Bitmap>();
+        for(int i=0;i<params[0].size();i++) {
             byte[] bytes = rotaingImageView(90,params[0].get(i));
-            inputStream = new ByteArrayInputStream(bytes);
+
+            bitmapList.add(BitmapFactory.decodeByteArray(bytes,0, bytes.length));
+        }
+        Bitmap result = add2Bitmap(bitmapList);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        result.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        try {
+            baos.flush();
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] bs = baos.toByteArray();
+
+        InputStream inputStream = null;
+
+        inputStream = new ByteArrayInputStream(bs);
 
 //            inputStream = new ByteArrayInputStream(params[0].get(i));
-            RequestParams httpparams = new RequestParams();
-            httpparams.addBodyParameter("file", inputStream,bytes.length,"image.jpg");
+        RequestParams httpparams = new RequestParams();
+        httpparams.addBodyParameter("file", inputStream,bs.length,"image.jpg");
 //            httpparams.addBodyParameter("request_id", String.valueOf(shiming.getS_id()));
-            HttpCallResultBackSendImage httpCallResultBackSendImage = new HttpCallResultBackSendImage(new HttpCallResultBack() {
-                @Override
-                public void doresult(HttpResult result) {
+        HttpCallResultBackSendImage httpCallResultBackSendImage = new HttpCallResultBackSendImage(new HttpCallResultBack() {
+            @Override
+            public void doresult(HttpResult result) {
 //                    image_list_count-=1;
-                }
+            }
 
-                @Override
-                public void dofailure() {
+            @Override
+            public void dofailure() {
 //                    image_list_count-=1;
-                }
-            });
-            httpCallResultBackSendImage.setParams(httpparams);
-            SellApplication.post_sync(httpCallResultBackSendImage);
-        }
+            }
+        });
+        httpCallResultBackSendImage.setParams(httpparams);
+        SellApplication.post_sync(httpCallResultBackSendImage);
+
 
 
 
