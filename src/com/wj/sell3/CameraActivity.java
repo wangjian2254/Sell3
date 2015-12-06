@@ -201,18 +201,20 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         camera.setDisplayOrientation(result);
 
 //        camera.autoFocus(null);
-        camera.autoFocus(new Camera.AutoFocusCallback() {
-            @Override
-            public void onAutoFocus(boolean success, Camera camera) {
-                if (success) {
-                    initCamera();
-                    camera.cancelAutoFocus();
-
-//                    camera.takePicture(null, null, pictureCallback);
+        try{
+            camera.autoFocus(new Camera.AutoFocusCallback() {
+                @Override
+                public void onAutoFocus(boolean success, Camera camera) {
+                    if (success) {
+                        initCamera();
+                        camera.cancelAutoFocus();
+                    }
                 }
+            });
+        }catch (Exception e){
 
-            }
-        });
+        }
+
         Camera.Parameters parameters = camera.getParameters();
 //        parameters.setRotation(270);
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
