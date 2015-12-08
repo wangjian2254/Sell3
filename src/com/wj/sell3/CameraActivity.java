@@ -21,10 +21,7 @@ import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.MediaController;
-import android.widget.VideoView;
+import android.widget.*;
 import com.lidroid.xutils.http.RequestParams;
 import com.wj.sell.db.models.ChatMsgEntity;
 import com.wj.sell.db.models.Shiming;
@@ -154,7 +151,13 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     void initCamera() {
-        camera = Camera.open(0);
+        try {
+            camera = Camera.open(0);
+        }catch (Exception e){
+
+            CameraActivity.this.finish();
+            Toast.makeText(context, "您已经禁止使用摄像头了，请打开权限后再操作。", Toast.LENGTH_LONG).show();
+        }
         android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
         android.hardware.Camera.getCameraInfo(0, info);
         int rotation = this.getWindowManager().getDefaultDisplay()
@@ -233,7 +236,12 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
             parameters.setPictureSize(w,h);
         }
 
-        camera.setParameters(parameters);
+        try{
+            camera.setParameters(parameters);
+        }catch (Exception e){
+
+        }
+
 
         cameraInited = true;
         if (surfaceInited && !startPreviewed) {
