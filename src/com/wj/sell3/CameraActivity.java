@@ -59,6 +59,9 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
     public boolean photo_runing=true;
 
     private Thread photothread = new Thread(){
+
+
+
         public byte[] rotaingImageView(int angle , byte[] bytes) {
             //旋转图片 动作
             Bitmap bitmap =  BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -85,7 +88,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         }
 
         public void run(){
-            while (photo_runing){
+            while (photo_runing||imageslist.size()==0){
                 try {
                     sleep(2000);
                     try{
@@ -99,10 +102,6 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-
-            if(imageslist.size()==0){
-                return;
             }
 
             //todo:
@@ -157,6 +156,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 
             CameraActivity.this.finish();
             Toast.makeText(context, "您已经禁止使用摄像头了，请打开权限后再操作。", Toast.LENGTH_LONG).show();
+            return;
         }
         android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
         android.hardware.Camera.getCameraInfo(0, info);
@@ -187,10 +187,39 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         }
 
         tmppictureCallback = new Camera.PictureCallback() {
+
+            private Bitmap scaleBtmap(Bitmap a, int width) {
+                // TODO Auto-generated method stub
+
+                float scale_x = (float)width/a.getWidth();
+                Matrix matrix = new Matrix();
+                matrix.postScale(scale_x, scale_x);
+
+                Bitmap aa = Bitmap.createBitmap(a, 0, 0, a.getWidth(), a.getHeight(), matrix, true);
+
+                return aa;
+            }
+
             //@Override
             public void onPictureTaken(byte[] data, Camera camera) {
 
 
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                if(bitmap.getWidth()>1000){
+
+                    bitmap = scaleBtmap(bitmap, 800);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    try {
+                        baos.flush();
+                        baos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    data = baos.toByteArray();
+
+                }
 
 
                 imageslist.add(data);
@@ -313,7 +342,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         });
 
 
-
+        imageslist.clear();
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
