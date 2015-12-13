@@ -6,8 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import com.cmcc.nativepackage.IDCard;
 
-import java.io.PrintStream;
-
 public class IDCardRunable
         implements Runnable {
     private static final String TAG = IDCardRunable.class.getSimpleName();
@@ -30,6 +28,7 @@ public class IDCardRunable
     }
 
     private int openIDCardDev(int paramInt, String paramString1, String paramString2) {
+        IDCard.setCardPower(1, paramString1);
         return IDCard.openIDCard(2, paramString1, "");
     }
 
@@ -73,8 +72,7 @@ public class IDCardRunable
 
         try {
             oneStepReadIDCardInfo();
-        }
-        finally {
+        } finally {
         }
 
     }
