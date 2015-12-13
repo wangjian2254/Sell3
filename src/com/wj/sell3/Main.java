@@ -2,6 +2,7 @@ package com.wj.sell3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,8 +18,8 @@ import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import com.lidroid.xutils.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -114,7 +115,14 @@ public class Main extends Activity {
 						}else{
 //							SellApplication.getUidCurrent()
 
-							PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY, "3q1MuN9rcCazEGGaurhAZrgb");
+							JPushInterface.setAlias(con, String.valueOf(SellApplication.getUidCurrent()), new TagAliasCallback() {
+								@Override
+								public void gotResult(int i, String s, Set<String> set) {
+
+									Log.e("JPush", String.valueOf(i));
+								}
+							});
+//							PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY, "3q1MuN9rcCazEGGaurhAZrgb");
 
 						}
 					}

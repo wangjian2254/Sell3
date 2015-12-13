@@ -57,6 +57,7 @@ public class HttpCallResultBackCurrentUser extends HttpCallResultBackBase {
                 UserInfo user = new UserInfo(result.getResult());
 
                 try {
+
                     SellApplication.db.replace(user);
                     if(Convert.currentUser==null){
                         Convert.currentUser = user;

@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.DbException;
@@ -49,6 +50,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by wangjian2254 on 15/4/4.
@@ -57,6 +59,7 @@ public class SellApplication extends Application {
     private static List<Activity> activityList = new LinkedList<Activity>();
 
     public static final String USER_LOGIN = "USER_LOGIN";
+    public static final String USER_DeviceId= "USER_DeviceId";
     public static final String USER_PROJECT = "USER_PROJECT";
 
     private static ProgressDialog mypDialog;
@@ -117,6 +120,7 @@ public class SellApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        JPushInterface.init(this);
         instance = this;
         applicationContext = this;
 
@@ -346,6 +350,12 @@ public class SellApplication extends Application {
 //        }
 //        loading = true;
         Log.e("http_api", url);
+        if(params==null){
+            params = new RequestParams();
+        }
+
+        params.addBodyParameter("deviceid", getDeviceId());
+
         SellApplication.httpUtils.send(method, Convert.hosturl + url, params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -596,5 +606,17 @@ public class SellApplication extends Application {
         sb.append(";path=/");
         cookieManager.setCookie(url, sb.toString());//cookies是在HttpClient中获得的cookie
         CookieSyncManager.getInstance().sync();
+    }
+
+    public static String getDeviceId(){
+        SharedPreferences sp = instance.getSharedPreferences(SellApplication.USER_DeviceId, MODE_PRIVATE);
+        String uid = sp.getString("USER_DeviceId", null);
+        if(uid==null){
+            uid = UUID.randomUUID().toString();
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("USER_DeviceId", uid);
+            editor.commit();
+        }
+        return uid;
     }
 }

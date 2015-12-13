@@ -1,8 +1,10 @@
 package com.wj.sell3;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -282,6 +284,7 @@ public class ChatActivity extends Activity implements OnClickListener, OnItemCli
         MobclickAgent.onResume(this);
 
         chathandler = tempchathandler;
+
     }
 
     public void onPause() {
@@ -289,6 +292,7 @@ public class ChatActivity extends Activity implements OnClickListener, OnItemCli
         MobclickAgent.onPause(this);
         chathandler = null;
     }
+
 
 
 }

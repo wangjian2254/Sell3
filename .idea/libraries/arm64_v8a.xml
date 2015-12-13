@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="arm64-v8a">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/libs/armeabi" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>
