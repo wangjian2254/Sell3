@@ -128,7 +128,7 @@ public class SellApplication extends Application {
         BasicClientCookie cookie = new BasicClientCookie("test", "hello");
         cookie.setPath("/");
         preferencesCookieStore.addCookie(cookie);
-        httpUtils = new HttpUtils();
+        httpUtils = new HttpUtils(30000);
         tempHttpUtils = new HttpUtils();
         httpUtils.configCookieStore(preferencesCookieStore);
 //        db = DbUtils.create(this);
@@ -410,6 +410,11 @@ public class SellApplication extends Application {
     public static String post_sync(HttpCallResultBackBase resultBack){
         Log.e("http_api", resultBack.getUrl());
         try {
+            if(resultBack.getParams()==null){
+                resultBack.setParams(new RequestParams());
+            }
+
+            resultBack.getParams().addBodyParameter("deviceid", getDeviceId());
             ResponseStream responseStream =  SellApplication.httpUtils.sendSync(HttpRequest.HttpMethod.POST, Convert.hosturl + resultBack.getUrl(), resultBack.getParams());
             try {
                 return responseStream.readString();
