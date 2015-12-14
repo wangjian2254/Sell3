@@ -25,10 +25,9 @@ import android.widget.*;
 import com.lidroid.xutils.http.RequestParams;
 import com.wj.sell.db.models.ChatMsgEntity;
 import com.wj.sell.db.models.Shiming;
-import com.wj.sell.util.HttpCallResultBack;
-import com.wj.sell.util.HttpCallResultBackSendChat;
-import com.wj.sell.util.HttpCallResultBackSendImage;
-import com.wj.sell.util.HttpResult;
+import com.wj.sell.util.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -639,7 +638,30 @@ class SavePictureTask extends AsyncTask<List<byte[]>, String, String> {
             SellApplication.post_sync(httpCallResultBackSendImage);
         }
 
+        RequestParams params2 = new RequestParams();
+//        params2.addBodyParameter("text", "图片上传完成");
+//        params.addBodyParameter("request_id", String.valueOf(shiming.getS_id()));
 
+        HttpCallResultBackAutoShiming httpCallResultBackSendChat = new HttpCallResultBackAutoShiming(new HttpCallResultBack() {
+            @Override
+            public void doresult(HttpResult result) {
+                result.isSuccess();
+            }
+
+            @Override
+            public void dofailure() {
+
+            }
+        });
+        httpCallResultBackSendChat.setParams(params2);
+        String resultstr = SellApplication.post_sync(httpCallResultBackSendChat);
+
+        try {
+            JSONObject r = new JSONObject(resultstr);
+            r.has("res");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return null;
     }

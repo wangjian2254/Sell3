@@ -134,10 +134,10 @@ public class MyPushMessageReceiver extends BroadcastReceiver {
 //            try {
 //                JSONObject jsonmsg = new JSONObject(message);
                 ChatMsgEntity chatMsgEntity = new ChatMsgEntity();
-                chatMsgEntity.fx = true;
-                chatMsgEntity.message = message;
-                chatMsgEntity.time = Convert.format1.format(new Date());
-                chatMsgEntity.status = 2;
+                chatMsgEntity.setFx(true);
+                chatMsgEntity.setMessage(message);
+                chatMsgEntity.setTime(Convert.format1.format(new Date()));
+                chatMsgEntity.setStatus(2);
                 try {
                     SellApplication.db.save(chatMsgEntity);
                     if(ChatActivity.chathandler!=null){

@@ -124,11 +124,12 @@ public class ChatActivity extends Activity implements OnClickListener, OnItemCli
     private void refreshData() {
         //todo:刷新获取的消息
         try {
-            List<ChatMsgEntity> list = SellApplication.db.findAll(Selector.from(ChatMsgEntity.class).orderBy("id").limit(30));
+            List<ChatMsgEntity> list = SellApplication.db.findAll(Selector.from(ChatMsgEntity.class).orderBy("id", true).limit(30));
+
             if(list!=null){
                 mDataArrays.clear();
                 for(ChatMsgEntity chat:list){
-                    mDataArrays.add(chat);
+                    mDataArrays.add(0,chat);
                 }
             }
 
@@ -206,17 +207,17 @@ public class ChatActivity extends Activity implements OnClickListener, OnItemCli
         if (contString.length() > 0) {
             String time = getDate();
             final ChatMsgEntity chat = new ChatMsgEntity();
-            chat.fx = false;
-            chat.message = contString;
-            chat.time = getDate();
-            chat.status = 1;
+            chat.setFx(false);
+            chat.setMessage( contString);
+            chat.setTime(getDate());
+            chat.setStatus(1);
             mDataArrays.add(chat);
 
             HttpCallResultBackSendChat httpCallResultBackSendChat = new HttpCallResultBackSendChat(new HttpCallResultBack() {
                 @Override
                 public void doresult(final HttpResult result) {
                     if(result.isSuccess()){
-                        chat.status = 2;
+                        chat.setStatus(2);
                         try {
                             SellApplication.db.save(chat);
                         } catch (DbException e) {

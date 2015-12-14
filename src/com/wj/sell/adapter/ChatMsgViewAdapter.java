@@ -52,7 +52,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
     public int getItemViewType(int position) {
         ChatMsgEntity entity = coll.get(position);
 
-        if (entity.fx) {
+        if (entity.isFx()) {
             return IMsgViewType.IMVT_COM_MSG;
         } else {
             return IMsgViewType.IMVT_TO_MSG;
@@ -69,7 +69,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ChatMsgEntity entity = coll.get(position);
-        boolean isComMsg = entity.fx;
+        boolean isComMsg = entity.isFx();
 
         ViewHolder viewHolder = null;
         if (convertView == null) {
@@ -102,25 +102,25 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 
         viewHolder.chat = entity;
 
-        if (entity.fx) {
+        if (entity.isFx()) {
             viewHolder.loading.setVisibility(View.GONE);
             viewHolder.error.setVisibility(View.GONE);
         } else {
-            if (entity.status == 1) {
+            if (entity.getStatus() == 1) {
                 viewHolder.loading.setVisibility(View.VISIBLE);
                 viewHolder.error.setVisibility(View.GONE);
-            } else if (entity.status == 2) {
+            } else if (entity.getStatus() == 2) {
                 viewHolder.loading.setVisibility(View.GONE);
                 viewHolder.error.setVisibility(View.GONE);
-            } else if (entity.status >= 3 || entity.status == 0) {
+            } else if (entity.getStatus() >= 3 || entity.getStatus() == 0) {
                 viewHolder.loading.setVisibility(View.GONE);
                 viewHolder.error.setVisibility(View.VISIBLE);
             }
         }
 
         viewHolder.tvSendTime.setVisibility(View.VISIBLE);
-        viewHolder.tvSendTime.setText(entity.time);
-        viewHolder.tvContent.setText(entity.message);
+        viewHolder.tvSendTime.setText(entity.getTime());
+        viewHolder.tvContent.setText(entity.getMessage());
 
         return convertView;
     }
