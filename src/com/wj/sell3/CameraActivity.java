@@ -253,7 +253,7 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
         List<Camera.Size> cl = parameters.getSupportedPictureSizes();
         int w=0,h=0;
         for(Camera.Size size:cl){
-            if(size.width>=1200){
+            if(size.width>=800){
                 w=size.width;
                 h=size.height;
             }else{
