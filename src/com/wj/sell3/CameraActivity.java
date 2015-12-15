@@ -465,7 +465,11 @@ public class CameraActivity extends Activity  implements SurfaceHolder.Callback 
 
         initCamera();
         photothread.start();
-        camera.cancelAutoFocus();
+        try {
+            camera.cancelAutoFocus();
+        }catch (Exception e){
+
+        }
         super.onResume();
         this.wakeLock.acquire();
     }
