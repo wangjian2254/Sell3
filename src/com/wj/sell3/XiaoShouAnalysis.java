@@ -90,13 +90,26 @@ public class XiaoShouAnalysis extends Activity {
                     String qixian_str = "";
                     try {
                         String[] qixian = cardInfo[i++].trim().replace(" ", "").split("-");
-                        String qixian_start = qixian[0];
-                        String qixian_end = qixian[1];
-                        qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "." + qixian_start.substring(6, 8)
-                                + "-" + qixian_end.substring(0, 4) + "." + qixian_end.substring(4, 6) + "." + qixian_end.substring(6, 8);
+                        if(qixian.length==1){
+                            String qixian_start = qixian[0];
+                            qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "." + qixian_start.substring(6, 8);
+                        }else{
+                            String qixian_start = qixian[0];
+                            String qixian_end = qixian[1];
+                            if(qixian_end.length()>=7){
+                                qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "." + qixian_start.substring(6, 8)
+                                        + "-" + qixian_end.substring(0, 4) + "." + qixian_end.substring(4, 6) + "." + qixian_end.substring(6, 8);
+                            }else{
+                                qixian_str = qixian_start.substring(0, 4) + "." + qixian_start.substring(4, 6) + "." + qixian_start.substring(6, 8)
+                                        + "-" + qixian_end;
+                            }
+
+                        }
+
                     } catch (Exception e) {
 
                     }
+
                     XiaoShouAnalysis.this.name.setText(name);
                     XiaoShouAnalysis.this.number.setText(number);
 

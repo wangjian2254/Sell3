@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  package="com.wj.sell3"
-		  android:versionCode="1811"
-		  android:versionName="1.8.11" >
+		  android:versionCode="1813"
+		  android:versionName="1.8.13" >
 
 	<uses-sdk
 			android:minSdkVersion="12"
